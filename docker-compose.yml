@@ -3,8 +3,6 @@ version: '3.3'
 services:
   db:
     image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: somewordpress
@@ -20,12 +18,12 @@ services:
       - "8000:80"
     restart: always
     volumes:
-      - ./src:/wordpress/src
-      - ./tests:/wordpress/tests
+      - wp-core:/var/www/html
+      - ./:/var/www/html/wp-content/plugins/gravity-forms-pdf-extended
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
 volumes:
-  db_data: {}
+  wp-core:
