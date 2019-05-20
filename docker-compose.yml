@@ -13,9 +13,9 @@ services:
   wordpress:
     depends_on:
       - db
-    image: wordpress:latest
+    image: wordpress:${VERSION:-latest}-alphine
     ports:
-      - "8000:80"
+      - "${PORT:-8000}:80"
     restart: always
     volumes:
       - wp-core:/var/www/html
@@ -25,5 +25,6 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+    entrypoint: /bin/docker-entrypoint.sh "${URL:-localhost}:${PORT:-8000}"
 volumes:
   wp-core:
