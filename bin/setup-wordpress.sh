@@ -56,6 +56,7 @@ echo -e $(status_message "SCRIPT_DEBUG: $SCRIPT_DEBUG_RESULT...")
 
 # Setup the Plugins
 . "$(dirname "$0")/setup-plugins.sh"
+. "$(dirname "$0")/setup-gf-data.sh"
 
 echo -e $(status_message "WordPress is setup and accessible at $(action_format "$HOST_URL")")
 echo -e $(status_message "Access $(action_format "$HOST_URL/wp-admin/") using the following credentials:")
