@@ -1,6 +1,6 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
-import Form from '../form'
+import Form from './form'
 
 const form = new Form()
 

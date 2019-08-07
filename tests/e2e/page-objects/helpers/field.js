@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe'
 
-export function fieldLabel (name) {
-  return Selector('th').withText(name)
+export function fieldLabel (text, style = 'th') {
+  return Selector(style).withText(text)
 }
 
 export function fieldDescription (text, style = 'span') {

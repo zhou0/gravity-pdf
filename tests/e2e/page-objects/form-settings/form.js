@@ -1,5 +1,5 @@
 import { Selector, t } from 'testcafe'
-import { admin, baseURL } from '../auth'
+import { admin, baseURL } from '../../auth'
 
 class Form {
   constructor () {

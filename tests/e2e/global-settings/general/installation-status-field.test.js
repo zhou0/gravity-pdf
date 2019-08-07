@@ -1,43 +1,35 @@
 import { Selector } from 'testcafe'
-import { admin, baseURL } from '../../auth'
+import { fieldLabel } from '../../page-objects/helpers/field'
+import Form from '../../page-objects/global-settings/form'
+
+const form = new Form()
 
 fixture `General Tab - Installation Status Field Test`
 
 test('should display Installation Status Field', async t => {
   // Get selectors
-  const headingText = Selector('span').withText('Installation Status')
   const pdfSystemStatusTable = Selector('#pdf-system-status')
-
-  const installationFirstLabel = Selector('th').withText('WP Memory Available')
   const installationFirstLabelResult = Selector('#pdf-system-status').find('td').nth(0)
-
-  const installationSecondLabel = Selector('th').withText('WordPress Version')
   const installationSecondLabelResult = Selector('#pdf-system-status').find('td').nth(1)
-
-  const installationThirdLabel = Selector('th').withText('Gravity Forms Version')
   const installationThirdLabelResult = Selector('#pdf-system-status').find('td').nth(2)
-
-  const installationFourthLabel = Selector('th').withText('PHP Version')
   const installationFourthLabelResult = Selector('#pdf-system-status').find('td').nth(3)
-
-  const installationFifthLabel = Selector('th').withText('Direct PDF Protection')
   const installationFifthLabelResult = Selector('#pdf-system-status').find('td').nth(4)
 
   // Actions
-  await t.useRole(admin)
-  await t.navigateTo(`${baseURL}/wp-admin/admin.php?page=gf_settings&subview=PDF&tab=general#/`)
+  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
-  await t.expect(headingText.exists).ok()
-  await t.expect(pdfSystemStatusTable.exists).ok()
-  await t.expect(installationFirstLabel.exists).ok()
-  await t.expect(installationFirstLabelResult.exists).ok()
-  await t.expect(installationSecondLabel.exists).ok()
-  await t.expect(installationSecondLabelResult.exists).ok()
-  await t.expect(installationThirdLabel.exists).ok()
-  await t.expect(installationThirdLabelResult.exists).ok()
-  await t.expect(installationFourthLabel.exists).ok()
-  await t.expect(installationFourthLabelResult.exists).ok()
-  await t.expect(installationFifthLabel.exists).ok()
-  await t.expect(installationFifthLabelResult.exists).ok()
+  await t
+    .expect(fieldLabel('Installation Status', 'span').exists).ok()
+    .expect(pdfSystemStatusTable.exists).ok()
+    .expect(fieldLabel('WP Memory Available').exists).ok()
+    .expect(installationFirstLabelResult.exists).ok()
+    .expect(fieldLabel('WordPress Version').exists).ok()
+    .expect(installationSecondLabelResult.exists).ok()
+    .expect(fieldLabel('Gravity Forms Version').exists).ok()
+    .expect(installationThirdLabelResult.exists).ok()
+    .expect(fieldLabel('PHP Version').exists).ok()
+    .expect(installationFourthLabelResult.exists).ok()
+    .expect(fieldLabel('Direct PDF Protection').exists).ok()
+    .expect(installationFifthLabelResult.exists).ok()
 })

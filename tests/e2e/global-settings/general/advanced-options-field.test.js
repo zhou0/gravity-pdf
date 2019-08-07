@@ -1,10 +1,12 @@
 import { Selector } from 'testcafe'
-import { admin, baseURL } from '../../auth'
+import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-objects/helpers/field'
+import Form from '../../page-objects/global-settings/form'
 
-fixture `General Tab - Advanced Options Field Test`
+const form = new Form()
+
+fixture`General Tab - Advanced Options Field Test`
 
 // Get Global selectors
-const showLabelText = Selector('a').withText('Show Advanced Options...')
 const advancedOptionsField = Selector('#gfpdf-advanced-options')
 
 test('should display Show Advanced Options field link', async t => {
@@ -12,9 +14,8 @@ test('should display Show Advanced Options field link', async t => {
   const showAdvancedOptionsField = advancedOptionsField.filterVisible()
 
   // Actions
-  await t.useRole(admin)
-  await t.navigateTo(`${baseURL}/wp-admin/admin.php?page=gf_settings&subview=PDF&tab=general#/`)
-  await t.click(showLabelText)
+  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t.click(fieldLabel('Show Advanced Options...', 'a'))
 
   // Assertions
   await t.expect(showAdvancedOptionsField.count).eql(1)
@@ -22,67 +23,51 @@ test('should display Show Advanced Options field link', async t => {
 
 test('should display Show Advanced Options field', async t => {
   // Get selectors
-  const headingText = Selector('span').withText('Security Settings')
-
-  const firstLabel = Selector('th').withText('User Restriction')
   const selectBox = Selector('#gfpdf_settings_admin_capabilities__chosen')
   const dropDownList = Selector('.chosen-results')
-  const gravityFormsCapabilitiesGroup = Selector('optgroup').withAttribute('label', 'Gravity Forms Capabilities')
-  const gravityFormsCapabilitiesFirstOption = Selector('option').withText('gravityforms_create_form')
-  const gravityFormsCapabilitiesSecondOption = Selector('option').withText('gravityforms_delete_forms')
-  const activeWordpressCapabilitiesGroup = Selector('optgroup').withAttribute('label', 'Active WordPress Capabilities')
-  const activeWordpressCapabilitiesFirstOption = Selector('option').withText('activate_plugins')
-  const activeWordpressCapabilitiesSecondOption = Selector('option').withText('create_users')
-  const firstLabelInfoText = Selector('label').withText('Restrict PDF access to users with any of these capabilities. The Administrator Role always has full access.')
-
-  const secondLabel = Selector('th').withText('Default Owner Restrictions')
   const enable = Selector('div').find('[class^="gfpdf_settings_default_restrict_owner"][value="Yes"]')
   const disable = Selector('div').find('[class^="gfpdf_settings_default_restrict_owner"][value="No"]')
-  const secondLabelInfoText = Selector('label').withText('Set the default PDF owner permissions. When enabled, the original entry owner will NOT be able to view the PDFs (unless they have one of the above capabilities).')
-
-  const thirdLabel = Selector('th').withText('Logged Out Timeout')
   const inputBox = Selector('#gfpdf_settings\\[logged_out_timeout\\]')
-  const thirdLabelInfoText = Selector('label').withText('Limit how long a logged out users has direct access to the PDF after completing the form. Set to 0 to disable time limit (not recommended).')
 
   // Actions
-  await t.useRole(admin)
-  await t.navigateTo(`${baseURL}/wp-admin/admin.php?page=gf_settings&subview=PDF&tab=general#/`)
-  await t.click(showLabelText)
+  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t.click(fieldLabel('Show Advanced Options...', 'a'))
 
   // Assertions
-  await t.expect(headingText.exists).ok()
-  await t.expect(firstLabel.exists).ok()
-  await t.expect(selectBox.exists).ok()
-  await t.expect(dropDownList.exists).ok()
-  await t.expect(gravityFormsCapabilitiesGroup.exists).ok()
-  await t.expect(gravityFormsCapabilitiesFirstOption.exists).ok()
-  await t.expect(gravityFormsCapabilitiesSecondOption.exists).ok()
-  await t.expect(activeWordpressCapabilitiesGroup.exists).ok()
-  await t.expect(activeWordpressCapabilitiesFirstOption.exists).ok()
-  await t.expect(activeWordpressCapabilitiesSecondOption.exists).ok()
-  await t.expect(firstLabelInfoText.exists).ok()
-  await t.expect(secondLabel.exists).ok()
-  await t.expect(enable.exists).ok()
-  await t.expect(disable.exists).ok()
-  await t.expect(secondLabelInfoText.exists).ok()
-  await t.expect(thirdLabel.exists).ok()
-  await t.expect(inputBox.exists).ok()
-  await t.expect(thirdLabelInfoText.exists).ok()
+  await t
+    .expect(fieldLabel('Security Settings', 'span').exists).ok()
+    .expect(fieldLabel('User Restriction').exists).ok()
+    .expect(selectBox.exists).ok()
+    .expect(dropDownList.exists).ok()
+    .expect(dropdownOptionGroup('Gravity Forms Capabilities').exists).ok()
+    .expect(dropdownOption('gravityforms_create_form').exists).ok()
+    .expect(dropdownOption('gravityforms_delete_forms').exists).ok()
+    .expect(dropdownOptionGroup('Active WordPress Capabilities').exists).ok()
+    .expect(dropdownOption('activate_plugins').exists).ok()
+    .expect(dropdownOption('create_users').exists).ok()
+    .expect(fieldDescription('Restrict PDF access to users with any of these capabilities. The Administrator Role always has full access.', 'label').exists).ok()
+    .expect(fieldLabel('Default Owner Restrictions').exists).ok()
+    .expect(enable.exists).ok()
+    .expect(disable.exists).ok()
+    .expect(fieldDescription('Set the default PDF owner permissions. When enabled, the original entry owner will NOT be able to view the PDFs (unless they have one of the above capabilities).', 'label').exists).ok()
+    .expect(fieldLabel('Logged Out Timeout').exists).ok()
+    .expect(inputBox.exists).ok()
+    .expect(fieldDescription('Limit how long a logged out users has direct access to the PDF after completing the form. Set to 0 to disable time limit (not recommended).', 'label').exists).ok()
 })
 
 test('should hide Show Advanced Options field', async t => {
   // Get selectors
-  const hideLabelText = Selector('a').withText('Hide Advanced Options...')
   const hideAdvancedOptionsField = advancedOptionsField.filterHidden()
 
   // Actions
-  await t.useRole(admin)
-  await t.navigateTo(`${baseURL}/wp-admin/admin.php?page=gf_settings&subview=PDF&tab=general#/`)
-  await t.click(showLabelText)
-  await t.click(hideLabelText)
+  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t
+    .click(fieldLabel('Show Advanced Options...', 'a'))
+    .click(fieldLabel('Hide Advanced Options...', 'a'))
 
   // Assertions
-  await t.expect(hideLabelText.exists).ok()
-  await t.wait(1000)
-  await t.expect(hideAdvancedOptionsField.count).eql(1)
+  await t
+    .expect(fieldLabel('Hide Advanced Options...', 'a').exists).ok()
+    .wait(1000)
+    .expect(hideAdvancedOptionsField.count).eql(1)
 })

@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, button } from '../page-objects/helpers/field'
-import Form from '../page-objects/form'
+import Form from '../page-objects/form-settings/form'
 
 const form = new Form()
 

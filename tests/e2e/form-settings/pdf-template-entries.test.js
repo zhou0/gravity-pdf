@@ -1,5 +1,5 @@
 import PdfTemplateEntries from '../page-objects/form-settings/pdf-template-entries'
-import Form from '../page-objects/form'
+import Form from '../page-objects/form-settings/form'
 
 const pdf = new PdfTemplateEntries()
 const form = new Form()
