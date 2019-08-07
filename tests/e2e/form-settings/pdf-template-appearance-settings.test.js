@@ -10,7 +10,7 @@ import Form from '../page-objects/form'
 
 const form = new Form()
 
-fixture `PDF Template - Appearance Settings Test`
+fixture`PDF Template - Appearance Settings Test`
 
 // Get Global selectors
 const appearanceLink = Selector('#gfpdf-appearance-nav')
@@ -69,7 +69,7 @@ test('should search and display existing paper size result', async t => {
   await form.navigateSettingsTab('gf_edit_forms')
   await t.click(appearanceLink)
   await t.click(selectBoxPaperSize)
-  await t.typeText(searchBox, 'letter', { paste: true })
+  await t.typeText(searchBox, 'letter', {paste: true})
 
   // Assertions
   await t.expect(result.count).eql(1)
@@ -142,7 +142,7 @@ test('should search and display existing font result', async t => {
   await form.navigateSettingsTab('gf_edit_forms')
   await t.click(appearanceLink)
   await t.click(selectBoxFont)
-  await t.typeText(searchBox, 'Free Sans', { paste: true })
+  await t.typeText(searchBox, 'Free Sans', {paste: true})
 
   // Assertions
   await t.expect(result.count).eql(1)

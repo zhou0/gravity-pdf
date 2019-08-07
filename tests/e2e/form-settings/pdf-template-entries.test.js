@@ -1,7 +1,7 @@
-import Pdf from '../page-objects/pdf'
+import PdfTemplateEntries from '../page-objects/form-settings/pdf-template-entries'
 import Form from '../page-objects/form'
 
-const pdf = new Pdf()
+const pdf = new PdfTemplateEntries()
 const form = new Form()
 
 fixture`PDF Template - Entries Test`
@@ -12,8 +12,8 @@ test('should successfully add new PDF template into form entries', async t => {
   await t.hover(form.settingsMenu)
   await t.click(form.pdfLink)
   await t.click(form.addNewPdf)
-  await t.typeText(pdf.name, 'Test PDF Template', { paste: true })
-  await t.typeText(pdf.fileName, 'testpdftemplate', { paste: true })
+  await t.typeText(pdf.name, 'Test PDF Template', {paste: true})
+  await t.typeText(pdf.fileName, 'testpdftemplate', {paste: true})
   await t.click(pdf.addPdfButton)
   await t.click(pdf.backToTemplateListLink)
 
@@ -68,8 +68,8 @@ test('should successfully edit and update existing template using the Edit link 
   await t.click(form.pdfLink)
   await t.hover(pdf.templateList)
   await t.click(pdf.editLink)
-  await t.typeText(pdf.name, 'Test PDF Template Updated', { replace: true })
-  await t.typeText(pdf.fileName, 'testpdftemplateupdated', { replace: true })
+  await t.typeText(pdf.name, 'Test PDF Template Updated', {replace: true})
+  await t.typeText(pdf.fileName, 'testpdftemplateupdated', {replace: true})
   await t.click(pdf.updatePdfButton)
   await t.click(pdf.backToTemplateListLink)
 

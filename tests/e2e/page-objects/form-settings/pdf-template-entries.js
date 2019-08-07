@@ -1,10 +1,10 @@
 import { Selector, t } from 'testcafe'
-import { admin, baseURL } from '../auth'
-import Form from './form'
+import { admin, baseURL } from '../../auth'
+import Form from '../form'
 
 const form = new Form()
 
-class Pdf {
+class PdfTemplateEntries {
   constructor () {
     this.name = Selector('#gfpdf_settings\\[name\\]')
     this.fileName = Selector('#gfpdf_settings\\[filename\\]')
@@ -35,4 +35,4 @@ class Pdf {
   }
 }
 
-export default Pdf
+export default PdfTemplateEntries

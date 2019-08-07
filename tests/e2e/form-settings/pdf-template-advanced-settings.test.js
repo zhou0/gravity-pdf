@@ -4,7 +4,7 @@ import Form from '../page-objects/form'
 
 const form = new Form()
 
-fixture `PDF Template - Advanced Settings Test`
+fixture`PDF Template - Advanced Settings Test`
 
 // Get Global selectors
 const advancedLink = Selector('#gfpdf-advanced-nav')
