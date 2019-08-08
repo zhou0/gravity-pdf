@@ -2,7 +2,7 @@ import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
 import FormSettings from './form-settings'
 
-const form = new FormSettings()
+const run = new FormSettings()
 
 class PdfTemplateEntries {
   constructor () {
@@ -30,8 +30,8 @@ class PdfTemplateEntries {
     await t
       .useRole(admin)
       .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
-      .hover(form.list)
-      .click(form.entries)
+      .hover(run.list)
+      .click(run.entries)
   }
 }
 
