@@ -1,10 +1,10 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription } from '../../page-objects/helpers/field'
-import General from '../../page-objects/global-settings/general/general'
+import { fieldLabel, fieldDescription } from '../../page-model/helpers/field'
+import General from '../../page-model/global-settings/general/general'
 
 const run = new General()
 
-fixture `General Tab - Reverse Text (RTL) Field Test`
+fixture`General Tab - Reverse Text (RTL) Field Test`
 
 test('should display Reverse Text (RTL) field', async t => {
   // Get selectors

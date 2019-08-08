@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-objects/helpers/field'
-import General from '../../page-objects/global-settings/general/general'
+import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-model/helpers/field'
+import General from '../../page-model/global-settings/general/general'
 
 const run = new General()
 

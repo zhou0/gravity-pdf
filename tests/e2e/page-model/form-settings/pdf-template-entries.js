@@ -1,8 +1,8 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
-import Form from './form'
+import FormSettings from './form-settings'
 
-const form = new Form()
+const form = new FormSettings()
 
 class PdfTemplateEntries {
   constructor () {

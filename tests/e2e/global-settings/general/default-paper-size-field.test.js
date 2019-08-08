@@ -1,12 +1,12 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-objects/helpers/field'
-import General from '../../page-objects/global-settings/general/general'
+import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-model/helpers/field'
+import General from '../../page-model/global-settings/general/general'
 
 const run = new General()
 
-fixture `General Tab -  Default Paper Size Field Test`
+fixture`General Tab -  Default Paper Size Field Test`
 
-test("should display 'Default Paper Size' field", async t => {
+test('should display \'Default Paper Size\' field', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
@@ -26,7 +26,7 @@ test('should search and display existing result', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(run.paperSizeSelectBox)
-    .typeText(searchBox, 'letter', { paste: true })
+    .typeText(searchBox, 'letter', {paste: true})
 
   // Assertions
   await t.expect(result.count).eql(1)

@@ -1,12 +1,12 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, button } from '../../../page-objects/helpers/field'
-import Fonts from '../../../page-objects/global-settings/tools/fonts/fonts'
+import { fieldLabel, fieldDescription, button } from '../../../page-model/helpers/field'
+import Fonts from '../../../page-model/global-settings/tools/fonts/fonts'
 
 const font = new Fonts()
 
-fixture `Tools Tab - Manage Fonts Test`
+fixture`Tools Tab - Manage Fonts Test`
 
-test("should open 'Manage Fonts Popup Box'", async t => {
+test('should open \'Manage Fonts Popup Box\'', async t => {
   // Get selectors
   const visibleManageFontsPopupBox = font.manageFontsPopupBox.filterVisible()
   const dialogTitle = Selector('span').withText('Manage Fonts')
@@ -24,7 +24,7 @@ test("should open 'Manage Fonts Popup Box'", async t => {
     .expect(addFontText.exists).ok()
 })
 
-test("should open 'Manage Fonts Popup Box' that can be close", async t => {
+test('should open \'Manage Fonts Popup Box\' that can be close', async t => {
   // Get selectors
   const closeButton = Selector('div').withText('Manage Fonts').nth(10).find('[class^="ui-button ui-widget ui-state-default ui-corner-all"][title="Close"]')
   const hidePopupBox = font.manageFontsPopupBox.filterHidden()
@@ -37,7 +37,7 @@ test("should open 'Manage Fonts Popup Box' that can be close", async t => {
   await t.expect(hidePopupBox.count).eql(1)
 })
 
-test("should open 'Add Font Dialog Box Settings'", async t => {
+test('should open \'Add Font Dialog Box Settings\'', async t => {
   // Get selectors
   const addFontDialogBox = Selector('.font-settings').filterVisible()
   const inputFieldOne = Selector('[name="font_name"].regular-text.font-name-field')
@@ -73,7 +73,7 @@ test("should open 'Add Font Dialog Box Settings'", async t => {
     .expect(showWPmediaModal.count).eql(1)
 })
 
-test("should display multiple 'Add Font Dialog Box Settings'", async t => {
+test('should display multiple \'Add Font Dialog Box Settings\'', async t => {
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
@@ -86,7 +86,7 @@ test("should display multiple 'Add Font Dialog Box Settings'", async t => {
     .expect(font.fontList.child('li').nth(1).exists).ok()
 })
 
-test("should display 'Add Font Dialog Box Settings' Font Name field RED box error 'Only alphanumeric characters and spaces are accepted'", async t => {
+test('should display \'Add Font Dialog Box Settings\' Font Name field RED box error \'Only alphanumeric characters and spaces are accepted\'', async t => {
   // Get selectors
   const fontInputField = Selector('[name="font_name"].regular-text.font-name-field')
   const redInputBox = Selector('div').find('[class^="regular-text font-name-field"][style="border-color: red;"]')
@@ -95,13 +95,13 @@ test("should display 'Add Font Dialog Box Settings' Font Name field RED box erro
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
-    .typeText(fontInputField, 's$$$', { paste: true })
+    .typeText(fontInputField, 's$$$', {paste: true})
 
   // Assertions
   await t.expect(redInputBox.exists).ok()
 })
 
-test("should display 'Add Font Dialog Box Settings' error message when font file inputed is not TFF", async t => {
+test('should display \'Add Font Dialog Box Settings\' error message when font file inputed is not TFF', async t => {
   // Get selectors
   const regularFontField = Selector('[name="regular"].regular-text')
   const errorMessage = Selector('label').withText('Only TTF font files are supported.')
@@ -110,14 +110,14 @@ test("should display 'Add Font Dialog Box Settings' error message when font file
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
-    .typeText(regularFontField, 'https://gravitypdf.com/Gotham-Black-Regular.otf', { paste: true })
+    .typeText(regularFontField, 'https://gravitypdf.com/Gotham-Black-Regular.otf', {paste: true})
     .click(button('Save Font'))
 
   // Assertions
   await t.expect(errorMessage.exists).ok()
 })
 
-test("should open 'Add Font Dialog Box Settings' that can be minimize", async t => {
+test('should open \'Add Font Dialog Box Settings\' that can be minimize', async t => {
   // Get selectors
   const minimizeIcon = Selector('.fa-angle-right')
   const addFontDialogBox = Selector('.font-settings').filterHidden()
@@ -132,11 +132,11 @@ test("should open 'Add Font Dialog Box Settings' that can be minimize", async t 
   await t.expect(addFontDialogBox.count).eql(1)
 })
 
-test("should open 'Add Font Dialog Box Settings' with a confirmation Popup to delete", async t => {
+test('should open \'Add Font Dialog Box Settings\' with a confirmation Popup to delete', async t => {
   // Get selectors
   const visibleConfirmDeletePopupBox = font.confirmDeletePopupBox.filterVisible()
   const dialogTitle = Selector('span').withText('Delete Font?')
-  const contentText = Selector('div').withText("Warning! You are about to delete this Font. Select 'Delete' to delete, 'Cancel' to stop.")
+  const contentText = Selector('div').withText('Warning! You are about to delete this Font. Select \'Delete\' to delete, \'Cancel\' to stop.')
 
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
@@ -152,7 +152,7 @@ test("should open 'Add Font Dialog Box Settings' with a confirmation Popup to de
     .expect(button('Delete').exists).ok()
 })
 
-test("should open 'Add Font Dialog Box Settings' that can be close", async t => {
+test('should open \'Add Font Dialog Box Settings\' that can be close', async t => {
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
@@ -164,7 +164,7 @@ test("should open 'Add Font Dialog Box Settings' that can be close", async t => 
   await t.expect(font.confirmDeletePopupBox.exists).notOk()
 })
 
-test("should open 'Add Font Dialog Box Settings' that can be deleted", async t => {
+test('should open \'Add Font Dialog Box Settings\' that can be deleted', async t => {
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t

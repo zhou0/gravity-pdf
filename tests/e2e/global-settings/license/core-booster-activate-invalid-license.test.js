@@ -1,9 +1,9 @@
 import { Selector } from 'testcafe'
-import License from '../../page-objects/global-settings/license/license'
+import License from '../../page-model/global-settings/license/license'
 
 const run = new License()
 
-fixture `License Tab - Core Booster Activate Invalid License Test`
+fixture`License Tab - Core Booster Activate Invalid License Test`
 
 test('should display error icon and error message for invalid license key', async t => {
   // Get selectors
@@ -13,7 +13,7 @@ test('should display error icon and error message for invalid license key', asyn
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=license')
   await t
-    .typeText(run.licenseInputField, run.invalidLicenseKey, { paste: true })
+    .typeText(run.licenseInputField, run.invalidLicenseKey, {paste: true})
     .click(run.saveButton)
 
   // Assertions

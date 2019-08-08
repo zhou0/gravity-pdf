@@ -1,13 +1,10 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription } from '../page-objects/helpers/field'
-import Form from '../page-objects/form-settings/form'
+import { fieldLabel, fieldDescription } from '../page-model/helpers/field'
+import FormSettings from '../page-model/form-settings/form-settings'
 
-const form = new Form()
+const run = new FormSettings()
 
 fixture`PDF Template - Advanced Settings Test`
-
-// Get Global selectors
-const advancedLink = Selector('#gfpdf-advanced-nav')
 
 test('should display Format field', async t => {
   // Get selectors
@@ -16,15 +13,16 @@ test('should display Format field', async t => {
   const thirdOption = Selector('#gfpdf_settings\\[format\\]\\[PDFX1A\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(advancedLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.advancedLink)
 
   // Assertions
-  await t.expect(fieldLabel('Format').exists).ok()
-  await t.expect(firstOption.exists).ok()
-  await t.expect(secondOption.exists).ok()
-  await t.expect(thirdOption.exists).ok()
-  await t.expect(fieldDescription('Generate a PDF in the selected format.').exists).ok()
+  await t
+    .expect(fieldLabel('Format').exists).ok()
+    .expect(firstOption.exists).ok()
+    .expect(secondOption.exists).ok()
+    .expect(thirdOption.exists).ok()
+    .expect(fieldDescription('Generate a PDF in the selected format.').exists).ok()
 })
 
 test('should display Enable PDF Security field', async t => {
@@ -39,26 +37,28 @@ test('should display Enable PDF Security field', async t => {
   const privilegesBoxExtended = Selector('div').find('[class^="chosen-container chosen-container-multi chosen-with-drop chosen-container-active"]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(advancedLink)
-  await t.click(yes)
-  await t.click(privilegesBox)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.advancedLink)
+    .click(yes)
+    .click(privilegesBox)
 
   // Assertions
-  await t.expect(fieldLabel('Enable PDF Security').exists).ok()
-  await t.expect(yes.exists).ok()
-  await t.expect(no.exists).ok()
-  await t.expect(fieldDescription('Password protect generated PDFs, or restrict user capabilities.').exists).ok()
+  await t
+    .expect(fieldLabel('Enable PDF Security').exists).ok()
+    .expect(yes.exists).ok()
+    .expect(no.exists).ok()
+    .expect(fieldDescription('Password protect generated PDFs, or restrict user capabilities.').exists).ok()
 
-  await t.expect(fieldLabel('Password').exists).ok()
-  await t.expect(passwordInputField.exists).ok()
-  await t.expect(mergeTagDropdown.exists).ok()
-  await t.expect(fieldDescription('Password protect the PDF, or leave blank to disable password protection.').exists).ok()
+    .expect(fieldLabel('Password').exists).ok()
+    .expect(passwordInputField.exists).ok()
+    .expect(mergeTagDropdown.exists).ok()
+    .expect(fieldDescription('Password protect the PDF, or leave blank to disable password protection.').exists).ok()
 
-  await t.expect(fieldLabel('Privileges').exists).ok()
-  await t.expect(fieldDescription('Restrict end user capabilities by removing privileges.').exists).ok()
-  await t.expect(privilegesBox.exists).ok()
-  await t.expect(privilegesBoxExtended.exists).ok()
+    .expect(fieldLabel('Privileges').exists).ok()
+    .expect(fieldDescription('Restrict end user capabilities by removing privileges.').exists).ok()
+    .expect(privilegesBox.exists).ok()
+    .expect(privilegesBoxExtended.exists).ok()
 })
 
 test('should display Image DPI field', async t => {
@@ -66,12 +66,13 @@ test('should display Image DPI field', async t => {
   const fieldInputBox = Selector('#gfpdf_settings\\[image_dpi\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(advancedLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.advancedLink)
 
   // Assertions
-  await t.expect(fieldLabel('Image DPI').exists).ok()
-  await t.expect(fieldInputBox.exists).ok()
+  await t
+    .expect(fieldLabel('Image DPI').exists).ok()
+    .expect(fieldInputBox.exists).ok()
 })
 
 test('should display Always Save PDF field', async t => {
@@ -80,14 +81,15 @@ test('should display Always Save PDF field', async t => {
   const no = Selector('#gfpdf_settings\\[save\\]\\[No\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(advancedLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.advancedLink)
 
   // Assertions
-  await t.expect(fieldLabel('Always Save PDF').exists).ok()
-  await t.expect(yes.exists).ok()
-  await t.expect(no.exists).ok()
-  await t.expect(fieldDescription('Force a PDF to be saved to disk when a new entry is created.').exists).ok()
+  await t
+    .expect(fieldLabel('Always Save PDF').exists).ok()
+    .expect(yes.exists).ok()
+    .expect(no.exists).ok()
+    .expect(fieldDescription('Force a PDF to be saved to disk when a new entry is created.').exists).ok()
 })
 
 test('should display Enable Public Access field', async t => {
@@ -99,20 +101,22 @@ test('should display Enable Public Access field', async t => {
   const noOption = Selector('#gfpdf_settings\\[restrict_owner\\]\\[No\\]').filterHidden()
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(advancedLink)
-  await t.click(yes)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.advancedLink)
+    .click(yes)
 
   // Assertions
-  await t.expect(fieldLabel('Enable Public Access').exists).ok()
-  await t.expect(yes.exists).ok()
-  await t.expect(no.exists).ok()
-  await t.expect(fieldDescription('Disable all security protocols and allow anyone to access the PDFs.').exists).ok()
+  await t
+    .expect(fieldLabel('Enable Public Access').exists).ok()
+    .expect(yes.exists).ok()
+    .expect(no.exists).ok()
+    .expect(fieldDescription('Disable all security protocols and allow anyone to access the PDFs.').exists).ok()
 
-  await t.expect(fieldLabel('Restrict Owner').filterHidden().count).eql(1)
-  await t.expect(yesOption.count).eql(1)
-  await t.expect(noOption.count).eql(1)
-  await t.expect(fieldDescription('When enabled, the original entry owner will NOT be able to view the PDFs.').filterHidden().count).eql(1)
+    .expect(fieldLabel('Restrict Owner').filterHidden().count).eql(1)
+    .expect(yesOption.count).eql(1)
+    .expect(noOption.count).eql(1)
+    .expect(fieldDescription('When enabled, the original entry owner will NOT be able to view the PDFs.').filterHidden().count).eql(1)
 })
 
 test('should display Restrict Owner field', async t => {
@@ -121,12 +125,13 @@ test('should display Restrict Owner field', async t => {
   const no = Selector('#gfpdf_settings\\[restrict_owner\\]\\[No\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(advancedLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.advancedLink)
 
   // Assertions
-  await t.expect(fieldLabel('Restrict Owner').exists).ok()
-  await t.expect(yes.exists).ok()
-  await t.expect(no.exists).ok()
-  await t.expect(fieldDescription('When enabled, the original entry owner will NOT be able to view the PDFs.').exists).ok()
+  await t
+    .expect(fieldLabel('Restrict Owner').exists).ok()
+    .expect(yes.exists).ok()
+    .expect(no.exists).ok()
+    .expect(fieldDescription('When enabled, the original entry owner will NOT be able to view the PDFs.').exists).ok()
 })

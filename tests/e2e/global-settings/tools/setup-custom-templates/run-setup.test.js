@@ -1,12 +1,12 @@
 import { Selector } from 'testcafe'
 import SetupCustomTemplates
-  from '../../../page-objects/global-settings/tools/setup-custom-templates/setup-custom-templates'
+  from '../../../page-model/global-settings/tools/setup-custom-templates/setup-custom-templates'
 
 const run = new SetupCustomTemplates()
 
-fixture `Tools Tab - Setup Custom Templates Test`
+fixture`Tools Tab - Setup Custom Templates Test`
 
-test("should open 'Setup Custom Templates' popup box", async t => {
+test('should open \'Setup Custom Templates\' popup box', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#')
 
@@ -17,7 +17,7 @@ test("should open 'Setup Custom Templates' popup box", async t => {
     .expect(run.cancelButton.exists).ok()
 })
 
-test("should open 'Setup Custom Templates' popup box that can be close / cancel", async t => {
+test('should open \'Setup Custom Templates\' popup box that can be close / cancel', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#')
   await t.click(run.cancelButton)

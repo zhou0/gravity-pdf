@@ -1,7 +1,7 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
 
-class Form {
+class FormSettings {
   constructor () {
     this.name = Selector('#the-list').find('tr').withText('Sample 1')
     this.entries = Selector('#the-list').find('tr').withText('Sample 1').find('span').withText('Entries')
@@ -9,6 +9,12 @@ class Form {
     this.pdfLink = Selector('.gf_submenu').find('a').withText('PDF')
     this.addNewPdf = Selector('#add-new-pdf')
     this.list = Selector('.gf-locking ').withText('Sample 1')
+    this.advancedLink = Selector('#gfpdf-advanced-nav')
+    this.appearanceLink = Selector('#gfpdf-appearance-nav')
+    this.selectBoxPaperSize = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_pdf_size__chosen"]')
+    this.selectBoxFont = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_font__chosen"]')
+    this.conditionalCheckbox = Selector('div').find('[class^="gfpdf_settings_conditional conditional_logic_listener"]')
+    this.templateLink = Selector('#gfpdf-custom-appearance-nav')
   }
 
   async navigateSettingsTab (text) {
@@ -23,4 +29,4 @@ class Form {
   }
 }
 
-export default Form
+export default FormSettings

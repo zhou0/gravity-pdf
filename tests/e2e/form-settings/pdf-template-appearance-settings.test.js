@@ -5,27 +5,23 @@ import {
   dropdownOption,
   dropdownOptionGroup,
   listItem
-} from '../page-objects/helpers/field'
-import Form from '../page-objects/form-settings/form'
+} from '../page-model/helpers/field'
+import FormSettings from '../page-model/form-settings/form-settings'
 
-const form = new Form()
+const run = new FormSettings()
 
 fixture`PDF Template - Appearance Settings Test`
 
-// Get Global selectors
-const appearanceLink = Selector('#gfpdf-appearance-nav')
-const selectBoxPaperSize = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_pdf_size__chosen"]')
-const selectBoxFont = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_font__chosen"]')
-
 test('should display Paper Size field', async t => {
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.appearanceLink)
 
   // Assertions
-  await t.expect(fieldLabel('Paper Size').exists).ok()
-  await t.expect(selectBoxPaperSize.exists).ok()
-  await t.expect(fieldDescription('Set the paper size used when generating PDFs.').exists).ok()
+  await t
+    .expect(fieldLabel('Paper Size').exists).ok()
+    .expect(run.selectBoxPaperSize.exists).ok()
+    .expect(fieldDescription('Set the paper size used when generating PDFs.').exists).ok()
 })
 
 test('should display a dropdown of paper sizes option', async t => {
@@ -33,31 +29,32 @@ test('should display a dropdown of paper sizes option', async t => {
   const dropDownList = Selector('.chosen-results')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.appearanceLink)
 
   // Assertions
   await t.expect(dropDownList.exists).ok()
 
-  await t.expect(dropdownOptionGroup('Common Sizes').exists).ok()
-  await t.expect(dropdownOption('A4 (210 x 297mm)').exists).ok()
-  await t.expect(dropdownOption('Letter (8.5 x 11in)').exists).ok()
+  await t
+    .expect(dropdownOptionGroup('Common Sizes').exists).ok()
+    .expect(dropdownOption('A4 (210 x 297mm)').exists).ok()
+    .expect(dropdownOption('Letter (8.5 x 11in)').exists).ok()
 
-  await t.expect(dropdownOptionGroup('"A" Sizes').exists).ok()
-  await t.expect(dropdownOption('A0 (841 x 1189mm)').exists).ok()
-  await t.expect(dropdownOption('A1 (594 x 841mm)').exists).ok()
+    .expect(dropdownOptionGroup('"A" Sizes').exists).ok()
+    .expect(dropdownOption('A0 (841 x 1189mm)').exists).ok()
+    .expect(dropdownOption('A1 (594 x 841mm)').exists).ok()
 
-  await t.expect(dropdownOptionGroup('"B" Sizes').exists).ok()
-  await t.expect(dropdownOption('B0 (1414 x 1000mm)').exists).ok()
-  await t.expect(dropdownOption('B1 (1000 x 707mm)').exists).ok()
+    .expect(dropdownOptionGroup('"B" Sizes').exists).ok()
+    .expect(dropdownOption('B0 (1414 x 1000mm)').exists).ok()
+    .expect(dropdownOption('B1 (1000 x 707mm)').exists).ok()
 
-  await t.expect(dropdownOptionGroup('"C" Sizes').exists).ok()
-  await t.expect(dropdownOption('C0 (1297 x 917mm)').exists).ok()
-  await t.expect(dropdownOption('C1 (917 x 648mm)').exists).ok()
+    .expect(dropdownOptionGroup('"C" Sizes').exists).ok()
+    .expect(dropdownOption('C0 (1297 x 917mm)').exists).ok()
+    .expect(dropdownOption('C1 (917 x 648mm)').exists).ok()
 
-  await t.expect(dropdownOptionGroup('"RA" and "SRA" Sizes').exists).ok()
-  await t.expect(dropdownOption('RA0 (860 x 1220mm)').exists).ok()
-  await t.expect(dropdownOption('RA1 (610 x 860mm)').exists).ok()
+    .expect(dropdownOptionGroup('"RA" and "SRA" Sizes').exists).ok()
+    .expect(dropdownOption('RA0 (860 x 1220mm)').exists).ok()
+    .expect(dropdownOption('RA1 (610 x 860mm)').exists).ok()
 })
 
 test('should search and display existing paper size result', async t => {
@@ -66,10 +63,11 @@ test('should search and display existing paper size result', async t => {
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
-  await t.click(selectBoxPaperSize)
-  await t.typeText(searchBox, 'letter', {paste: true})
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.appearanceLink)
+    .click(run.selectBoxPaperSize)
+    .typeText(searchBox, 'letter', {paste: true})
 
   // Assertions
   await t.expect(result.count).eql(1)
@@ -80,15 +78,17 @@ test('should display Orientation field', async t => {
   const orientationDropdownField = Selector('#gfpdf_settings_orientation__chosen')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
-  await t.click(orientationDropdownField)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.appearanceLink)
+    .click(orientationDropdownField)
 
   // Assertions
-  await t.expect(fieldLabel('Orientation').exists).ok()
-  await t.expect(orientationDropdownField.exists).ok()
-  await t.expect(listItem('Portrait').exists).ok()
-  await t.expect(listItem('Landscape').exists).ok()
+  await t
+    .expect(fieldLabel('Orientation').exists).ok()
+    .expect(orientationDropdownField.exists).ok()
+    .expect(listItem('Portrait').exists).ok()
+    .expect(listItem('Landscape').exists).ok()
 })
 
 test('should display Font field', async t => {
@@ -96,41 +96,44 @@ test('should display Font field', async t => {
   const fontDropdownField = Selector('#gfpdf_settings_font__chosen')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.appearanceLink)
 
   // Assertions
-  await t.expect(fieldLabel('Font').exists).ok()
-  await t.expect(fontDropdownField.exists).ok()
-  await t.expect(fieldDescription('Set the font type used in PDFs. Choose an existing font or install your own.').exists).ok()
+  await t
+    .expect(fieldLabel('Font').exists).ok()
+    .expect(fontDropdownField.exists).ok()
+    .expect(fieldDescription('Set the font type used in PDFs. Choose an existing font or install your own.').exists).ok()
 })
 
 test('should display a dropdown of Fonts', async t => {
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
-  await t.click(selectBoxFont)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.appearanceLink)
+    .click(run.selectBoxFont)
 
   // Assertions
-  await t.expect(dropdownOptionGroup('Unicode').exists).ok()
-  await t.expect(dropdownOption('Dejavu Sans Condensed').exists).ok()
-  await t.expect(dropdownOption('Dejavu Sans').exists).ok()
+  await t
+    .expect(dropdownOptionGroup('Unicode').exists).ok()
+    .expect(dropdownOption('Dejavu Sans Condensed').exists).ok()
+    .expect(dropdownOption('Dejavu Sans').exists).ok()
 
-  await t.expect(dropdownOptionGroup('Indic').exists).ok()
-  await t.expect(dropdownOption('Lohit Kannada').exists).ok()
-  await t.expect(dropdownOption('Pothana2000').exists).ok()
+    .expect(dropdownOptionGroup('Indic').exists).ok()
+    .expect(dropdownOption('Lohit Kannada').exists).ok()
+    .expect(dropdownOption('Pothana2000').exists).ok()
 
-  await t.expect(dropdownOptionGroup('Arabic').exists).ok()
-  await t.expect(dropdownOption('XB Riyaz').exists).ok()
-  await t.expect(dropdownOption('Lateef').exists).ok()
+    .expect(dropdownOptionGroup('Arabic').exists).ok()
+    .expect(dropdownOption('XB Riyaz').exists).ok()
+    .expect(dropdownOption('Lateef').exists).ok()
 
-  await t.expect(dropdownOptionGroup('Chinese, Japanese, Korean').exists).ok()
-  await t.expect(dropdownOption('Sun Ext').exists).ok()
-  await t.expect(dropdownOption('Un Batang (Korean)').exists).ok()
+    .expect(dropdownOptionGroup('Chinese, Japanese, Korean').exists).ok()
+    .expect(dropdownOption('Sun Ext').exists).ok()
+    .expect(dropdownOption('Un Batang (Korean)').exists).ok()
 
-  await t.expect(dropdownOptionGroup('Other').exists).ok()
-  await t.expect(dropdownOption('Estrangelo Edessa (Syriac)').exists).ok()
-  await t.expect(dropdownOption('Kaputa (Sinhala)').exists).ok()
+    .expect(dropdownOptionGroup('Other').exists).ok()
+    .expect(dropdownOption('Estrangelo Edessa (Syriac)').exists).ok()
+    .expect(dropdownOption('Kaputa (Sinhala)').exists).ok()
 })
 
 test('should search and display existing font result', async t => {
@@ -139,13 +142,15 @@ test('should search and display existing font result', async t => {
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
-  await t.click(selectBoxFont)
-  await t.typeText(searchBox, 'Free Sans', {paste: true})
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.appearanceLink)
+    .click(run.selectBoxFont)
+    .typeText(searchBox, 'Free Sans', {paste: true})
 
   // Assertions
-  await t.expect(result.count).eql(1)
+  await t
+    .expect(result.count).eql(1)
 })
 
 test('should display Font Size field', async t => {
@@ -153,13 +158,14 @@ test('should display Font Size field', async t => {
   const fontSizeInputBox = Selector('#gfpdf_settings\\[font_size\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.appearanceLink)
 
   // Assertions
-  await t.expect(fieldLabel('Font Size').exists).ok()
-  await t.expect(fontSizeInputBox.exists).ok()
-  await t.expect(fieldDescription('Set the font size to use in the PDF.').exists).ok()
+  await t
+    .expect(fieldLabel('Font Size').exists).ok()
+    .expect(fontSizeInputBox.exists).ok()
+    .expect(fieldDescription('Set the font size to use in the PDF.').exists).ok()
 })
 
 test('should display Font Color field', async t => {
@@ -169,16 +175,18 @@ test('should display Font Color field', async t => {
   const showPopupPickerBox = Selector('.wp-picker-active')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
-  await t.click(selectColorButton)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.appearanceLink)
+    .click(selectColorButton)
 
   // Assertions
-  await t.expect(fieldLabel('Font Color').exists).ok()
-  await t.expect(selectColorButton.exists).ok()
-  await t.expect(fieldDescription('Set the font color to use in the PDF.').exists).ok()
-  await t.expect(popupPickerBox.exists).ok()
-  await t.expect(showPopupPickerBox.exists).ok()
+  await t
+    .expect(fieldLabel('Font Color').exists).ok()
+    .expect(selectColorButton.exists).ok()
+    .expect(fieldDescription('Set the font color to use in the PDF.').exists).ok()
+    .expect(popupPickerBox.exists).ok()
+    .expect(showPopupPickerBox.exists).ok()
 })
 
 test('should display Reverse Text (RTL) field', async t => {
@@ -187,12 +195,13 @@ test('should display Reverse Text (RTL) field', async t => {
   const rtlNo = Selector('#gfpdf_settings\\[rtl\\]\\[No\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_edit_forms')
-  await t.click(appearanceLink)
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t.click(run.appearanceLink)
 
   // Assertions
-  await t.expect(fieldLabel('Reverse Text (RTL)').exists).ok()
-  await t.expect(fieldDescription('Script like Arabic and Hebrew are written right to left.').exists).ok()
-  await t.expect(rtlYes.exists).ok()
-  await t.expect(rtlNo.exists).ok()
+  await t
+    .expect(fieldLabel('Reverse Text (RTL)').exists).ok()
+    .expect(fieldDescription('Script like Arabic and Hebrew are written right to left.').exists).ok()
+    .expect(rtlYes.exists).ok()
+    .expect(rtlNo.exists).ok()
 })

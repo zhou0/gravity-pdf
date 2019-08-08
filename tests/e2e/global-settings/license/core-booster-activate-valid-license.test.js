@@ -1,9 +1,9 @@
 import { Selector } from 'testcafe'
-import License from '../../page-objects/global-settings/license/license'
+import License from '../../page-model/global-settings/license/license'
 
 const run = new License()
 
-fixture `License Tab - Core Booster Activate Valid License Test`
+fixture`License Tab - Core Booster Activate Valid License Test`
 
 test('should display success icon and deactivation option for active license key', async t => {
   // Get selectors
@@ -13,7 +13,7 @@ test('should display success icon and deactivation option for active license key
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=license')
   await t
-    .typeText(run.licenseInputField, run.validLicenseKey, { paste: true })
+    .typeText(run.licenseInputField, run.validLicenseKey, {paste: true})
     .click(run.saveButton)
 
   // Assertions

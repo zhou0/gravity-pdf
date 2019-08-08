@@ -1,9 +1,9 @@
 import { Selector } from 'testcafe'
-import Help from '../../page-objects/global-settings/help/help'
+import Help from '../../page-model/global-settings/help/help'
 
 const run = new Help()
 
-fixture `Help Tab - Help Search Bar Test`
+fixture`Help Tab - Help Search Bar Test`
 
 test('should check if the help search bar exist', async t => {
   // Get selectors
@@ -23,7 +23,7 @@ test('should search and display existing results', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
   await t
-    .typeText(run.searchBar, 'help', { paste: true })
+    .typeText(run.searchBar, 'help', {paste: true})
     .wait(4000)
 
   // Assertions
@@ -37,7 +37,7 @@ test('should search and display a message for no found results', async t => {
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
-  await t.typeText(run.searchBar, 'bbbb', { paste: true })
+  await t.typeText(run.searchBar, 'bbbb', {paste: true})
 
   // Assertions
   await t

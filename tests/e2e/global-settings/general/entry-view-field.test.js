@@ -1,10 +1,10 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription } from '../../page-objects/helpers/field'
-import General from '../../page-objects/global-settings/general/general'
+import { fieldLabel, fieldDescription } from '../../page-model/helpers/field'
+import General from '../../page-model/global-settings/general/general'
 
 const run = new General()
 
-fixture `General Tab - Entry View Field Test`
+fixture`General Tab - Entry View Field Test`
 
 test('should display Entry View field', async t => {
   // Get selectors

@@ -1,12 +1,18 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption, button } from '../../page-objects/helpers/field'
-import General from '../../page-objects/global-settings/general/general'
+import {
+  fieldLabel,
+  fieldDescription,
+  dropdownOptionGroup,
+  dropdownOption,
+  button
+} from '../../page-model/helpers/field'
+import General from '../../page-model/global-settings/general/general'
 
 const run = new General()
 
-fixture `General Tab - Default Template Field Test`
+fixture`General Tab - Default Template Field Test`
 
-test("should display 'Default Template Field'", async t => {
+test('should display \'Default Template Field\'', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
@@ -60,7 +66,7 @@ test('should display Popup Template Selector', async t => {
     .expect(themeDetailsLink.exists).ok()
 })
 
-test("should display 'Add New Template Dropzone'", async t => {
+test('should display \'Add New Template Dropzone\'', async t => {
   // Get selectors
   const dropZoneBox = Selector('.dropzone')
   const addNewTemplateButton = Selector('a').withText('Add New Template').find('div').find('span')
@@ -97,7 +103,7 @@ test('should display Template filter search bar', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .typeText(templateSearchbar, 'rubix', { paste: true })
+    .typeText(templateSearchbar, 'rubix', {paste: true})
 
   // Assertions
   await t
