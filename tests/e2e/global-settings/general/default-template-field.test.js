@@ -1,31 +1,26 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption, button } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab - Default Template Field Test`
 
-// Get Global selectors
-const selectBox = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_default_template__chosen"]')
-const templatePopupBox = Selector('div').find('[class^="container theme-wrap"]')
-const installedTemplatesSearchbar = Selector('#wp-filter-search-input')
-
 test("should display 'Default Template Field'", async t => {
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t
     .expect(fieldLabel('Default Template').exists).ok()
-    .expect(selectBox.exists).ok()
+    .expect(run.templateSelectBox.exists).ok()
     .expect(fieldDescription('Choose an existing template or purchased more from our template shop. You can also build your own or hire us to create a custom solution.', 'label').exists).ok()
     .expect(button('Advanced').exists).ok()
 })
 
 test('should display the Core Templates dropdown option', async t => {
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t
@@ -39,6 +34,7 @@ test('should display the Core Templates dropdown option', async t => {
 test('should display Popup Template Selector', async t => {
   // Get selectors
   const popupHeaderText = Selector('h1').withText('Installed PDFs')
+  const installedTemplatesSearchbar = Selector('#wp-filter-search-input')
   const individualThemeBox = Selector('.theme')
   const themeScreenshot = Selector('.theme-screenshot')
   const themeAuthor = Selector('.theme-author')
@@ -47,12 +43,12 @@ test('should display Popup Template Selector', async t => {
   const themeDetailsLink = Selector('span').withText('Template Details')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t.click(button('Advanced'))
 
   // Assertions
   await t
-    .expect(templatePopupBox.exists).ok()
+    .expect(run.templatePopupBox.exists).ok()
     .expect(popupHeaderText.exists).ok()
     .expect(button('Close dialog').exists).ok()
     .expect(installedTemplatesSearchbar.exists).ok()
@@ -71,7 +67,7 @@ test("should display 'Add New Template Dropzone'", async t => {
   const installationMessage = Selector('div')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t.click(button('Advanced'))
 
   // Assertions
@@ -83,13 +79,13 @@ test("should display 'Add New Template Dropzone'", async t => {
 
 test('should display Popup Template Selector that can be close', async t => {
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
     .click(button('Close dialog'))
 
   // Assertions
-  await t.expect(templatePopupBox.exists).notOk()
+  await t.expect(run.templatePopupBox.exists).notOk()
 })
 
 test('should display Template filter search bar', async t => {
@@ -98,7 +94,7 @@ test('should display Template filter search bar', async t => {
   const searchResult = Selector('.theme-author')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
     .typeText(templateSearchbar, 'rubix', { paste: true })

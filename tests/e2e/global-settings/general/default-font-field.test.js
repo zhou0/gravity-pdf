@@ -1,23 +1,20 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab - Default Font Field Test`
 
-// Get Global selectors
-const selectBox = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_default_font__chosen"]')
-
 test('should display Default Font Field', async t => {
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t
     .expect(fieldLabel('Default Font').exists).ok()
     .expect(fieldDescription('Set the default font type used in PDFs. Choose an existing font or install your own.', 'label').exists).ok()
-    .expect(selectBox.exists).ok()
+    .expect(run.fontSelectBox.exists).ok()
 })
 
 test('should search and display existing result', async t => {
@@ -26,9 +23,9 @@ test('should search and display existing result', async t => {
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
-    .click(selectBox)
+    .click(run.fontSelectBox)
     .typeText(searchBox, 'Free Sans', { paste: true })
 
   // Assertions
@@ -40,8 +37,8 @@ test('should display a dropdown of Default Fonts', async t => {
   const dropDownList = Selector('.chosen-results')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
-  await t.click(selectBox)
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t.click(run.fontSelectBox)
 
   // Assertions
   await t

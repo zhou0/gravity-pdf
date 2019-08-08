@@ -1,24 +1,18 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture`General Tab - Advanced Options Field Test`
 
-// Get Global selectors
-const advancedOptionsField = Selector('#gfpdf-advanced-options')
-
 test('should display Show Advanced Options field link', async t => {
-  // Get selectors
-  const showAdvancedOptionsField = advancedOptionsField.filterVisible()
-
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t.click(fieldLabel('Show Advanced Options...', 'a'))
 
   // Assertions
-  await t.expect(showAdvancedOptionsField.count).eql(1)
+  await t.expect(run.advancedOptionsField.filterVisible().count).eql(1)
 })
 
 test('should display Show Advanced Options field', async t => {
@@ -30,7 +24,7 @@ test('should display Show Advanced Options field', async t => {
   const inputBox = Selector('#gfpdf_settings\\[logged_out_timeout\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t.click(fieldLabel('Show Advanced Options...', 'a'))
 
   // Assertions
@@ -56,11 +50,8 @@ test('should display Show Advanced Options field', async t => {
 })
 
 test('should hide Show Advanced Options field', async t => {
-  // Get selectors
-  const hideAdvancedOptionsField = advancedOptionsField.filterHidden()
-
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(fieldLabel('Show Advanced Options...', 'a'))
     .click(fieldLabel('Hide Advanced Options...', 'a'))
@@ -69,5 +60,5 @@ test('should hide Show Advanced Options field', async t => {
   await t
     .expect(fieldLabel('Hide Advanced Options...', 'a').exists).ok()
     .wait(1000)
-    .expect(hideAdvancedOptionsField.count).eql(1)
+    .expect(run.advancedOptionsField.filterHidden().count).eql(1)
 })

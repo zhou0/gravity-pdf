@@ -1,8 +1,8 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab - Reverse Text (RTL) Field Test`
 
@@ -12,7 +12,7 @@ test('should display Reverse Text (RTL) field', async t => {
   const no = Selector('div').find('[class^="gfpdf_settings_default_rtl"][value="No"]')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t

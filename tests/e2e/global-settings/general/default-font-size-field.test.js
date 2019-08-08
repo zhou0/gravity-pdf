@@ -1,8 +1,8 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab - Default Font Size Field Test`
 
@@ -11,7 +11,7 @@ test('should display Default Font Size field', async t => {
   const fontSizeInputBox = Selector('#gfpdf_settings\\[default_font_size\\]')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t

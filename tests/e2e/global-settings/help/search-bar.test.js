@@ -1,19 +1,16 @@
 import { Selector } from 'testcafe'
-import Form from '../../page-objects/global-settings/form'
+import Help from '../../page-objects/global-settings/help/help'
 
-const form = new Form()
+const run = new Help()
 
 fixture `Help Tab - Help Search Bar Test`
-
-// Get Global selectors
-const searchBar = Selector('#search-help-input')
 
 test('should check if the help search bar exist', async t => {
   // Get selectors
   const helpSearchBar = Selector('#search-help-input')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
 
   // Assertions
   await t.expect(helpSearchBar.exists).ok()
@@ -24,9 +21,9 @@ test('should search and display existing results', async t => {
   const resultExist = Selector('.resultExist')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
   await t
-    .typeText(searchBar, 'help', { paste: true })
+    .typeText(run.searchBar, 'help', { paste: true })
     .wait(4000)
 
   // Assertions
@@ -39,8 +36,8 @@ test('should search and display a message for no found results', async t => {
   const messageText = Selector('.noResult')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
-  await t.typeText(searchBar, 'bbbb', { paste: true })
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=help')
+  await t.typeText(run.searchBar, 'bbbb', { paste: true })
 
   // Assertions
   await t

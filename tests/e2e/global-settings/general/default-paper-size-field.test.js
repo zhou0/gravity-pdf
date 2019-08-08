@@ -1,22 +1,19 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab -  Default Paper Size Field Test`
 
-// Get Global selectors
-const selectBox = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_default_pdf_size__chosen"]')
-
 test("should display 'Default Paper Size' field", async t => {
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t
     .expect(fieldLabel('Default Paper Size').exists).ok()
-    .expect(selectBox.exists).ok()
+    .expect(run.paperSizeSelectBox.exists).ok()
     .expect(fieldDescription('Set the default paper size used when generating PDFs.', 'label').exists).ok()
 })
 
@@ -26,9 +23,9 @@ test('should search and display existing result', async t => {
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
-    .click(selectBox)
+    .click(run.paperSizeSelectBox)
     .typeText(searchBox, 'letter', { paste: true })
 
   // Assertions
@@ -40,7 +37,7 @@ test('should display a dropdown of paper sizes option', async t => {
   const dropDownList = Selector('.chosen-results')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t

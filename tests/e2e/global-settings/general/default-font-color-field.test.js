@@ -1,8 +1,8 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, button } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab - Default Font Color Field Test`
 
@@ -12,7 +12,7 @@ test('should display Default Font Color field', async t => {
   const showPopupPickerBox = Selector('.wp-picker-active')
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t.click(button('Select Color'))
 
   // Assertions

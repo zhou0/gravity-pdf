@@ -1,5 +1,8 @@
 import { Selector, RequestMock } from 'testcafe'
-import { admin, baseURL } from '../../../auth'
+import { baseURL } from '../../../auth'
+import InsallCoreFonts from '../../../page-objects/global-settings/tools/install-core-fonts/install-core-fonts'
+
+const run = new InsallCoreFonts()
 
 const mock = RequestMock()
   .onRequestTo(`${baseURL}/wp-admin/admin-ajax.php`)
@@ -10,18 +13,15 @@ fixture `Tools Tab - Download Core Fonts Test`
 
 test('should return download core fonts successfully', async t => {
   // Get selectors
-  const downloadButton = Selector('button').withText('Download Core Fonts')
-  const pendingResult = Selector('.gfpdf-core-font-status-pending')
   const downloadSuccess = Selector('.gfpdf-core-font-status-success')
   const allSuccessfullyIntalled = Selector('.gfpdf-core-font-status-success').withText('ALL CORE FONTS SUCCESSFULLY INSTALLED')
 
   // Actions
-  await t.useRole(admin)
-  await t.navigateTo(`${baseURL}/wp-admin/admin.php?page=gf_settings&subview=PDF&tab=tools#/`)
-  await t.click(downloadButton)
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#')
 
   // Assertions
-  await t.expect(pendingResult.exists).ok()
-  await t.expect(downloadSuccess.exists).ok()
-  await t.expect(allSuccessfullyIntalled.exists).ok()
+  await t
+    .expect(run.pendingResult.exists).ok()
+    .expect(downloadSuccess.exists).ok()
+    .expect(allSuccessfullyIntalled.exists).ok()
 })

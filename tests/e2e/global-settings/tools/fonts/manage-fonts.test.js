@@ -1,8 +1,8 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, button } from '../../../page-objects/helpers/field'
-import ManageFonts from '../../../page-objects/global-settings/tools/fonts/manage-fonts'
+import Fonts from '../../../page-objects/global-settings/tools/fonts/fonts'
 
-const font = new ManageFonts()
+const font = new Fonts()
 
 fixture `Tools Tab - Manage Fonts Test`
 
@@ -153,15 +153,12 @@ test("should open 'Add Font Dialog Box Settings' with a confirmation Popup to de
 })
 
 test("should open 'Add Font Dialog Box Settings' that can be close", async t => {
-  // Get selectors
-  const cancelButton = Selector('.ui-dialog-buttonset').nth(2).find('button').withText('Cancel')
-
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
     .click(font.deleteIcon)
-    .click(cancelButton)
+    .click(button('Cancel').nth(2))
 
   // Assertions
   await t.expect(font.confirmDeletePopupBox.exists).notOk()

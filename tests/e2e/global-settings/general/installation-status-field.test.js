@@ -1,8 +1,8 @@
 import { Selector } from 'testcafe'
 import { fieldLabel } from '../../page-objects/helpers/field'
-import Form from '../../page-objects/global-settings/form'
+import General from '../../page-objects/global-settings/general/general'
 
-const form = new Form()
+const run = new General()
 
 fixture `General Tab - Installation Status Field Test`
 
@@ -16,7 +16,7 @@ test('should display Installation Status Field', async t => {
   const installationFifthLabelResult = Selector('#pdf-system-status').find('td').nth(4)
 
   // Actions
-  await form.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
 
   // Assertions
   await t

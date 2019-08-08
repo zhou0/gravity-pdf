@@ -1,8 +1,9 @@
 import { Selector, t } from 'testcafe'
-import { admin, baseURL } from '../../auth'
+import { admin, baseURL } from '../../../auth'
 
-class Form {
+class Help {
   constructor () {
+    this.searchBar = Selector('#search-help-input')
   }
 
   async navigateSettingsTab (text) {
@@ -12,4 +13,4 @@ class Form {
   }
 }
 
-export default Form
+export default Help

@@ -2,7 +2,7 @@ import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../../../auth'
 import { button } from '../../../helpers/field'
 
-class ManageFonts {
+class Fonts {
   constructor () {
     this.manageFontsPopupBox = Selector('div').withAttribute('aria-describedby', 'manage-font-files')
     this.addFontIcon = Selector('.fa-plus')
@@ -19,4 +19,4 @@ class ManageFonts {
   }
 }
 
-export default ManageFonts
+export default Fonts
