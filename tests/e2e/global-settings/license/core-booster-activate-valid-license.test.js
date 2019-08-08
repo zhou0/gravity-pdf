@@ -13,7 +13,7 @@ test('should display success icon and deactivation option for active license key
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=license')
   await t
-    .typeText(run.licenseInputField, run.validLicenseKey, {paste: true})
+    .typeText(run.licenseInputField, run.validLicenseKey, { paste: true })
     .click(run.saveButton)
 
   // Assertions

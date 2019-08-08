@@ -13,8 +13,8 @@ test('should successfully add new PDF template into form entries', async t => {
     .hover(form.settingsMenu)
     .click(form.pdfLink)
     .click(form.addNewPdf)
-    .typeText(run.name, 'Test PDF Template', {paste: true})
-    .typeText(run.fileName, 'testpdftemplate', {paste: true})
+    .typeText(run.name, 'Test PDF Template', { paste: true })
+    .typeText(run.fileName, 'testpdftemplate', { paste: true })
     .click(run.addPdfButton)
     .click(run.backToTemplateListLink)
 
@@ -72,8 +72,8 @@ test('should successfully edit and update existing template using the Edit link 
     .click(form.pdfLink)
     .hover(run.templateList)
     .click(run.editLink)
-    .typeText(run.name, 'Test PDF Template Updated', {replace: true})
-    .typeText(run.fileName, 'testpdftemplateupdated', {replace: true})
+    .typeText(run.name, 'Test PDF Template Updated', { replace: true })
+    .typeText(run.fileName, 'testpdftemplateupdated', { replace: true })
     .click(run.updatePdfButton)
     .click(run.backToTemplateListLink)
 

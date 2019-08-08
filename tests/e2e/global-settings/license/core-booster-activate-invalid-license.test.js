@@ -13,7 +13,7 @@ test('should display error icon and error message for invalid license key', asyn
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=license')
   await t
-    .typeText(run.licenseInputField, run.invalidLicenseKey, {paste: true})
+    .typeText(run.licenseInputField, run.invalidLicenseKey, { paste: true })
     .click(run.saveButton)
 
   // Assertions

@@ -13,7 +13,7 @@ test('should deactivate license and display deactivated message', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=license')
   await t
-    .typeText(run.licenseInputField, run.validLicenseKey, {paste: true})
+    .typeText(run.licenseInputField, run.validLicenseKey, { paste: true })
     .click(run.saveButton)
     .wait(3000)
     .click(deactivateLink)

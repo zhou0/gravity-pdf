@@ -67,7 +67,7 @@ test('should search and display existing paper size result', async t => {
   await t
     .click(run.appearanceLink)
     .click(run.selectBoxPaperSize)
-    .typeText(searchBox, 'letter', {paste: true})
+    .typeText(searchBox, 'letter', { paste: true })
 
   // Assertions
   await t.expect(result.count).eql(1)
@@ -146,7 +146,7 @@ test('should search and display existing font result', async t => {
   await t
     .click(run.appearanceLink)
     .click(run.selectBoxFont)
-    .typeText(searchBox, 'Free Sans', {paste: true})
+    .typeText(searchBox, 'Free Sans', { paste: true })
 
   // Assertions
   await t

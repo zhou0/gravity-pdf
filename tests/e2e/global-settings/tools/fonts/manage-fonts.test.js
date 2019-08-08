@@ -95,7 +95,7 @@ test('should display \'Add Font Dialog Box Settings\' Font Name field RED box er
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
-    .typeText(fontInputField, 's$$$', {paste: true})
+    .typeText(fontInputField, 's$$$', { paste: true })
 
   // Assertions
   await t.expect(redInputBox.exists).ok()
@@ -110,7 +110,7 @@ test('should display \'Add Font Dialog Box Settings\' error message when font fi
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
-    .typeText(regularFontField, 'https://gravitypdf.com/Gotham-Black-Regular.otf', {paste: true})
+    .typeText(regularFontField, 'https://gravitypdf.com/Gotham-Black-Regular.otf', { paste: true })
     .click(button('Save Font'))
 
   // Assertions

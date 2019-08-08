@@ -103,7 +103,7 @@ test('should display Template filter search bar', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .typeText(templateSearchbar, 'rubix', {paste: true})
+    .typeText(templateSearchbar, 'rubix', { paste: true })
 
   // Assertions
   await t

@@ -6,7 +6,7 @@ const run = new InsallCoreFonts()
 
 const mock = RequestMock()
   .onRequestTo(`${baseURL}/wp-admin/admin-ajax.php`)
-  .respond({}, 500, {'access-Control-Allow-Origin': '*'})
+  .respond({}, 500, { 'access-Control-Allow-Origin': '*' })
 
 fixture`Tools Tab - Download Core Fonts Test`
   .requestHooks(mock)

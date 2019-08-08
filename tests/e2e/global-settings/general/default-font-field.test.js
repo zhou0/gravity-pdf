@@ -26,7 +26,7 @@ test('should search and display existing result', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(run.fontSelectBox)
-    .typeText(searchBox, 'Free Sans', {paste: true})
+    .typeText(searchBox, 'Free Sans', { paste: true })
 
   // Assertions
   await t.expect(result.count).eql(1)
