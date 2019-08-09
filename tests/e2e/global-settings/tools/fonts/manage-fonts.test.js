@@ -153,12 +153,15 @@ test('should open \'Add Font Dialog Box Settings\' with a confirmation Popup to 
 })
 
 test('should open \'Add Font Dialog Box Settings\' that can be close', async t => {
+  // Get selectors
+  const cancelButton = Selector('[class^="ui-button ui-widget ui-state-default ui-corner-all"]').nth(9).find('span').withText('Cancel')
+
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
     .click(font.deleteIcon)
-    .click(button('Cancel').nth(2))
+    .click(cancelButton)
 
   // Assertions
   await t.expect(font.confirmDeletePopupBox.exists).notOk()
