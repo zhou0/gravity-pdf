@@ -68,9 +68,10 @@
     "webpack-merge": "^4.2.1"
   },
   "scripts": {
-    "test:e2e": "cross-env NODE_ENV=test testcafe chrome tests/e2e -L",
-    "test:e2e:headless": "cross-env NODE_ENV=test testcafe chrome:headless tests/e2e -L",
+    "test:e2e": "cross-env NODE_ENV=test testcafe chrome tests/e2e",
+    "test:e2e:headless": "cross-env NODE_ENV=test testcafe chrome:headless tests/e2e",
     "test:e2e:file": "cross-env NODE_ENV=test testcafe chrome",
+    "test:e2e:watch": "cross-env NODE_ENV=test testcafe chrome tests/e2e -L",
     "test": "cross-env NODE_ENV=test karma start",
     "test:coverage": "cross-env NODE_ENV=test cross-env ENABLE_CODE_COVERAGE=1 karma start",
     "test:watch": "cross-env NODE_ENV=test karma start --auto-watch --no-single-run --log-level error",
