@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, button } from '../page-model/helpers/field'
+import { fieldLabel, fieldDescription, radioItem, button } from '../page-model/helpers/field'
 import FormSettings from '../page-model/form-settings/form-settings'
 
 const run = new FormSettings()
@@ -25,10 +25,6 @@ test('should display Field Border Color field', async t => {
 })
 
 test('should display Show Form Title field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[show_form_title\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[show_form_title\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.templateLink)
@@ -36,16 +32,12 @@ test('should display Show Form Title field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Show Form Title').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'show_form_title', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'show_form_title', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Display the form title at the beginning of the PDF.').exists).ok()
 })
 
 test('should display Show Page Names field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[show_page_names\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[show_page_names\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.templateLink)
@@ -53,16 +45,12 @@ test('should display Show Page Names field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Show Page Names').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'show_page_names', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'show_page_names', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Display form page names on the PDF. Requires the use of the Page Break field.').exists).ok()
 })
 
 test('should display Show HTML Fields field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[show_html\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[show_html\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.templateLink)
@@ -70,16 +58,12 @@ test('should display Show HTML Fields field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Show HTML Fields').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'show_html', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'show_html', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Display HTML fields in the PDF.').exists).ok()
 })
 
 test('should display Show Section Break Description field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[show_section_content\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[show_section_content\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.templateLink)
@@ -87,16 +71,12 @@ test('should display Show Section Break Description field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Show Section Break Description').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'show_section_content', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'show_section_content', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Display the Section Break field description in the PDF.').exists).ok()
 })
 
 test('should display Enable Conditional Logic field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[enable_conditional\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[enable_conditional\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.templateLink)
@@ -104,16 +84,12 @@ test('should display Enable Conditional Logic field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Enable Conditional Logic').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'enable_conditional', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'enable_conditional', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('When enabled the PDF will adhere to the form field conditional logic.').exists).ok()
 })
 
 test('should display Show Empty Fields field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[show_empty\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[show_empty\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.templateLink)
@@ -121,8 +97,8 @@ test('should display Show Empty Fields field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Show Empty Fields').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'show_empty', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'show_empty', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Display Empty fields in the PDF.').exists).ok()
 })
 

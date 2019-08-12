@@ -5,8 +5,9 @@ import {
   dropdownBox,
   dropdownOption,
   dropdownOptionGroup,
-  infoText,
   listItem,
+  infoText,
+  radioItem,
   button
 } from '../page-model/helpers/field'
 import FormSettings from '../page-model/form-settings/form-settings'
@@ -207,10 +208,6 @@ test('should display Font Color field', async t => {
 })
 
 test('should display Reverse Text (RTL) field', async t => {
-  // Get selectors
-  const rtlYes = Selector('#gfpdf_settings\\[rtl\\]\\[Yes\\]')
-  const rtlNo = Selector('#gfpdf_settings\\[rtl\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.appearanceLink)
@@ -219,6 +216,6 @@ test('should display Reverse Text (RTL) field', async t => {
   await t
     .expect(fieldLabel('Reverse Text (RTL)').exists).ok()
     .expect(fieldDescription('Script like Arabic and Hebrew are written right to left.').exists).ok()
-    .expect(rtlYes.exists).ok()
-    .expect(rtlNo.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'rtl', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'rtl', 'No').filterVisible().count).eql(1)
 })
