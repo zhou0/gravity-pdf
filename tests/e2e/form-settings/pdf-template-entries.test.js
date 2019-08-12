@@ -64,6 +64,23 @@ test('should double check if the option View PDF link is enabled when template i
   await t.expect(run.viewPdfLink.exists).ok()
 })
 
+test('should double check if the option View PDF link isn\'t shown when the PDF is Active but the PDF Conditional Logic fails.', async t => {
+  // Actions
+  await run.navigatePdfEntries('gf_edit_forms')
+  await t
+    .hover(form.settingsMenu)
+    .click(form.pdfLink)
+    .hover(run.templateList)
+    .click(run.editLink)
+    .click(run.enableConditionalLogic)
+    .click(run.updatePdfButton)
+  await run.navigatePdfEntries('gf_edit_forms')
+  await t.hover(run.entryItem)
+
+  // Assertions
+  await t.expect(run.viewPdfLink.exists).notOk()
+})
+
 test('should successfully edit and update existing template using the Edit link option', async t => {
   // Actions
   await run.navigatePdfEntries('gf_edit_forms')

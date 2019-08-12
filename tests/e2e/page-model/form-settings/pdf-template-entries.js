@@ -18,6 +18,7 @@ class PdfTemplateEntries {
     this.activeTemplate = Selector('div').find('[alt^="Active"][title="Active"]')
     this.entryItem = Selector('td').withAttribute('data-colname', 'Text')
     this.viewPdfLink = Selector('a').withText('View PDF')
+    this.enableConditionalLogic = Selector('#gfpdf_conditional_logic')
     this.editLink = Selector('span').withText('Edit')
     this.updatePdfButton = Selector('div').find('[class^="button-primary"][value="Update PDF"]')
     this.options = Selector('div').find('[class^="name column-name has-row-actions column-primary"]')
