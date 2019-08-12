@@ -11,8 +11,6 @@ class FormSettings {
     this.list = Selector('.gf-locking ').withText('Sample 1')
     this.advancedLink = Selector('#gfpdf-advanced-nav')
     this.appearanceLink = Selector('#gfpdf-appearance-nav')
-    this.selectBoxPaperSize = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_pdf_size__chosen"]')
-    this.selectBoxFont = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_font__chosen"]')
     this.conditionalCheckbox = Selector('div').find('[class^="gfpdf_settings_conditional conditional_logic_listener"]')
     this.templateLink = Selector('#gfpdf-custom-appearance-nav')
   }

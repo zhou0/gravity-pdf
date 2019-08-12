@@ -2,9 +2,12 @@ import { Selector } from 'testcafe'
 import {
   fieldLabel,
   fieldDescription,
+  dropdownBox,
   dropdownOption,
   dropdownOptionGroup,
-  listItem
+  infoText,
+  listItem,
+  button
 } from '../page-model/helpers/field'
 import FormSettings from '../page-model/form-settings/form-settings'
 
@@ -20,22 +23,19 @@ test('should display Paper Size field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Paper Size').exists).ok()
-    .expect(run.selectBoxPaperSize.exists).ok()
     .expect(fieldDescription('Set the paper size used when generating PDFs.').exists).ok()
 })
 
-test('should display a dropdown of paper sizes option', async t => {
-  // Get selectors
-  const dropDownList = Selector('.chosen-results')
-
+test('should display a dropdown of Paper Sizes option', async t => {
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.appearanceLink)
+  await t
+    .click(run.appearanceLink)
 
   // Assertions
-  await t.expect(dropDownList.exists).ok()
-
   await t
+    .expect(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_pdf_size__chosen').filterVisible().count).eql(1)
+
     .expect(dropdownOptionGroup('Common Sizes').exists).ok()
     .expect(dropdownOption('A4 (210 x 297mm)').exists).ok()
     .expect(dropdownOption('Letter (8.5 x 11in)').exists).ok()
@@ -57,7 +57,7 @@ test('should display a dropdown of paper sizes option', async t => {
     .expect(dropdownOption('RA1 (610 x 860mm)').exists).ok()
 })
 
-test('should search and display existing paper size result', async t => {
+test('should search and display existing Paper Size result', async t => {
   // Get selectors
   const searchBox = Selector('#gfpdf_settings_pdf_size__chosen').find('.chosen-search-input')
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
@@ -66,43 +66,60 @@ test('should search and display existing paper size result', async t => {
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.appearanceLink)
-    .click(run.selectBoxPaperSize)
+    .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_pdf_size__chosen'))
     .typeText(searchBox, 'letter', { paste: true })
 
   // Assertions
   await t.expect(result.count).eql(1)
 })
 
-test('should display Orientation field', async t => {
+test('should display Custom Paper Size field when selected from Paper Size option', async t => {
   // Get selectors
-  const orientationDropdownField = Selector('#gfpdf_settings_orientation__chosen')
+  const widthInputField = Selector('#gfpdf_settings\\[custom_pdf_size\\]_width')
+  const heightInputField = Selector('#gfpdf_settings\\[custom_pdf_size\\]_height')
 
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.appearanceLink)
-    .click(orientationDropdownField)
+    .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_pdf_size__chosen'))
+    .click(listItem('Custom Paper Size'))
+    .click(dropdownBox('chosen-container chosen-container-single chosen-container-single-nosearch', 'gfpdf_settings_custom_pdf_size__measurement_chosen'))
+
+  // Assertions
+  await t
+    .expect(fieldLabel('Custom Paper Size').exists).ok()
+    .expect(widthInputField.exists).ok()
+    .expect(heightInputField.exists).ok()
+    .expect(infoText('Width  Height').exists).ok()
+    .expect(dropdownBox('chosen-container chosen-container-single chosen-container-single-nosearch', 'gfpdf_settings_custom_pdf_size__measurement_chosen').filterVisible().count).eql(1)
+    .expect(dropdownOption('mm').exists).ok()
+    .expect(dropdownOption('inches').exists).ok()
+    .expect(fieldDescription('Control the exact paper size. Can be set in millimeters or inches.').exists).ok()
+})
+
+test('should display Orientation field', async t => {
+  // Actions
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.appearanceLink)
+    .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_orientation__chosen'))
 
   // Assertions
   await t
     .expect(fieldLabel('Orientation').exists).ok()
-    .expect(orientationDropdownField.exists).ok()
+    .expect(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_orientation__chosen').filterVisible().count).eql(1)
     .expect(listItem('Portrait').exists).ok()
     .expect(listItem('Landscape').exists).ok()
 })
 
 test('should display Font field', async t => {
-  // Get selectors
-  const fontDropdownField = Selector('#gfpdf_settings_font__chosen')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.appearanceLink)
 
   // Assertions
   await t
     .expect(fieldLabel('Font').exists).ok()
-    .expect(fontDropdownField.exists).ok()
     .expect(fieldDescription('Set the font type used in PDFs. Choose an existing font or install your own.').exists).ok()
 })
 
@@ -111,10 +128,11 @@ test('should display a dropdown of Fonts', async t => {
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.appearanceLink)
-    .click(run.selectBoxFont)
 
   // Assertions
   await t
+    .expect(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_font__chosen').filterVisible().count).eql(1)
+
     .expect(dropdownOptionGroup('Unicode').exists).ok()
     .expect(dropdownOption('Dejavu Sans Condensed').exists).ok()
     .expect(dropdownOption('Dejavu Sans').exists).ok()
@@ -145,7 +163,7 @@ test('should search and display existing font result', async t => {
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.appearanceLink)
-    .click(run.selectBoxFont)
+    .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_font__chosen'))
     .typeText(searchBox, 'Free Sans', { paste: true })
 
   // Assertions
@@ -170,7 +188,6 @@ test('should display Font Size field', async t => {
 
 test('should display Font Color field', async t => {
   // Get selectors
-  const selectColorButton = Selector('div').find('[class^="button wp-color-result"]')
   const popupPickerBox = Selector('.wp-picker-container')
   const showPopupPickerBox = Selector('.wp-picker-active')
 
@@ -178,12 +195,12 @@ test('should display Font Color field', async t => {
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.appearanceLink)
-    .click(selectColorButton)
+    .click(button('Select Color'))
 
   // Assertions
   await t
     .expect(fieldLabel('Font Color').exists).ok()
-    .expect(selectColorButton.exists).ok()
+    .expect(button('Select Color').exists).ok()
     .expect(fieldDescription('Set the font color to use in the PDF.').exists).ok()
     .expect(popupPickerBox.exists).ok()
     .expect(showPopupPickerBox.exists).ok()
