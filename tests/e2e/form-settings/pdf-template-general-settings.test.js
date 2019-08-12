@@ -101,3 +101,22 @@ test('should toggle additional Conditional Logic field', async t => {
   // Assertions
   await t.expect(conditionalLogicField.exists).ok()
 })
+
+test('should verify that an error is thrown if Name or Filename is empty when trying to add a PDF', async t => {
+  // Get selectors
+  const addPdfButton = Selector('div').find('[class^="button-primary"][value="Add PDF"]')
+  const nameError = Selector('div').find('[class^=" gfield_error"]').withText('Name *')
+  const fileNameError = Selector('div').find('[class^=" gfield_error"]').withText('Filename *')
+  const errorMessage = Selector('div').find('[class^="error  notice"]').withText('PDF could not be saved. Please enter all required information below.')
+
+  // Actions
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(addPdfButton)
+
+  // Assertions
+  await t
+    .expect(nameError.exists).ok()
+    .expect(fileNameError.exists).ok()
+    .expect(errorMessage.exists).ok()
+})
