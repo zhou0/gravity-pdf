@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription } from '../page-model/helpers/field'
+import { fieldLabel, fieldDescription, radioItem } from '../page-model/helpers/field'
 import FormSettings from '../page-model/form-settings/form-settings'
 
 const run = new FormSettings()
@@ -7,11 +7,6 @@ const run = new FormSettings()
 fixture`PDF Template - Advanced Settings Test`
 
 test('should display Format field', async t => {
-  // Get selectors
-  const firstOption = Selector('#gfpdf_settings\\[format\\]\\[Standard\\]')
-  const secondOption = Selector('#gfpdf_settings\\[format\\]\\[PDFA1B\\]')
-  const thirdOption = Selector('#gfpdf_settings\\[format\\]\\[PDFX1A\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.advancedLink)
@@ -19,17 +14,29 @@ test('should display Format field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Format').exists).ok()
-    .expect(firstOption.exists).ok()
-    .expect(secondOption.exists).ok()
-    .expect(thirdOption.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'format', 'Standard').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'format', 'PDFA1B').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'format', 'PDFX1A').filterVisible().count).eql(1)
     .expect(fieldDescription('Generate a PDF in the selected format.').exists).ok()
+})
+
+test('should hide Enable PDF Security field when the Format is not "Standard"', async t => {
+  // Actions
+  await run.navigateSettingsTab('gf_edit_forms')
+  await t
+    .click(run.advancedLink)
+    .click(radioItem('gfpdf_settings', 'format', 'PDFA1B'))
+
+  // Assertions
+  await t
+    .expect(fieldLabel('Enable PDF Security').filterHidden().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'security', 'Yes').filterHidden().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'security', 'No').filterHidden().count).eql(1)
+    .expect(fieldDescription('Password protect generated PDFs, or restrict user capabilities.').filterHidden().count).eql(1)
 })
 
 test('should display Enable PDF Security field', async t => {
   // Get selectors
-  const yes = Selector('#gfpdf_settings\\[security\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[security\\]\\[No\\]')
-
   const passwordInputField = Selector('#gfpdf_settings\\[password\\]')
   const mergeTagDropdown = Selector('.open-list.tooltip-merge-tag[title^="<h6>Merge Tags</h6>Merge tags allow you to dynamic"]')
 
@@ -40,14 +47,14 @@ test('should display Enable PDF Security field', async t => {
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.advancedLink)
-    .click(yes)
+    .click(radioItem('gfpdf_settings', 'security', 'Yes'))
     .click(privilegesBox)
 
   // Assertions
   await t
     .expect(fieldLabel('Enable PDF Security').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'security', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'security', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Password protect generated PDFs, or restrict user capabilities.').exists).ok()
 
     .expect(fieldLabel('Password').exists).ok()
@@ -76,10 +83,6 @@ test('should display Image DPI field', async t => {
 })
 
 test('should display Always Save PDF field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[save\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[save\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.advancedLink)
@@ -87,43 +90,32 @@ test('should display Always Save PDF field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Always Save PDF').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'save', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'save', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Force a PDF to be saved to disk when a new entry is created.').exists).ok()
 })
 
 test('should display Enable Public Access field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[public_access\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[public_access\\]\\[No\\]')
-
-  const yesOption = Selector('#gfpdf_settings\\[restrict_owner\\]\\[Yes\\]').filterHidden()
-  const noOption = Selector('#gfpdf_settings\\[restrict_owner\\]\\[No\\]').filterHidden()
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t
     .click(run.advancedLink)
-    .click(yes)
+    .click(radioItem('gfpdf_settings', 'public_access', 'Yes'))
 
   // Assertions
   await t
     .expect(fieldLabel('Enable Public Access').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'public_access', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'public_access', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('Disable all security protocols and allow anyone to access the PDFs.').exists).ok()
 
     .expect(fieldLabel('Restrict Owner').filterHidden().count).eql(1)
-    .expect(yesOption.count).eql(1)
-    .expect(noOption.count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'restrict_owner', 'Yes').filterHidden().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'restrict_owner', 'No').filterHidden().count).eql(1)
     .expect(fieldDescription('When enabled, the original entry owner will NOT be able to view the PDFs.').filterHidden().count).eql(1)
 })
 
 test('should display Restrict Owner field', async t => {
-  // Get selectors
-  const yes = Selector('#gfpdf_settings\\[restrict_owner\\]\\[Yes\\]')
-  const no = Selector('#gfpdf_settings\\[restrict_owner\\]\\[No\\]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
   await t.click(run.advancedLink)
@@ -131,7 +123,7 @@ test('should display Restrict Owner field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Restrict Owner').exists).ok()
-    .expect(yes.exists).ok()
-    .expect(no.exists).ok()
+    .expect(radioItem('gfpdf_settings', 'restrict_owner', 'Yes').filterVisible().count).eql(1)
+    .expect(radioItem('gfpdf_settings', 'restrict_owner', 'No').filterVisible().count).eql(1)
     .expect(fieldDescription('When enabled, the original entry owner will NOT be able to view the PDFs.').exists).ok()
 })
