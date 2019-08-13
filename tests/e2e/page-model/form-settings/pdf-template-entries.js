@@ -34,6 +34,26 @@ class PdfTemplateEntries {
       .hover(run.list)
       .click(run.entries)
   }
+
+  async navigateDeletePdfEntries (text) {
+    await t
+      .useRole(admin)
+      .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
+      .hover(run.list)
+      .click(run.entries)
+      .hover(run.settingsMenu)
+      .click(run.pdfLink)
+    let tempalte = await this.template.count
+    if (tempalte > 0) {
+      for (let i = 0; i < tempalte; i++) {
+        await t
+          .hover(this.template)
+          .click(this.deletePDF)
+          .click(this.confirmDelete)
+          .wait(2000)
+      }
+    }
+  }
 }
 
 export default PdfTemplateEntries

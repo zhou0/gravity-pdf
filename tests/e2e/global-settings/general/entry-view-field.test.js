@@ -35,7 +35,7 @@ test('should display "Download PDF" as an option on the Entry List page instead 
     .expect(downloadPdfLink.exists).ok()
 })
 
-test('reset/clean PDF template from the list for the next test', async t => {
+test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
   await run.navigateDeletePdfEntries('gf_edit_forms')
 
