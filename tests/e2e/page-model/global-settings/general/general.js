@@ -25,7 +25,7 @@ class General {
     this.templateList = Selector('#the-list')
     this.editLink = Selector('span').withText('Edit')
     this.appearanceLink = Selector('#gfpdf-appearance-nav')
-    this.activeZadaniDetailsLink = Selector('.active.theme[data-slug="zadani"]').find('span').withText('Template Details')
+    this.focusGravity = Selector('.theme[data-slug="focus-gravity"]').find('span').withText('Template Details')
     this.zadaniDetailsLink = Selector('.theme[data-slug="zadani"]').find('span').withText('Template Details')
     this.celluloseDetailsLink = Selector('.theme[data-slug="gpdf-cellulose"]').find('span').withText('Template Details')
     this.templateSelectButton = Selector('a').withText('Select')

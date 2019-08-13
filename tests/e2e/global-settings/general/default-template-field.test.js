@@ -87,44 +87,43 @@ test('should display \'Add New Template Dropzone\'', async t => {
 
 test('should display individual specific Template details', async t => {
   // Get Selectors
-  const imageScreenshot = Selector('.screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/zadani.png`)
+  const imageScreenshot = Selector('.screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/focus-gravity.png`)
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .click(run.activeZadaniDetailsLink)
+    .click(run.focusGravity)
 
   // Assertions
   await t
     .expect(imageScreenshot.exists).ok()
-    .expect(templateDetails('current-label', 'Current Template').exists).ok()
-    .expect(templateDetails('theme-name', 'Zadani').exists).ok()
+    .expect(templateDetails('theme-name', 'Focus Gravity').exists).ok()
     .expect(templateDetails('theme-version', 'Version: ').exists).ok()
     .expect(templateDetails('theme-author', 'Gravity PDF').exists).ok()
     .expect(templateDetails('theme-author', 'Group: Core').exists).ok()
-    .expect(templateDetails('theme-description', 'A minimalist business-style template that will generate a well-spaced document great for printing. Through the Template tab you can control the PDF header and footer, change the background color or image, and show or hide the form title, page names, HTML fields and the Section Break descriptions.').exists).ok()
-    .expect(templateDetails('theme-tags', 'Tags: Header, Footer, Background, Optional HTML Fields, Optional Page Fields, Field Border Color').exists).ok()
+    .expect(templateDetails('theme-description', 'Focus Gravity providing a classic layout which epitomises Gravity Forms Print Preview. It\'s the familiar layout you\'ve come to love. Through the Template tab you can control the PDF header and footer, change the background color or image, and show or hide the form title, page names, HTML fields and the Section Break descriptions.').exists).ok()
+    .expect(templateDetails('theme-tags', 'Tags: Header, Footer, Background, Optional HTML Fields, Optional Page Fields, Combined Row, Alternate Colors').exists).ok()
 })
 
 test('should navigate to next and previous Template', async t => {
   // Get Selectors
-  const blankSlateTemplate = Selector('div').find('[class^="theme-name"]').withText('Blank Slate')
-  const zadaniTemplate = Selector('div').find('[class^="theme-name"]').withText('Zadani')
+  const rubixTemplate = Selector('div').find('[class^="theme-name"]').withText('Rubix')
+  const focusGravityTemplate = Selector('div').find('[class^="theme-name"]').withText('Focus Gravity')
 
   // Actions & Assertions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .click(run.activeZadaniDetailsLink)
+    .click(run.focusGravity)
     .click(button('Show next template'))
-    .expect(blankSlateTemplate.exists).ok()
+    .expect(rubixTemplate.exists).ok()
     .click(button('Show previous template'))
-    .expect(zadaniTemplate.exists).ok()
+    .expect(focusGravityTemplate.exists).ok()
     .pressKey('right')
-    .expect(blankSlateTemplate.exists).ok()
+    .expect(rubixTemplate.exists).ok()
     .pressKey('left')
-    .expect(zadaniTemplate.exists).ok()
+    .expect(focusGravityTemplate.exists).ok()
 })
 
 test('should display Popup Template Selector that can be close', async t => {
