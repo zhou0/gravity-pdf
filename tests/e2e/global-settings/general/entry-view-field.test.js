@@ -18,21 +18,44 @@ test('should display Entry View field', async t => {
     .expect(fieldDescription('Select the default action used when accessing a PDF from the Gravity Forms entries list page.', 'label').exists).ok()
 })
 
-test('should display "Download PDF" as an option on the Entry List page instead of View PDF when "Download" is selected', async t => {
+test('should display "Download PDF" as an option on the Entry List page instead of "View PDF" when "Download" is selected', async t => {
   // Get Selectors
-  const saveButton = Selector('div').find('[class^="button button-primary"][value="Save Changes"]')
   const downloadPdfLink = Selector('a').withText('Download PDF')
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(run.downlaodOption)
-    .click(saveButton)
+    .click(run.saveButton)
   await run.navigateAddPdf('gf_edit_forms')
 
   // Assertions
   await t
     .expect(downloadPdfLink.exists).ok()
+})
+
+test('reset/clean PDF templates from the list for the next test', async t => {
+  // Actions
+  await run.navigateDeletePdfEntries('gf_edit_forms')
+
+  // Assertions
+  await t.expect(run.template.count).eql(0)
+})
+
+test('should display "View PDF" as an option on the Entry List page instead of "Download PDF" when "View" is selected', async t => {
+  // Get Selectors
+  const viewPdfLink = Selector('a').withText('View PDF')
+
+  // Actions
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t
+    .click(run.viewOption)
+    .click(run.saveButton)
+  await run.navigateAddPdf('gf_edit_forms')
+
+  // Assertions
+  await t
+    .expect(viewPdfLink.exists).ok()
 })
 
 test('reset/clean PDF templates from the list for the next test', async t => {

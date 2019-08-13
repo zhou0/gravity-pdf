@@ -26,6 +26,8 @@ class General {
     this.editLink = Selector('span').withText('Edit')
     this.appearanceLink = Selector('#gfpdf-appearance-nav')
     this.zadaniDetailsLink = Selector('.active.theme[data-slug="zadani"]').find('span').withText('Template Details')
+    this.templateFile = './files/gpdf-cellulose-1.4.0.zip'
+    this.saveButton = Selector('div').find('[class^="button button-primary"][value="Save Changes"]')
   }
 
   async navigateSettingsTab (text) {
