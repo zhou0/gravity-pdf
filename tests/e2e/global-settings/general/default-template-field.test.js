@@ -160,14 +160,13 @@ test('should display Template filter search bar', async t => {
 test('should successfully upload a new Template', async t => {
   // Get Selectors
   const addNewTemplate = Selector('input').withAttribute('type', 'file')
-  const templateFile = './files/gpdf-cellulose-1.4.0.zip'
   const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .setFilesToUpload(addNewTemplate, templateFile)
+    .setFilesToUpload(addNewTemplate, run.templateFile)
 
   // Assertions
   await t
