@@ -22,6 +22,9 @@ class General {
     this.template = Selector('.alternate')
     this.deletePDF = Selector('.submitdelete')
     this.confirmDelete = Selector('button').find('[class^="ui-button-text"]').withText('Delete')
+    this.templateList = Selector('#the-list')
+    this.editLink = Selector('span').withText('Edit')
+    this.appearanceLink = Selector('#gfpdf-appearance-nav')
   }
 
   async navigateSettingsTab (text) {
@@ -32,6 +35,7 @@ class General {
 
   async navigateAddPdf (text) {
     await t
+      .useRole(admin)
       .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
       .hover(this.formname)
       .click(this.entries)
@@ -46,12 +50,24 @@ class General {
       .click(this.entries)
   }
 
-  async navigatePdfEntries (text) {
+  async navigateDeletePdfEntries (text) {
     await t
       .useRole(admin)
       .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
       .hover(this.list)
       .click(this.entries)
+      .hover(this.settingsMenu)
+      .click(this.pdfLink)
+    let tempalte = await this.template.count
+    if (tempalte > 0) {
+      for (let i = 0; i < tempalte; i++) {
+        await t
+          .hover(this.template)
+          .click(this.deletePDF)
+          .click(this.confirmDelete)
+          .wait(2000)
+      }
+    }
   }
 }
 

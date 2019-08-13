@@ -35,22 +35,9 @@ test('should display "Download PDF" as an option on the Entry List page instead 
     .expect(downloadPdfLink.exists).ok()
 })
 
-test('should delete Gravity PDF templates from the list', async t => {
+test('reset/clean PDF template from the list for the next test', async t => {
   // Actions
-  await run.navigatePdfEntries('gf_edit_forms')
-  await t
-    .hover(run.settingsMenu)
-    .click(run.pdfLink)
-  let tempalte = await run.template.count
-  if (tempalte > 0) {
-    for (let i = 0; i < tempalte; i++) {
-      await t
-        .hover(run.template)
-        .click(run.deletePDF)
-        .click(run.confirmDelete)
-        .wait(2000)
-    }
-  }
+  await run.navigateDeletePdfEntries('gf_edit_forms')
 
   // Assertions
   await t.expect(run.template.count).eql(0)

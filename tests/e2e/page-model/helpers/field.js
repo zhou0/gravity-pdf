@@ -43,3 +43,8 @@ export function infoText (text, style = 'td') {
 export function button (text) {
   return Selector('button').withText(text)
 }
+
+// Default value
+export function defaultValue (text) {
+  return Selector('div').find('[class^="chosen-single"]').withText(text)
+}
