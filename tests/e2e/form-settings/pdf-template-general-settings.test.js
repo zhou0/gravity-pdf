@@ -7,7 +7,7 @@ const run = new FormSettings()
 fixture`PDF Template - General Settings Test`
 
 test('should display Name field', async t => {
-  // Get selectors
+  // Get Selectors
   const nameInputField = Selector('#gfpdf_settings\\[name\\]')
 
   // Actions
@@ -20,7 +20,7 @@ test('should display Name field', async t => {
 })
 
 test('should display Template field', async t => {
-  // Get selectors
+  // Get Selectors
   const selectBox = Selector('div').find('[class^="chosen-container chosen-container-single chosen-container-single-nosearch"][id="gfpdf_settings_template__chosen"]')
   const templatePopupBox = Selector('div').find('[class^="container theme-wrap"]')
 
@@ -38,7 +38,7 @@ test('should display Template field', async t => {
 })
 
 test('should display Notifications field', async t => {
-  // Get selectors
+  // Get Selectors
   const notificationSelectBox = Selector('div').find('[class^="chosen-container chosen-container-multi"][id="gfpdf_settings_notification__chosen"]')
 
   // Actions
@@ -52,7 +52,7 @@ test('should display Notifications field', async t => {
 })
 
 test('should display Filename field', async t => {
-  // Get selectors
+  // Get Selectors
   const fileNameInputField = Selector('#gfpdf_settings\\[filename\\]')
   const mergeTagBox = Selector('.open-list.tooltip-merge-tag[title^="<h6>Merge Tags</h6>Merge tags allow you to dynamic"]')
   const mergeTagOptionList = Selector('#gf_merge_tag_list').filterVisible()
@@ -73,7 +73,7 @@ test('should display Filename field', async t => {
 })
 
 test('should display Conditional Logic field', async t => {
-  // Get selectors
+  // Get Selectors
   const conditionalLogicField = Selector('#gfpdf_conditional_logic_container').filterVisible()
 
   // Actions
@@ -89,7 +89,7 @@ test('should display Conditional Logic field', async t => {
 })
 
 test('should toggle additional Conditional Logic field', async t => {
-  // Get selectors
+  // Get Selectors
   const conditionalLogicField = Selector('#gfpdf_conditional_logic_container').filterHidden()
 
   // Actions
@@ -103,7 +103,7 @@ test('should toggle additional Conditional Logic field', async t => {
 })
 
 test('should verify that an error is thrown if Name or Filename is empty when trying to add a PDF', async t => {
-  // Get selectors
+  // Get Selectors
   const addPdfButton = Selector('div').find('[class^="button-primary"][value="Add PDF"]')
   const nameError = Selector('div').find('[class^=" gfield_error"]').withText('Name *')
   const fileNameError = Selector('div').find('[class^=" gfield_error"]').withText('Filename *')

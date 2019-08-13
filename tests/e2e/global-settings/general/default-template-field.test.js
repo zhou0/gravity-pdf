@@ -4,7 +4,8 @@ import {
   fieldDescription,
   dropdownOptionGroup,
   dropdownOption,
-  button
+  button,
+  templateDetails
 } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
 import { baseURL } from '../../auth'
@@ -87,30 +88,23 @@ test('should display \'Add New Template Dropzone\'', async t => {
 test('should display individual specific Template details', async t => {
   // Get Selectors
   const imageScreenshot = Selector('.screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/zadani.png`)
-  const currentLabel = Selector('div').find('[class^="current-label"]').withText('Current Template')
-  const themeName = Selector('div').find('[class^="theme-name"]').withText('Zadani')
-  const themeVersion = Selector('div').find('[class^="theme-version"]').withText('Version: ')
-  const themeAuthor = Selector('div').find('[class^="theme-author"]').withText('Gravity PDF')
-  const themeAuthorGroup = Selector('div').find('[class^="theme-author"]').withText('Group: Core')
-  const themeDesription = Selector('div').find('[class^="theme-description"]').withText('A minimalist business-style template that will generate a well-spaced document great for printing. Through the Template tab you can control the PDF header and footer, change the background color or image, and show or hide the form title, page names, HTML fields and the Section Break descriptions.')
-  const themeTags = Selector('div').find('[class^="theme-tags"]').withText('Tags: Header, Footer, Background, Optional HTML Fields, Optional Page Fields, Field Border Color')
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .click(run.zadanietailsLink)
+    .click(run.zadaniDetailsLink)
 
   // Assertions
   await t
     .expect(imageScreenshot.exists).ok()
-    .expect(currentLabel.exists).ok()
-    .expect(themeName.exists).ok()
-    .expect(themeVersion.exists).ok()
-    .expect(themeAuthor.exists).ok()
-    .expect(themeAuthorGroup.exists).ok()
-    .expect(themeDesription.exists).ok()
-    .expect(themeTags.exists).ok()
+    .expect(templateDetails('current-label', 'Current Template').exists).ok()
+    .expect(templateDetails('theme-name', 'Zadani').exists).ok()
+    .expect(templateDetails('theme-version', 'Version: ').exists).ok()
+    .expect(templateDetails('theme-author', 'Gravity PDF').exists).ok()
+    .expect(templateDetails('theme-author', 'Group: Core').exists).ok()
+    .expect(templateDetails('theme-description', 'A minimalist business-style template that will generate a well-spaced document great for printing. Through the Template tab you can control the PDF header and footer, change the background color or image, and show or hide the form title, page names, HTML fields and the Section Break descriptions.').exists).ok()
+    .expect(templateDetails('theme-tags', 'Tags: Header, Footer, Background, Optional HTML Fields, Optional Page Fields, Field Border Color').exists).ok()
 })
 
 test('should navigate to next and previous Template', async t => {
@@ -122,7 +116,7 @@ test('should navigate to next and previous Template', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .click(run.zadanietailsLink)
+    .click(run.zadaniDetailsLink)
     .click(button('Show next template'))
     .expect(blankSlateTemplate.exists).ok()
     .click(button('Show previous template'))
@@ -147,7 +141,7 @@ test('should display Popup Template Selector that can be close', async t => {
 })
 
 test('should display Template filter search bar', async t => {
-  // Get selectors
+  // Get Selectors
   const templateSearchbar = Selector('#wp-filter-search-input')
   const searchResult = Selector('.theme-author')
 
@@ -161,4 +155,46 @@ test('should display Template filter search bar', async t => {
   await t
     .expect(templateSearchbar.exists).ok()
     .expect(searchResult.count).eql(1)
+})
+
+test('should successfully upload a new Template', async t => {
+  // Get Selectors
+  const addNewTemplate = Selector('input').withAttribute('type', 'file')
+  const templateFile = './files/gpdf-cellulose-1.4.0.zip'
+  const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
+
+  // Actions
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t
+    .click(button('Advanced'))
+    .setFilesToUpload(addNewTemplate, templateFile)
+
+  // Assertions
+  await t
+    .expect(templateDetails('notice inline', 'Template successfully installed').exists).ok()
+    .expect(imageScreenshot.exists).ok()
+    .expect(templateDetails('theme-author', 'Universal (Premium)').exists).ok()
+    .expect(templateDetails('theme-name', 'Cellulose').exists).ok()
+    .expect(templateDetails('notice inline', 'PDF Template(s) Successfully Installed / Updated').exists).ok()
+})
+
+test('should successfully delete a template', async t => {
+  // Get Selectors
+  const celluloseDetailsLink = Selector('.theme[data-slug="gpdf-cellulose"]').find('span').withText('Template Details')
+  const deleteButton = Selector('a').withText('Delete').nth(0)
+  const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
+
+  // Actions
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t
+    .setNativeDialogHandler(() => true)
+    .click(button('Advanced'))
+    .click(celluloseDetailsLink)
+    .click(deleteButton)
+
+  // Assertions
+  await t
+    .expect(imageScreenshot.exists).notOk()
+    .expect(templateDetails('theme-author', 'Universal (Premium)').exists).notOk()
+    .expect(templateDetails('theme-name', 'Cellulose').exists).notOk()
 })

@@ -48,3 +48,8 @@ export function button (text) {
 export function defaultValue (text) {
   return Selector('div').find('[class^="chosen-single"]').withText(text)
 }
+
+// Template details
+export function templateDetails (style, text) {
+  return Selector('div').find(`[class^="${style}"]`).withText(`${text}`)
+}
