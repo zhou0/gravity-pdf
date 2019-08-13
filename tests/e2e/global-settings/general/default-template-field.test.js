@@ -93,7 +93,7 @@ test('should display individual specific Template details', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .click(run.zadaniDetailsLink)
+    .click(run.activeZadaniDetailsLink)
 
   // Assertions
   await t
@@ -116,7 +116,7 @@ test('should navigate to next and previous Template', async t => {
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .click(run.zadaniDetailsLink)
+    .click(run.activeZadaniDetailsLink)
     .click(button('Show next template'))
     .expect(blankSlateTemplate.exists).ok()
     .click(button('Show previous template'))
@@ -159,14 +159,14 @@ test('should display Template filter search bar', async t => {
 
 test('should successfully upload a new Template', async t => {
   // Get Selectors
-  const addNewTemplate = Selector('input').withAttribute('type', 'file')
+  const templateFile = './files/gpdf-cellulose-1.4.0.zip'
   const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .setFilesToUpload(addNewTemplate, run.templateFile)
+    .setFilesToUpload(run.addNewTemplate, templateFile)
 
   // Assertions
   await t
@@ -179,7 +179,6 @@ test('should successfully upload a new Template', async t => {
 
 test('should successfully delete a template', async t => {
   // Get Selectors
-  const celluloseDetailsLink = Selector('.theme[data-slug="gpdf-cellulose"]').find('span').withText('Template Details')
   const deleteButton = Selector('a').withText('Delete').nth(0)
   const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
 
@@ -188,7 +187,7 @@ test('should successfully delete a template', async t => {
   await t
     .setNativeDialogHandler(() => true)
     .click(button('Advanced'))
-    .click(celluloseDetailsLink)
+    .click(run.celluloseDetailsLink)
     .click(deleteButton)
 
   // Assertions

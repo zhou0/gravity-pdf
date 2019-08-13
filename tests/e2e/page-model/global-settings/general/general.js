@@ -25,8 +25,15 @@ class General {
     this.templateList = Selector('#the-list')
     this.editLink = Selector('span').withText('Edit')
     this.appearanceLink = Selector('#gfpdf-appearance-nav')
-    this.zadaniDetailsLink = Selector('.active.theme[data-slug="zadani"]').find('span').withText('Template Details')
-    this.templateFile = './files/gpdf-cellulose-1.4.0.zip'
+    this.activeZadaniDetailsLink = Selector('.active.theme[data-slug="zadani"]').find('span').withText('Template Details')
+    this.zadaniDetailsLink = Selector('.theme[data-slug="zadani"]').find('span').withText('Template Details')
+    this.celluloseDetailsLink = Selector('.theme[data-slug="gpdf-cellulose"]').find('span').withText('Template Details')
+    this.templateSelectButton = Selector('a').withText('Select')
+    this.paperSizeField = Selector('#gfpdf_settings_default_pdf_size__chosen')
+    this.fontField = Selector('#gfpdf_settings_default_font__chosen')
+    this.fontSize = Selector('#gfpdf_settings\\[default_font_size\\]')
+    this.successUpdateMessage = Selector('p').withText('Settings updated.')
+    this.addNewTemplate = Selector('input').withAttribute('type', 'file')
     this.saveButton = Selector('div').find('[class^="button button-primary"][value="Save Changes"]')
   }
 
