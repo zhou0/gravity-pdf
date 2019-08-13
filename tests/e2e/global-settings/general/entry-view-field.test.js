@@ -19,7 +19,7 @@ test('should display Entry View field', async t => {
 })
 
 test('should display "Download PDF" as an option on the Entry List page instead of View PDF when "Download" is selected', async t => {
-  // Selectors
+  // Get Selectors
   const saveButton = Selector('div').find('[class^="button button-primary"][value="Save Changes"]')
   const downloadPdfLink = Selector('a').withText('Download PDF')
 

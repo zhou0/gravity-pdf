@@ -25,6 +25,7 @@ class General {
     this.templateList = Selector('#the-list')
     this.editLink = Selector('span').withText('Edit')
     this.appearanceLink = Selector('#gfpdf-appearance-nav')
+    this.zadanietailsLink = Selector('.active.theme[data-slug="zadani"]').find('span').withText('Template Details')
   }
 
   async navigateSettingsTab (text) {

@@ -7,6 +7,7 @@ import {
   button
 } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
+import { baseURL } from '../../auth'
 
 const run = new General()
 
@@ -83,12 +84,63 @@ test('should display \'Add New Template Dropzone\'', async t => {
     .expect(installationMessage.innerText).contains('If you have a PDF template in .zip format you may install it here. You can also update an existing PDF template (this will override any changes you have made).')
 })
 
+test('should display individual specific Template details', async t => {
+  // Get Selectors
+  const imageScreenshot = Selector('.screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/zadani.png`)
+  const currentLabel = Selector('div').find('[class^="current-label"]').withText('Current Template')
+  const themeName = Selector('div').find('[class^="theme-name"]').withText('Zadani')
+  const themeVersion = Selector('div').find('[class^="theme-version"]').withText('Version: ')
+  const themeAuthor = Selector('div').find('[class^="theme-author"]').withText('Gravity PDF')
+  const themeAuthorGroup = Selector('div').find('[class^="theme-author"]').withText('Group: Core')
+  const themeDesription = Selector('div').find('[class^="theme-description"]').withText('A minimalist business-style template that will generate a well-spaced document great for printing. Through the Template tab you can control the PDF header and footer, change the background color or image, and show or hide the form title, page names, HTML fields and the Section Break descriptions.')
+  const themeTags = Selector('div').find('[class^="theme-tags"]').withText('Tags: Header, Footer, Background, Optional HTML Fields, Optional Page Fields, Field Border Color')
+
+  // Actions
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t
+    .click(button('Advanced'))
+    .click(run.zadanietailsLink)
+
+  // Assertions
+  await t
+    .expect(imageScreenshot.exists).ok()
+    .expect(currentLabel.exists).ok()
+    .expect(themeName.exists).ok()
+    .expect(themeVersion.exists).ok()
+    .expect(themeAuthor.exists).ok()
+    .expect(themeAuthorGroup.exists).ok()
+    .expect(themeDesription.exists).ok()
+    .expect(themeTags.exists).ok()
+})
+
+test('should navigate to next and previous Template', async t => {
+  // Get Selectors
+  const blankSlateTemplate = Selector('div').find('[class^="theme-name"]').withText('Blank Slate')
+  const zadaniTemplate = Selector('div').find('[class^="theme-name"]').withText('Zadani')
+
+  // Actions & Assertions
+  await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
+  await t
+    .click(button('Advanced'))
+    .click(run.zadanietailsLink)
+    .click(button('Show next template'))
+    .expect(blankSlateTemplate.exists).ok()
+    .click(button('Show previous template'))
+    .expect(zadaniTemplate.exists).ok()
+    .pressKey('right')
+    .expect(blankSlateTemplate.exists).ok()
+    .pressKey('left')
+    .expect(zadaniTemplate.exists).ok()
+})
+
 test('should display Popup Template Selector that can be close', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
     .click(button('Close dialog'))
+    .click(button('Advanced'))
+    .pressKey('esc')
 
   // Assertions
   await t.expect(run.templatePopupBox.exists).notOk()

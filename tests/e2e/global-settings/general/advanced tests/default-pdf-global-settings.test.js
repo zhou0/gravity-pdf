@@ -7,7 +7,7 @@ const run = new General()
 fixture`General Tab - Check Added PDF To Form For Default Global Settings Test`
 
 test('should check that a new added PDF has the default global settings set', async t => {
-  // Selectors
+  // Get Selectors
   const defaultFontSize = Selector('#gfpdf_settings\\[font_size\\]').withAttribute('value', '10')
   const defaultFontColor = Selector('button').withAttribute('style', 'background-color: rgb(0, 0, 0);')
   const defaultRTL = radioItem('gfpdf_settings', 'rtl', 'No').withAttribute('checked', 'checked')
