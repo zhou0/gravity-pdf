@@ -53,7 +53,6 @@ test('should open Add Font Dialog Box Settings', async t => {
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
-    .wait(1000)
     .click(selectFontButton)
 
   // Assertions
@@ -96,7 +95,6 @@ test('should display Add Font Dialog Box Settings Font Name Field RED Box Error 
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
   await t
     .click(font.addFontIcon)
-    .wait(1000)
     .typeText(fontInputField, 's$$$', { paste: true })
 
   // Assertions
