@@ -150,11 +150,12 @@ test('should open Add Font Dialog Box Settings with a confirmation Popup to dele
     .expect(dialogTitle.exists).ok()
     .expect(contentText.exists).ok()
     .expect(button('Delete').exists).ok()
+    .expect(button('Cancel').exists).ok()
 })
 
 test('should open Add Font Dialog Box Settings delete popup box that can be close', async t => {
-  // Get selectors
-  const cancelButton = Selector('div').find('[class^="ui-dialog-buttonset"]').nth(2).find('span').withText('Cancel')
+  // Get Selectors
+  const cancelButton = Selector('div').withAttribute('aria-describedby', 'delete-confirm').find('[class^="ui-button ui-widget ui-state-default ui-corner-all"]').find('span').withText('Cancel')
 
   // Actions
   await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')

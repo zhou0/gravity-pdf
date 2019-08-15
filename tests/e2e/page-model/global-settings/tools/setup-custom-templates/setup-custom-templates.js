@@ -5,9 +5,10 @@ import { button } from '../../../helpers/field'
 class SetupCustomTemplates {
   constructor () {
     this.runSetupButton = button('Run Setup')
-    this.popUpBox = Selector('[class^="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front wp-dialog ui-dialog-buttons"]').withAttribute('aria-describedby', 'setup-templates-confirm')
+    this.popUpBox = Selector('div').withAttribute('aria-describedby', 'setup-templates-confirm')
     this.continueButton = button('Continue')
     this.cancelButton = button('Cancel')
+    this.successUpdateMessage = Selector('div').find('[class^="updated  notice"]').find('p').withText('Gravity PDF Custom Templates successfully installed to')
   }
 
   async navigateSettingsTab (text) {
