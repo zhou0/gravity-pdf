@@ -14,7 +14,7 @@ class General {
     this.entries = Selector('#the-list').find('tr').withText('Sample 2').find('span').withText('Entries')
     this.settingsMenu = Selector('.gf_form_toolbar_settings')
     this.pdfLink = Selector('.gf_submenu').find('a').withText('PDF')
-    this.addNewPdf = Selector('#add-new-pdf')
+    this.addNewPdf = Selector('#tab_pdf').find('a').withText('Add New')
     this.pdfname = Selector('#gfpdf_settings\\[name\\]')
     this.fileName = Selector('#gfpdf_settings\\[filename\\]')
     this.addPdfButton = Selector('div').find('[class^="button-primary"][value="Add PDF"]')

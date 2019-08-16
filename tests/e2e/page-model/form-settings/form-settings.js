@@ -7,7 +7,7 @@ class FormSettings {
     this.entries = Selector('#the-list').find('tr').withText('Sample 1').find('span').withText('Entries')
     this.settingsMenu = Selector('.gf_form_toolbar_settings')
     this.pdfLink = Selector('.gf_submenu').find('a').withText('PDF')
-    this.addNewPdf = Selector('#add-new-pdf')
+    this.addNewPdf = Selector('#tab_pdf').find('a').withText('Add New')
     this.list = Selector('.gf-locking ').withText('Sample 1')
     this.advancedLink = Selector('#gfpdf-advanced-nav')
     this.appearanceLink = Selector('#gfpdf-appearance-nav')
