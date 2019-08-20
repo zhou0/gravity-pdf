@@ -1,8 +1,10 @@
 import { Selector } from 'testcafe'
 import { listItem, button, radioItem, defaultValue } from '../../../page-model/helpers/field'
+import Pdf from '../../../page-model/helpers/pdf'
 import General from '../../../page-model/global-settings/general/general'
 
 const run = new General()
+const pdf = new Pdf()
 
 fixture`General Tab - Check Added PDF To Form For Updated Global Settings Test`
 
@@ -32,10 +34,9 @@ test('should check that a new added PDF has the updated global settings set', as
     .click(radioItem('gfpdf_settings', 'default_rtl', 'Yes'))
     .click(run.saveButton)
     .expect(run.successUpdateMessage.exists).ok()
-  await run.navigateAddPdf('gf_edit_forms')
+  await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=2')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=2')
   await t
-    .hover(run.settingsMenu)
-    .click(run.pdfLink)
     .hover(run.templateList)
     .click(run.editLink)
     .expect(defaultValue('Cellulose').exists).ok()
@@ -56,8 +57,8 @@ test('should reset the new set global settings back to the default global settin
   const fontColorDefaultButton = Selector('.button.button-small.wp-picker-default')
 
   // Actions & Assertions
-  await run.navigateDeletePdfEntries('gf_edit_forms')
-  await t.expect(run.template.count).eql(0)
+  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 2')
+  await t.expect(pdf.template.count).eql(0)
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(run.paperSizeField)

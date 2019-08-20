@@ -1,7 +1,9 @@
 import { Selector } from 'testcafe'
 import { radioItem, defaultValue } from '../../../page-model/helpers/field'
+import Pdf from '../../../page-model/helpers/pdf'
 import General from '../../../page-model/global-settings/general/general'
 
+const pdf = new Pdf()
 const run = new General()
 
 fixture`General Tab - Check Added PDF To Form For Default Global Settings Test`
@@ -13,10 +15,9 @@ test('should check that a new added PDF has the default global settings set', as
   const defaultRTL = radioItem('gfpdf_settings', 'rtl', 'No').withAttribute('checked', 'checked')
 
   // Actions
-  await run.navigateAddPdf('gf_edit_forms')
+  await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=2')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=2')
   await t
-    .hover(run.settingsMenu)
-    .click(run.pdfLink)
     .hover(run.templateList)
     .click(run.editLink)
     .wait(1000)
@@ -35,8 +36,8 @@ test('should check that a new added PDF has the default global settings set', as
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await run.navigateDeletePdfEntries('gf_edit_forms')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 2')
 
   // Assertions
-  await t.expect(run.template.count).eql(0)
+  await t.expect(pdf.template.count).eql(0)
 })

@@ -1,8 +1,10 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
+import Pdf from '../../page-model/helpers/pdf'
 
 const run = new General()
+const pdf = new Pdf()
 
 fixture`General Tab - Entry View Field Test`
 
@@ -27,7 +29,8 @@ test('should display "Download PDF" as an option on the Entry List page instead 
   await t
     .click(run.downlaodOption)
     .click(run.saveButton)
-  await run.navigateAddPdf('gf_edit_forms')
+  await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=2')
+  await pdf.navigatePdfSection('gf_entries&id=2')
 
   // Assertions
   await t
@@ -36,10 +39,10 @@ test('should display "Download PDF" as an option on the Entry List page instead 
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await run.navigateDeletePdfEntries('gf_edit_forms')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 2')
 
   // Assertions
-  await t.expect(run.template.count).eql(0)
+  await t.expect(pdf.template.count).eql(0)
 })
 
 test('should display "View PDF" as an option on the Entry List page instead of "Download PDF" when "View" is selected', async t => {
@@ -51,7 +54,8 @@ test('should display "View PDF" as an option on the Entry List page instead of "
   await t
     .click(run.viewOption)
     .click(run.saveButton)
-  await run.navigateAddPdf('gf_edit_forms')
+  await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=2')
+  await pdf.navigatePdfSection('gf_entries&id=2')
 
   // Assertions
   await t
@@ -60,8 +64,8 @@ test('should display "View PDF" as an option on the Entry List page instead of "
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await run.navigateDeletePdfEntries('gf_edit_forms')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 2')
 
   // Assertions
-  await t.expect(run.template.count).eql(0)
+  await t.expect(pdf.template.count).eql(0)
 })
