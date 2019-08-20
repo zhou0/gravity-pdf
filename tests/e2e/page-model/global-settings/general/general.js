@@ -4,9 +4,6 @@ import { admin, baseURL } from '../../../auth'
 class General {
   constructor () {
     this.advancedOptionsField = Selector('#gfpdf-advanced-options')
-    this.fontSelectBox = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_default_font__chosen"]')
-    this.paperSizeSelectBox = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_default_pdf_size__chosen"]')
-    this.templateSelectBox = Selector('div').find('[class^="chosen-container chosen-container-single"][id="gfpdf_settings_default_template__chosen"]')
     this.templatePopupBox = Selector('div').find('[class^="container theme-wrap"]')
     this.viewOption = Selector('div').find('[class^="gfpdf_settings_default_action"][value="View"]')
     this.downlaodOption = Selector('div').find('[class^="gfpdf_settings_default_action"][value="Download"]')

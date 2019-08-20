@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, dropdownOptionGroup, dropdownOption } from '../../page-model/helpers/field'
+import { fieldLabel, fieldDescription, selectBox, dropdownOptionGroup, dropdownOption } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
 
 const run = new General()
@@ -13,7 +13,7 @@ test('should display \'Default Paper Size\' field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Default Paper Size').exists).ok()
-    .expect(run.paperSizeSelectBox.exists).ok()
+    .expect(selectBox('chosen-container chosen-container-single', 'gfpdf_settings_default_pdf_size__chosen').exists).ok()
     .expect(fieldDescription('Set the default paper size used when generating PDFs.', 'label').exists).ok()
 })
 
@@ -25,7 +25,7 @@ test('should search and display existing result', async t => {
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
-    .click(run.paperSizeSelectBox)
+    .click(selectBox('chosen-container chosen-container-single', 'gfpdf_settings_default_pdf_size__chosen'))
     .typeText(searchBox, 'letter', { paste: true })
 
   // Assertions

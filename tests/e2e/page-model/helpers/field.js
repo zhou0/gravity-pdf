@@ -24,6 +24,11 @@ export function fieldDescription (text, style = 'span') {
   return Selector(style).withText(text)
 }
 
+// Select box
+export function selectBox (style, id) {
+  return Selector('div').find(`[class^="${style}"][id="${id}"]`)
+}
+
 // Dropdown box
 export function dropdownBox (style, id) {
   return Selector('div').find(`[class^="${style}"][id="${id}"]`)

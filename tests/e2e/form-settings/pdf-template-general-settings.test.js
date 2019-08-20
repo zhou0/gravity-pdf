@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, listItem, button } from '../page-model/helpers/field'
+import { fieldLabel, fieldDescription, selectBox, listItem, button } from '../page-model/helpers/field'
 import FormSettings from '../page-model/form-settings/form-settings'
 
 const run = new FormSettings()
@@ -21,7 +21,6 @@ test('should display Name field', async t => {
 
 test('should display Template field', async t => {
   // Get Selectors
-  const selectBox = Selector('div').find('[class^="chosen-container chosen-container-single chosen-container-single-nosearch"][id="gfpdf_settings_template__chosen"]')
   const templatePopupBox = Selector('div').find('[class^="container theme-wrap"]')
 
   // Actions
@@ -31,23 +30,20 @@ test('should display Template field', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Template').exists).ok()
-    .expect(selectBox.exists).ok()
+    .expect(selectBox('chosen-container chosen-container-single chosen-container-single-nosearch', 'gfpdf_settings_template__chosen').exists).ok()
     .expect(button('Advanced').exists).ok()
     .expect(fieldDescription('Choose an existing template or purchased more from our template shop. You can also build your own or hire us to create a custom solution.').exists).ok()
     .expect(templatePopupBox.exists).ok()
 })
 
 test('should display Notifications field', async t => {
-  // Get Selectors
-  const notificationSelectBox = Selector('div').find('[class^="chosen-container chosen-container-multi"][id="gfpdf_settings_notification__chosen"]')
-
   // Actions
   await run.navigateSettingsTab('gf_edit_forms')
 
   // Assertions
   await t
     .expect(fieldLabel('Notifications').exists).ok()
-    .expect(notificationSelectBox.exists).ok()
+    .expect(selectBox('chosen-container chosen-container-multi', 'gfpdf_settings_notification__chosen').exists).ok()
     .expect(fieldDescription('Automatically attach PDF to the selected notifications.').exists).ok()
 })
 

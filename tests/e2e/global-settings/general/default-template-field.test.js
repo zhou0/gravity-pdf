@@ -2,6 +2,7 @@ import { Selector } from 'testcafe'
 import {
   fieldLabel,
   fieldDescription,
+  selectBox,
   dropdownOptionGroup,
   dropdownOption,
   button,
@@ -23,7 +24,7 @@ test('should display \'Default Template Field\'', async t => {
   // Assertions
   await t
     .expect(fieldLabel('Default Template').exists).ok()
-    .expect(run.templateSelectBox.exists).ok()
+    .expect(selectBox('chosen-container chosen-container-single', 'gfpdf_settings_default_template__chosen').exists).ok()
     .expect(fieldDescription('Choose an existing template or purchased more from our template shop. You can also build your own or hire us to create a custom solution.', 'label').exists).ok()
     .expect(button('Advanced').exists).ok()
 })
@@ -58,7 +59,7 @@ test('should display Popup Template Selector', async t => {
 
   // Assertions
   await t
-    .expect(run.templatePopupBox.exists).ok()
+    .expect(selectBox('chosen-container chosen-container-single', 'gfpdf_settings_default_template__chosen').exists).ok()
     .expect(popupHeaderText.exists).ok()
     .expect(button('Close dialog').exists).ok()
     .expect(installedTemplatesSearchbar.exists).ok()
