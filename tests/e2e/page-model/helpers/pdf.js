@@ -1,10 +1,9 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
-import { formList, formEntries } from './field'
+import { formList, formEntries, addNewPdf } from './field'
 
 class Pdf {
   constructor () {
-    this.addNewPdf = Selector('#tab_pdf').find('a').withText('Add New')
     this.pdflist = Selector('#gform_tabs').find('a').withText('PDF')
     this.pdfname = Selector('#gfpdf_settings\\[name\\]')
     this.fileName = Selector('#gfpdf_settings\\[filename\\]')
@@ -20,7 +19,7 @@ class Pdf {
     await t
       .useRole(admin)
       .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
-      .click(this.addNewPdf)
+      .click(addNewPdf)
       .typeText(this.pdfname, 'Test PDF Template', { paste: true })
       .typeText(this.fileName, 'testpdftemplate', { paste: true })
       .click(this.addPdfButton)
