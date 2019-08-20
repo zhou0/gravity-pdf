@@ -17,7 +17,6 @@ class ConfirmationShortcodes {
     this.previewLink = Selector('#gf_form_toolbar').find('a').withText('Preview')
     this.formInputField = Selector('input').withAttribute('name', 'input_1')
     this.submitButton = Selector('input').withAttribute('value', 'Submit')
-    this.downloadPDFLink = Selector('.').find('a').withText('Download PDF')
   }
 
   async navigateConfirmationsSection (text) {

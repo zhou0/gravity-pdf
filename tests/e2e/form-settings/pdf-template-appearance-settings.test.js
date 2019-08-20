@@ -8,18 +8,21 @@ import {
   listItem,
   infoText,
   radioItem,
-  button
+  button,
+  addNewPdf
 } from '../page-model/helpers/field'
+import Pdf from '../page-model/helpers/pdf'
 import FormSettings from '../page-model/form-settings/form-settings'
 
+const pdf = new Pdf()
 const run = new FormSettings()
 
 fixture`PDF Template - Appearance Settings Test`
 
 test('should display Paper Size field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.appearanceLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
 
   // Assertions
   await t
@@ -29,9 +32,8 @@ test('should display Paper Size field', async t => {
 
 test('should display a dropdown of Paper Sizes option', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.appearanceLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
 
   // Assertions
   await t
@@ -64,9 +66,9 @@ test('should search and display existing Paper Size result', async t => {
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
   await t
-    .click(run.appearanceLink)
     .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_pdf_size__chosen'))
     .typeText(searchBox, 'letter', { paste: true })
 
@@ -80,9 +82,9 @@ test('should display Custom Paper Size field when selected from Paper Size optio
   const heightInputField = Selector('#gfpdf_settings\\[custom_pdf_size\\]_height')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
   await t
-    .click(run.appearanceLink)
     .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_pdf_size__chosen'))
     .click(listItem('Custom Paper Size'))
     .click(dropdownBox('chosen-container chosen-container-single chosen-container-single-nosearch', 'gfpdf_settings_custom_pdf_size__measurement_chosen'))
@@ -101,10 +103,9 @@ test('should display Custom Paper Size field when selected from Paper Size optio
 
 test('should display Orientation field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.appearanceLink)
-    .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_orientation__chosen'))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
+  await t.click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_orientation__chosen'))
 
   // Assertions
   await t
@@ -116,7 +117,8 @@ test('should display Orientation field', async t => {
 
 test('should display Font field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await t.click(addNewPdf)
 
   // Assertions
   await t
@@ -126,9 +128,8 @@ test('should display Font field', async t => {
 
 test('should display a dropdown of Fonts', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.appearanceLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
 
   // Assertions
   await t
@@ -161,9 +162,9 @@ test('should search and display existing font result', async t => {
   const result = Selector('div').find('[class^="active-result group-option highlighted"]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
   await t
-    .click(run.appearanceLink)
     .click(dropdownBox('chosen-container chosen-container-single', 'gfpdf_settings_font__chosen'))
     .typeText(searchBox, 'Free Sans', { paste: true })
 
@@ -177,8 +178,8 @@ test('should display Font Size field', async t => {
   const fontSizeInputBox = Selector('#gfpdf_settings\\[font_size\\]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.appearanceLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
 
   // Assertions
   await t
@@ -193,10 +194,9 @@ test('should display Font Color field', async t => {
   const showPopupPickerBox = Selector('.wp-picker-active')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.appearanceLink)
-    .click(button('Select Color'))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
+  await t.click(button('Select Color'))
 
   // Assertions
   await t
@@ -209,8 +209,8 @@ test('should display Font Color field', async t => {
 
 test('should display Reverse Text (RTL) field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.appearanceLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAppearanceLink()
 
   // Assertions
   await t

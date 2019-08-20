@@ -72,3 +72,6 @@ export function defaultValue (text) {
 export function templateDetails (style, text) {
   return Selector('div').find(`[class^="${style}"]`).withText(`${text}`)
 }
+
+// Constant
+export const addNewPdf = Selector('#tab_pdf').find('a').withText('Add New')

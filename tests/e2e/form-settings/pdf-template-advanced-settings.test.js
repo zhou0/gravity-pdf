@@ -1,15 +1,17 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, radioItem } from '../page-model/helpers/field'
+import Pdf from '../page-model/helpers/pdf'
 import FormSettings from '../page-model/form-settings/form-settings'
 
+const pdf = new Pdf()
 const run = new FormSettings()
 
 fixture`PDF Template - Advanced Settings Test`
 
 test('should display Format field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.advancedLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
 
   // Assertions
   await t
@@ -22,10 +24,9 @@ test('should display Format field', async t => {
 
 test('should hide Enable PDF Security field when the Format is not "Standard"', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.advancedLink)
-    .click(radioItem('gfpdf_settings', 'format', 'PDFA1B'))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
+  await t.click(radioItem('gfpdf_settings', 'format', 'PDFA1B'))
 
   // Assertions
   await t
@@ -44,9 +45,9 @@ test('should display Enable PDF Security field', async t => {
   const privilegesBoxExtended = Selector('div').find('[class^="chosen-container chosen-container-multi chosen-with-drop chosen-container-active"]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
   await t
-    .click(run.advancedLink)
     .click(radioItem('gfpdf_settings', 'security', 'Yes'))
     .click(privilegesBox)
 
@@ -73,8 +74,8 @@ test('should display Image DPI field', async t => {
   const fieldInputBox = Selector('#gfpdf_settings\\[image_dpi\\]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.advancedLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
 
   // Assertions
   await t
@@ -84,8 +85,8 @@ test('should display Image DPI field', async t => {
 
 test('should display Always Save PDF field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.advancedLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
 
   // Assertions
   await t
@@ -97,10 +98,9 @@ test('should display Always Save PDF field', async t => {
 
 test('should display Enable Public Access field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.advancedLink)
-    .click(radioItem('gfpdf_settings', 'public_access', 'Yes'))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
+  await t.click(radioItem('gfpdf_settings', 'public_access', 'Yes'))
 
   // Assertions
   await t
@@ -117,8 +117,8 @@ test('should display Enable Public Access field', async t => {
 
 test('should display Restrict Owner field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.advancedLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateAdvancedLink()
 
   // Assertions
   await t

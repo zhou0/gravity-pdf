@@ -1,7 +1,9 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription, radioItem, button } from '../page-model/helpers/field'
+import Pdf from '../page-model/helpers/pdf'
 import FormSettings from '../page-model/form-settings/form-settings'
 
+const pdf = new Pdf()
 const run = new FormSettings()
 
 fixture`PDF Template - Template Settings Test`
@@ -11,10 +13,9 @@ test('should display Field Border Color field', async t => {
   const showPopupPickerBox = Selector('.wp-picker-active')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.templateLink)
-    .click(button('Select Color').nth(1))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
+  await t.click(button('Select Color').nth(1))
 
   // Assertions
   await t
@@ -26,8 +27,8 @@ test('should display Field Border Color field', async t => {
 
 test('should display Show Form Title field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.templateLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
 
   // Assertions
   await t
@@ -39,8 +40,8 @@ test('should display Show Form Title field', async t => {
 
 test('should display Show Page Names field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.templateLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
 
   // Assertions
   await t
@@ -52,8 +53,8 @@ test('should display Show Page Names field', async t => {
 
 test('should display Show HTML Fields field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.templateLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
 
   // Assertions
   await t
@@ -65,8 +66,8 @@ test('should display Show HTML Fields field', async t => {
 
 test('should display Show Section Break Description field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.templateLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
 
   // Assertions
   await t
@@ -78,8 +79,8 @@ test('should display Show Section Break Description field', async t => {
 
 test('should display Enable Conditional Logic field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.templateLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
 
   // Assertions
   await t
@@ -91,8 +92,8 @@ test('should display Enable Conditional Logic field', async t => {
 
 test('should display Show Empty Fields field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.templateLink)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
 
   // Assertions
   await t
@@ -107,10 +108,9 @@ test('should display Background Color field', async t => {
   const showBackgroundPickerBox = Selector('.wp-picker-active')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.templateLink)
-    .click(button('Select Color').nth(2))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
+  await t.click(button('Select Color').nth(2))
 
   // Assertions
   await t
@@ -126,10 +126,9 @@ test('should display Background Image field', async t => {
   const popupMediaBox = Selector('#__wp-uploader-id-0').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.templateLink)
-    .click(uploadFileButton)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
+  await t.click(uploadFileButton)
 
   // Assertions
   await t
@@ -145,10 +144,9 @@ test('should display Header field', async t => {
   let showMediabox = Selector('#__wp-uploader-id-0').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.templateLink)
-    .click(button('Add Media').nth(0))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
+  await t.click(button('Add Media').nth(0))
 
   // Assertions
   await t
@@ -166,9 +164,9 @@ test('should display First Page Header field', async t => {
   let showMediabox = Selector('#__wp-uploader-id-0').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
   await t
-    .click(run.templateLink)
     .click(toggleCheckbox)
     .click(button('Add Media').nth(1))
 
@@ -187,10 +185,9 @@ test('should display Footer field', async t => {
   let showMediabox = Selector('#__wp-uploader-id-0').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t
-    .click(run.templateLink)
-    .click(button('Add Media').nth(2))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
+  await t.click(button('Add Media').nth(2))
 
   // Assertions
   await t
@@ -207,9 +204,9 @@ test('should display First Page Footer field', async t => {
   let showMediabox = Selector('#__wp-uploader-id-0').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await run.navigateTemplateLink()
   await t
-    .click(run.templateLink)
     .click(toggleCheckbox)
     .click(button('Add Media').nth(3))
 

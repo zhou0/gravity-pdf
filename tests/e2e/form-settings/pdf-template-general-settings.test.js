@@ -1,7 +1,9 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, selectBox, listItem, button } from '../page-model/helpers/field'
+import { fieldLabel, fieldDescription, selectBox, listItem, button, addNewPdf } from '../page-model/helpers/field'
+import Pdf from '../page-model/helpers/pdf'
 import FormSettings from '../page-model/form-settings/form-settings'
 
+const pdf = new Pdf()
 const run = new FormSettings()
 
 fixture`PDF Template - General Settings Test`
@@ -11,7 +13,8 @@ test('should display Name field', async t => {
   const nameInputField = Selector('#gfpdf_settings\\[name\\]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await t.click(addNewPdf)
 
   // Assertions
   await t
@@ -24,8 +27,10 @@ test('should display Template field', async t => {
   const templatePopupBox = Selector('div').find('[class^="container theme-wrap"]')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(button('Advanced'))
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await t
+    .click(addNewPdf)
+    .click(button('Advanced'))
 
   // Assertions
   await t
@@ -38,7 +43,8 @@ test('should display Template field', async t => {
 
 test('should display Notifications field', async t => {
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await t.click(addNewPdf)
 
   // Assertions
   await t
@@ -54,8 +60,10 @@ test('should display Filename field', async t => {
   const mergeTagOptionList = Selector('#gf_merge_tag_list').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(mergeTagBox)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await t
+    .click(addNewPdf)
+    .click(mergeTagBox)
 
   // Assertions
   await t
@@ -73,8 +81,10 @@ test('should display Conditional Logic field', async t => {
   const conditionalLogicField = Selector('#gfpdf_conditional_logic_container').filterVisible()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
-  await t.click(run.conditionalCheckbox)
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
+  await t
+    .click(addNewPdf)
+    .click(run.conditionalCheckbox)
 
   // Assertions
   await t
@@ -89,8 +99,9 @@ test('should toggle additional Conditional Logic field', async t => {
   const conditionalLogicField = Selector('#gfpdf_conditional_logic_container').filterHidden()
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
+    .click(addNewPdf)
     .click(run.conditionalCheckbox)
     .click(run.conditionalCheckbox)
 
@@ -106,8 +117,9 @@ test('should verify that an error is thrown if Name or Filename is empty when tr
   const errorMessage = Selector('div').find('[class^="error  notice"]').withText('PDF could not be saved. Please enter all required information below.')
 
   // Actions
-  await run.navigateSettingsTab('gf_edit_forms')
+  await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
+    .click(addNewPdf)
     .click(addPdfButton)
 
   // Assertions
