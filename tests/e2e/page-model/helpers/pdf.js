@@ -5,6 +5,7 @@ import { formList, formEntries } from './field'
 class Pdf {
   constructor () {
     this.addNewPdf = Selector('#tab_pdf').find('a').withText('Add New')
+    this.pdflist = Selector('#gform_tabs').find('a').withText('PDF')
     this.pdfname = Selector('#gfpdf_settings\\[name\\]')
     this.fileName = Selector('#gfpdf_settings\\[filename\\]')
     this.addPdfButton = Selector('div').find('[class^="button-primary"][value="Add PDF"]')
@@ -23,6 +24,12 @@ class Pdf {
       .typeText(this.pdfname, 'Test PDF Template', { paste: true })
       .typeText(this.fileName, 'testpdftemplate', { paste: true })
       .click(this.addPdfButton)
+  }
+
+  async navigatePdfSection (text) {
+    await t
+      .useRole(admin)
+      .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
   }
 
   async navigateDeletePdfEntries (text, formName) {

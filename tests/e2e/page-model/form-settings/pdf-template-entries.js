@@ -1,8 +1,4 @@
-import { Selector, t } from 'testcafe'
-import { admin, baseURL } from '../../auth'
-import FormSettings from './form-settings'
-
-const run = new FormSettings()
+import { Selector } from 'testcafe'
 
 class PdfTemplateEntries {
   constructor () {
@@ -12,7 +8,6 @@ class PdfTemplateEntries {
     this.backToTemplateListLink = Selector('a').withText('Back to PDF list.')
     this.templateList = Selector('#the-list')
     this.templateDetail = Selector('.alternate').find('td').nth(0)
-    this.addPdfButton = Selector('div').find('[class^="button-primary"][value="Add PDF"]')
     this.toggleSwitch = Selector('.check-column').find('img')
     this.inActiveTemplate = Selector('div').find('[alt^="Inactive"][title="Inactive"]')
     this.activeTemplate = Selector('div').find('[alt^="Active"][title="Active"]')
@@ -23,36 +18,6 @@ class PdfTemplateEntries {
     this.updatePdfButton = Selector('div').find('[class^="button-primary"][value="Update PDF"]')
     this.options = Selector('div').find('[class^="name column-name has-row-actions column-primary"]')
     this.duplicateLink = Selector('a').withText('Duplicate')
-    this.deletePDF = Selector('.submitdelete')
-    this.confirmDelete = Selector('button').find('[class^="ui-button-text"]').withText('Delete')
-  }
-
-  async navigatePdfEntries (text) {
-    await t
-      .useRole(admin)
-      .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
-      .hover(run.list)
-      .click(run.entries)
-  }
-
-  async navigateDeletePdfEntries (text) {
-    await t
-      .useRole(admin)
-      .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
-      .hover(run.list)
-      .click(run.entries)
-      .hover(run.settingsMenu)
-      .click(run.pdfLink)
-    let tempalte = await this.template.count
-    if (tempalte > 0) {
-      for (let i = 0; i < tempalte; i++) {
-        await t
-          .hover(this.template)
-          .click(this.deletePDF)
-          .click(this.confirmDelete)
-          .wait(2000)
-      }
-    }
   }
 }
 
