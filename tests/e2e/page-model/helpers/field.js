@@ -1,5 +1,19 @@
 import { Selector } from 'testcafe'
 
+// Form details
+export function formList (text) {
+  return Selector('.gf-locking ').withText(text)
+}
+
+export function formEntries (text) {
+  return Selector('#the-list').find('tr').withText(text).find('span').withText('Entries')
+}
+
+// PDF
+export function downloadPDFLink (style, text) {
+  return Selector(`.${style}`).find('a').withText(text)
+}
+
 // Field label
 export function fieldLabel (text, style = 'th') {
   return Selector(style).withText(text)
