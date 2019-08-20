@@ -1,11 +1,10 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../../auth'
 
-class ConfirmationPdfShortcodes {
+class ConfirmationShortcodes {
   constructor () {
     this.confirmationsLink = Selector('#gform_tabs').find('a').withText('Confirmations')
     this.defaultEntry = Selector('#the-list').find('a').withText('Default Confirmation')
-    this.pdflist = Selector('#gform_tabs').find('a').withText('PDF')
     this.shortcodeField = Selector('.gravitypdf_shortcode')
     this.confirmationText = Selector('#form_confirmation_show_message')
     this.confirmationPage = Selector('#form_confirmation_show_page')
@@ -29,4 +28,4 @@ class ConfirmationPdfShortcodes {
   }
 }
 
-export default ConfirmationPdfShortcodes
+export default ConfirmationShortcodes

@@ -1,11 +1,10 @@
 import { button, dropdownOption, downloadPDFLink } from '../../page-model/helpers/field'
 import Pdf from '../../page-model/helpers/pdf'
-import ConfirmationPdfShortcodes
-  from '../../page-model/advanced-checks/form-confirmation-types-pdf-shortcodes/form-confirmation-types-pdf-shortcodes'
+import ConfirmationShortcodes from '../../page-model/advanced-checks/confirmation-shortcode/confirmation-shortcode'
 import Page from '../../page-model/helpers/page'
 
 const pdf = new Pdf()
-const run = new ConfirmationPdfShortcodes()
+const run = new ConfirmationShortcodes()
 const page = new Page()
 let shorcodeHolder
 
@@ -15,7 +14,7 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
   // Actions
   await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=3')
   await t
-    .click(run.pdflist)
+    .click(pdf.pdflist)
     .click(run.shortcodeField)
   shorcodeHolder = await run.shortcodeField.value
   await t
@@ -38,8 +37,6 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
 })
 
 test('should check if the shortcode confirmation type PAGE is working correctly', async t => {
-  // Get selectors
-
   // Actions
   await page.addNewPage()
   await page.navigatePage()
@@ -79,8 +76,6 @@ test('reset/clean PDF templates from the list for the next test', async t => {
 })
 
 test('reset/clean Page entry for the next test', async t => {
-  // Get selectors
-
   // Actions
   await page.navigatePage()
   await t
