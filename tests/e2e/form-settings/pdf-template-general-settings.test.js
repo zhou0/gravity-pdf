@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription, selectBox, listItem, button, addNewPdf } from '../page-model/helpers/field'
+import { fieldLabel, fieldDescription, selectBox, listItem, button, link } from '../page-model/helpers/field'
 import Pdf from '../page-model/helpers/pdf'
 import FormSettings from '../page-model/form-settings/form-settings'
 
@@ -14,7 +14,7 @@ test('should display Name field', async t => {
 
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
-  await t.click(addNewPdf)
+  await t.click(link('#tab_pdf', 'Add New'))
 
   // Assertions
   await t
@@ -29,7 +29,7 @@ test('should display Template field', async t => {
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
-    .click(addNewPdf)
+    .click(link('#tab_pdf', 'Add New'))
     .click(button('Advanced'))
 
   // Assertions
@@ -44,7 +44,7 @@ test('should display Template field', async t => {
 test('should display Notifications field', async t => {
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
-  await t.click(addNewPdf)
+  await t.click(link('#tab_pdf', 'Add New'))
 
   // Assertions
   await t
@@ -62,7 +62,7 @@ test('should display Filename field', async t => {
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
-    .click(addNewPdf)
+    .click(link('#tab_pdf', 'Add New'))
     .click(mergeTagBox)
 
   // Assertions
@@ -83,7 +83,7 @@ test('should display Conditional Logic field', async t => {
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
-    .click(addNewPdf)
+    .click(link('#tab_pdf', 'Add New'))
     .click(run.conditionalCheckbox)
 
   // Assertions
@@ -101,7 +101,7 @@ test('should toggle additional Conditional Logic field', async t => {
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
-    .click(addNewPdf)
+    .click(link('#tab_pdf', 'Add New'))
     .click(run.conditionalCheckbox)
     .click(run.conditionalCheckbox)
 
@@ -119,7 +119,7 @@ test('should verify that an error is thrown if Name or Filename is empty when tr
   // Actions
   await pdf.navigatePdfSection('gf_edit_forms&view=settings&subview=pdf&id=1')
   await t
-    .click(addNewPdf)
+    .click(link('#tab_pdf', 'Add New'))
     .click(addPdfButton)
 
   // Assertions

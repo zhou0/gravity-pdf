@@ -1,4 +1,4 @@
-import { button, dropdownOption, downloadPDFLink } from '../../page-model/helpers/field'
+import { button, dropdownOption, link } from '../../page-model/helpers/field'
 import Pdf from '../../page-model/helpers/pdf'
 import ConfirmationShortcodes from '../../page-model/advanced-checks/confirmation-shortcode/confirmation-shortcode'
 import Page from '../../page-model/helpers/page'
@@ -14,12 +14,12 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
   // Actions
   await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=3')
   await t
-    .click(pdf.pdflist)
+    .click(link('#gform_tabs', 'PDF'))
     .click(run.shortcodeField)
   shorcodeHolder = await run.shortcodeField.value
   await t
-    .click(run.confirmationsLink)
-    .click(run.defaultEntry)
+    .click(link('#gform_tabs', 'Confirmations'))
+    .click(link('#the-list', 'Default Confirmation'))
     .click(run.confirmationText)
     .click(button('Text'))
     .click(run.wsiwigEditor)
@@ -27,13 +27,13 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
     .pressKey('backspace')
     .typeText(run.wsiwigEditor, shorcodeHolder, { paste: true })
     .click(run.saveButton)
-    .click(run.previewLink)
+    .click(link('#gf_form_toolbar', 'Preview'))
     .typeText(run.formInputField, 'test', { paste: true })
     .click(run.submitButton)
 
   // Assertions
   await t
-    .expect(downloadPDFLink('gform_confirmation_wrapper ', 'Download PDF').exists).ok()
+    .expect(link('.gform_confirmation_wrapper ', 'Download PDF').exists).ok()
 })
 
 test('should check if the shortcode confirmation type PAGE is working correctly', async t => {
@@ -41,7 +41,7 @@ test('should check if the shortcode confirmation type PAGE is working correctly'
   await page.addNewPage()
   await page.navigatePage()
   await t
-    .click(page.testPage)
+    .click(link('#the-list', 'Test page'))
   await page.closePopupButton.exists && await t.click(page.closePopupButton)
   await t
     .click(page.addBlockIcon)
@@ -57,14 +57,14 @@ test('should check if the shortcode confirmation type PAGE is working correctly'
     .click(run.queryStringBox)
     .typeText(run.textAreaBox, 'entry={entry_id}', { paste: true })
     .click(run.saveButton)
-    .click(run.previewLink)
+    .click(link('#gf_form_toolbar', 'Preview'))
     .typeText(run.formInputField, 'test', { paste: true })
     .click(run.submitButton)
 
   // Actions
   await t
     .expect(page.pageHeader.exists).ok()
-    .expect(downloadPDFLink('entry-content', 'Download PDF').exists).ok()
+    .expect(link('.entry-content', 'Download PDF').exists).ok()
 })
 
 test('reset/clean PDF templates from the list for the next test', async t => {
@@ -79,10 +79,10 @@ test('reset/clean Page entry for the next test', async t => {
   // Actions
   await page.navigatePage()
   await t
-    .hover(page.testPage)
+    .hover(link('#the-list', 'Test page'))
     .click(page.trashLink)
 
   // Assertions
   await t
-    .expect(page.testPage.exists).notOk()
+    .expect(link('#the-list', 'Test page').exists).notOk()
 })

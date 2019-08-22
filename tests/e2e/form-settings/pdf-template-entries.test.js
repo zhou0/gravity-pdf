@@ -1,5 +1,6 @@
 import Pdf from '../page-model/helpers/pdf'
 import PdfTemplateEntries from '../page-model/form-settings/pdf-template-entries'
+import { link } from '../page-model/helpers/field'
 
 const pdf = new Pdf()
 const run = new PdfTemplateEntries()
@@ -9,7 +10,7 @@ fixture`PDF Template - Entries Test`
 test('should successfully add new PDF template into form entries', async t => {
   // Actions
   await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=1')
-  await t.click(pdf.pdflist)
+  await t.click(link('#gform_tabs', 'PDF'))
 
   // Assertions
   await t.expect(pdf.template.count).eql(1)

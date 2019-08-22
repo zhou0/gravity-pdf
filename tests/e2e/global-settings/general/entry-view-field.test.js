@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe'
-import { fieldLabel, fieldDescription } from '../../page-model/helpers/field'
+import { fieldLabel, fieldDescription, link } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
 import Pdf from '../../page-model/helpers/pdf'
 
@@ -21,9 +21,6 @@ test('should display Entry View field', async t => {
 })
 
 test('should display "Download PDF" as an option on the Entry List page instead of "View PDF" when "Download" is selected', async t => {
-  // Get Selectors
-  const downloadPdfLink = Selector('a').withText('Download PDF')
-
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
@@ -34,7 +31,7 @@ test('should display "Download PDF" as an option on the Entry List page instead 
 
   // Assertions
   await t
-    .expect(downloadPdfLink.exists).ok()
+    .expect(link('#the-list', 'Download PDF').exists).ok()
 })
 
 test('reset/clean PDF templates from the list for the next test', async t => {

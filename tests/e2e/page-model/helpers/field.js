@@ -9,11 +9,6 @@ export function formEntries (text) {
   return Selector('#the-list').find('tr').withText(text).find('span').withText('Entries')
 }
 
-// PDF
-export function downloadPDFLink (style, text) {
-  return Selector(`.${style}`).find('a').withText(text)
-}
-
 // Field label
 export function fieldLabel (text, style = 'th') {
   return Selector(style).withText(text)
@@ -73,5 +68,7 @@ export function templateDetails (style, text) {
   return Selector('div').find(`[class^="${style}"]`).withText(`${text}`)
 }
 
-// Constant
-export const addNewPdf = Selector('#tab_pdf').find('a').withText('Add New')
+// Link
+export function link (style, text) {
+  return Selector(`${style}`).find('a').withText(text)
+}

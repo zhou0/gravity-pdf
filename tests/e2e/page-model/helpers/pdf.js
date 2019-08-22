@@ -1,15 +1,13 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
-import { formList, formEntries, addNewPdf } from './field'
+import { formList, formEntries, link } from './field'
 
 class Pdf {
   constructor () {
-    this.pdflist = Selector('#gform_tabs').find('a').withText('PDF')
     this.pdfname = Selector('#gfpdf_settings\\[name\\]')
     this.fileName = Selector('#gfpdf_settings\\[filename\\]')
     this.addPdfButton = Selector('div').find('[class^="button-primary"][value="Add PDF"]')
     this.settingsMenu = Selector('.gf_form_toolbar_settings')
-    this.pdfLink = Selector('.gf_submenu').find('a').withText('PDF')
     this.template = Selector('.alternate')
     this.deletePDF = Selector('.submitdelete')
     this.confirmDelete = Selector('button').find('[class^="ui-button-text"]').withText('Delete')
@@ -19,7 +17,7 @@ class Pdf {
     await t
       .useRole(admin)
       .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
-      .click(addNewPdf)
+      .click(link('#tab_pdf', 'Add New'))
       .typeText(this.pdfname, 'Test PDF Template', { paste: true })
       .typeText(this.fileName, 'testpdftemplate', { paste: true })
       .click(this.addPdfButton)
@@ -38,7 +36,7 @@ class Pdf {
       .hover(formList(formName))
       .click(formEntries(formName))
       .hover(this.settingsMenu)
-      .click(this.pdfLink)
+      .click(link('.gf_submenu', 'PDF'))
     let tempalte = await this.template.count
     if (tempalte > 0) {
       for (let i = 0; i < tempalte; i++) {

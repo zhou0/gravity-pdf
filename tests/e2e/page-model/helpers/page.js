@@ -1,13 +1,11 @@
 import { Selector, t } from 'testcafe'
 import { admin, baseURL } from '../../auth'
-import { button } from './field'
+import { button, link } from './field'
 
 class Page {
   constructor () {
-    this.addNewButton = Selector('.wrap').find('a').withText('Add New')
     this.closePopupButton = Selector('button').withAttribute('aria-label', 'Disable tips')
     this.titleField = Selector('.editor-post-title').find('textarea').withAttribute('placeholder', 'Add title')
-    this.testPage = Selector('#the-list').find('tr').find('a').withText('Test page')
     this.addBlockIcon = Selector('button').withAttribute('aria-label', 'Add block')
     this.searchBlock = Selector('input').withAttribute('placeholder', 'Search for a block')
     this.shortcodeLink = Selector('button').withAttribute('aria-label', 'Shortcode')
@@ -25,7 +23,7 @@ class Page {
   async addNewPage () {
     await this.navigatePage()
     await t
-      .click(this.addNewButton)
+      .click(link('.wrap', 'Add New'))
       .click(this.closePopupButton)
       .typeText(this.titleField, 'Test page', { paste: true })
       .click(button('Schedule…'))
