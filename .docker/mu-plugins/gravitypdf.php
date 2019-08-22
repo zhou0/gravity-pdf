@@ -131,3 +131,8 @@ add_filter(
 	10,
 	3
 );
+
+/* Override mPDF configuration to use the Core fonts */
+add_filter( 'gfpdf_mpdf_class_config', function( $config ) {
+	return ['mode' => 'c'];
+} );

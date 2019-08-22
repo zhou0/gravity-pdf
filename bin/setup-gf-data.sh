@@ -14,6 +14,6 @@ do
 
   # Add PDF Configs
   if [[ $i -eq 3  ||  $i -eq 4 ]]; then
-    docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33 $CLI eval "GPDFAPI::add_pdf(${FID}, [ 'name' => 'Sample', 'template' => 'zadani', 'filename' => 'Sample' ]);"
+    docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33 $CLI eval "GPDFAPI::add_pdf(${FID}, [ 'name' => 'Sample', 'template' => 'zadani', 'filename' => 'Sample', 'font' => 'dejavusans', 'format' => 'standard', 'security' => 'no' ]);"
   fi
 done
