@@ -24,7 +24,7 @@ add_action(
 	'init',
 	function() {
 
-		if ( ! class_exists( 'GFForms' ) ) {
+		if ( ! class_exists( 'GFForms' ) || ! class_exists( 'GPDFAPI' ) ) {
 			return;
 		}
 
