@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe'
-import { radioItem, defaultValue } from '../../../page-model/helpers/field'
-import Pdf from '../../../page-model/helpers/pdf'
-import General from '../../../page-model/global-settings/general/general'
+import { radioItem, defaultValue } from '../../page-model/helpers/field'
+import Pdf from '../../page-model/helpers/pdf'
+import General from '../../page-model/global-settings/general/general'
 
 const pdf = new Pdf()
 const run = new General()
@@ -36,7 +36,7 @@ test('should check that a new added PDF has the default global settings set', as
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 2')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms&view=settings&subview=pdf&id=2')
 
   // Assertions
   await t.expect(pdf.template.count).eql(0)

@@ -96,7 +96,7 @@ test('should successfully duplicate existing PDF template using the Duplicate li
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 1')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms&view=settings&subview=pdf&id=1')
 
   // Assertions
   await t.expect(pdf.template.count).eql(0)

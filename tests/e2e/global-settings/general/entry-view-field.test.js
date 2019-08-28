@@ -61,7 +61,7 @@ test('should display "View PDF" as an option on the Entry List page instead of "
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 2')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms&view=settings&subview=pdf&id=2')
 
   // Assertions
   await t.expect(pdf.template.count).eql(0)

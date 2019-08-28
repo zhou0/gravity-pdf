@@ -11,7 +11,7 @@ class PdfTemplateEntries {
     this.toggleSwitch = Selector('.check-column').find('img')
     this.inActiveTemplate = Selector('div').find('[alt^="Inactive"][title="Inactive"]')
     this.activeTemplate = Selector('div').find('[alt^="Active"][title="Active"]')
-    this.entryItem = Selector('td').withAttribute('data-colname', 'Text')
+    this.entryItem = Selector('a').withAttribute('aria-label', 'View this entry')
     this.viewPdfLink = Selector('a').withText('View PDF')
     this.enableConditionalLogic = Selector('#gfpdf_conditional_logic')
     this.editLink = Selector('span').withText('Edit')

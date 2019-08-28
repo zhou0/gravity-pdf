@@ -26,8 +26,8 @@ class Page {
       .click(link('.wrap', 'Add New'))
       .click(this.closePopupButton)
       .typeText(this.titleField, 'Test page', { paste: true })
-      .click(button('Schedule…'))
-      .click(button('Schedule'))
+      .click(button('Publish…'))
+      .click(button('Publish'))
   }
 }
 

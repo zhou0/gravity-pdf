@@ -1,6 +1,6 @@
 import { Selector, t } from 'testcafe'
-import { admin, baseURL } from '../../../auth'
-import { link } from '../../helpers/field'
+import { admin, baseURL } from '../../auth'
+import { link } from '../helpers/field'
 
 class ConfirmationShortcodes {
   constructor () {

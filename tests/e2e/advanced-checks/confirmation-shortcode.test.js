@@ -1,7 +1,7 @@
-import { button, dropdownOption, link } from '../../page-model/helpers/field'
-import Pdf from '../../page-model/helpers/pdf'
-import ConfirmationShortcodes from '../../page-model/advanced-checks/confirmation-shortcode/confirmation-shortcode'
-import Page from '../../page-model/helpers/page'
+import { button, dropdownOption, link } from '../page-model/helpers/field'
+import Pdf from '../page-model/helpers/pdf'
+import ConfirmationShortcodes from '../page-model/advanced-checks/confirmation-shortcode'
+import Page from '../page-model/helpers/page'
 
 const pdf = new Pdf()
 const run = new ConfirmationShortcodes()
@@ -12,7 +12,7 @@ fixture`PDF shortcode - Confirmation Type Text Test`
 
 test('should check if the shortcode confirmation type TEXT is working correctly', async t => {
   // Actions
-  await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=3')
+  await pdf.navigateAddPdf('gf_edit_forms&view=settings&subview=pdf&id=2')
   await t
     .click(link('#gform_tabs', 'PDF'))
     .click(run.shortcodeField)
@@ -49,7 +49,7 @@ test('should check if the shortcode confirmation type PAGE is working correctly'
     .click(page.shortcodeLink)
     .typeText(page.shortcodeTextarea, shorcodeHolder, { paste: true })
     .click(button('Update'))
-  await run.navigateConfirmationsSection('gf_edit_forms&view=settings&subview=confirmation&id=3')
+  await run.navigateConfirmationsSection('gf_edit_forms&view=settings&subview=confirmation&id=2')
   await t
     .click(run.confirmationPage)
     .click(run.pageSelect)
@@ -69,7 +69,7 @@ test('should check if the shortcode confirmation type PAGE is working correctly'
 
 test('reset/clean PDF templates from the list for the next test', async t => {
   // Actions
-  await pdf.navigateDeletePdfEntries('gf_edit_forms', 'Sample 3')
+  await pdf.navigateDeletePdfEntries('gf_edit_forms&view=settings&subview=pdf&id=2')
 
   // Assertions
   await t.expect(pdf.template.count).eql(0)

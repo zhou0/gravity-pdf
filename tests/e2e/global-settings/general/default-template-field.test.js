@@ -9,11 +9,9 @@ import {
   templateDetails
 } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
-import Fonts from '../../page-model/global-settings/tools/fonts/fonts'
 import { baseURL } from '../../auth'
 
 const run = new General()
-const font = new Fonts()
 
 fixture`General Tab - Default Template Field Test`
 
@@ -161,35 +159,35 @@ test('should display Template filter search bar', async t => {
 
 test('should successfully upload a new Template', async t => {
   // Get Selectors
-  const templateFile = './files/gpdf-cellulose-1.4.0.zip'
-  const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
+  const testTemplate = '../../resources/test-template.zip'
+  const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/test-template.png`)
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .click(button('Advanced'))
-    .setFilesToUpload(run.addNewTemplate, templateFile)
+    .setFilesToUpload(run.addNewTemplate, testTemplate)
 
   // Assertions
   await t
     .expect(templateDetails('notice inline', 'Template successfully installed').exists).ok()
     .expect(imageScreenshot.exists).ok()
-    .expect(templateDetails('theme-author', 'Universal (Premium)').exists).ok()
-    .expect(templateDetails('theme-name', 'Cellulose').exists).ok()
+    .expect(templateDetails('theme-author', 'Custom').exists).ok()
+    .expect(templateDetails('theme-name', 'Test Template').exists).ok()
     .expect(templateDetails('notice inline', 'PDF Template(s) Successfully Installed / Updated').exists).ok()
 })
 
 test('should successfully delete the new added template', async t => {
   // Get Selectors
   const deleteButton = Selector('a').withText('Delete').nth(0)
-  const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/gpdf-cellulose.png`)
+  const imageScreenshot = Selector('.theme-screenshot').find('img').withAttribute('src', `${baseURL}/wp-content/uploads/PDF_EXTENDED_TEMPLATES/images/test-template.png`)
 
   // Actions
   await run.navigateSettingsTab('gf_settings&subview=PDF&tab=general#')
   await t
     .setNativeDialogHandler(() => true)
     .click(button('Advanced'))
-    .click(run.celluloseDetailsLink)
+    .click(run.testTemplateDetailsLink)
     .click(deleteButton)
 
   // Assertions
@@ -197,19 +195,4 @@ test('should successfully delete the new added template', async t => {
     .expect(imageScreenshot.exists).notOk()
     .expect(templateDetails('theme-author', 'Universal (Premium)').exists).notOk()
     .expect(templateDetails('theme-name', 'Cellulose').exists).notOk()
-})
-
-test('should successfully delete the new added template font', async t => {
-  // Get Selectors
-  const fontListEmpty = Selector('#font-empty').withText('Looks bare in here!\n' +
-    'Click "Add Font" below to get started.')
-
-  // Actions
-  await font.navigateSettingsTab('gf_settings&subview=PDF&tab=tools#/')
-  await t
-    .click(font.deleteIcon)
-    .click(button('Delete'))
-
-  // Assertions
-  await t.expect(fontListEmpty.exists).ok()
 })
