@@ -30,6 +30,7 @@ test('should display "Download PDF" as an option on the Entry List page instead 
     .click(run.downlaodOption)
     .click(run.saveButton)
   await pdf.navigatePdfSection('gf_entries&id=3')
+  await t.hover(run.entryItem)
 
   // Assertions
   await t
@@ -46,6 +47,7 @@ test('should display "View PDF" as an option on the Entry List page instead of "
     .click(run.viewOption)
     .click(run.saveButton)
   await pdf.navigatePdfSection('gf_entries&id=3')
+  await t.hover(run.entryItem)
 
   // Assertions
   await t
