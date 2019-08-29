@@ -11,7 +11,7 @@ fixture`General Tab - Check Added PDF To Form For Updated Global Settings Test`
 test('should check that a new added PDF has the updated global settings set', async t => {
   // Get Selectors
   const newPaperSize = listItem('Legal (8.5 x 14in)')
-  const testTemplate = '../../../resources/test-template.zip'
+  const testTemplate = '../../resources/test-template.zip'
   const newFont = listItem('Free Sans')
   const newFontColorGreen = Selector('.iris-palette').nth(5)
   const updatedFontColorGreen = Selector('button').withAttribute('style', 'background-color: rgb(129, 215, 66);')
