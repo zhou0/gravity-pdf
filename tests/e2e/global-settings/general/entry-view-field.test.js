@@ -1,10 +1,8 @@
 import { Selector } from 'testcafe'
 import { fieldLabel, fieldDescription } from '../../page-model/helpers/field'
 import General from '../../page-model/global-settings/general/general'
-import Pdf from '../../page-model/helpers/pdf'
 
 const run = new General()
-const pdf = new Pdf()
 
 fixture`General Tab - Entry View Field Test`
 
@@ -29,7 +27,8 @@ test('should display "Download PDF" as an option on the Entry List page instead 
   await t
     .click(run.downlaodOption)
     .click(run.saveButton)
-  await pdf.navigatePdfSection('gf_entries&id=3')
+    .wait(1000)
+  await run.navigatePdfEntries('gf_entries&id=3')
   await t.hover(run.entryItem)
 
   // Assertions
@@ -46,7 +45,8 @@ test('should display "View PDF" as an option on the Entry List page instead of "
   await t
     .click(run.viewOption)
     .click(run.saveButton)
-  await pdf.navigatePdfSection('gf_entries&id=3')
+    .wait(1000)
+  await run.navigatePdfEntries('gf_entries&id=3')
   await t.hover(run.entryItem)
 
   // Assertions

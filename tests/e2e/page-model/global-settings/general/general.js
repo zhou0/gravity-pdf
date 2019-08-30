@@ -32,6 +32,11 @@ class General {
       .useRole(admin)
       .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
   }
+
+  async navigatePdfEntries (text) {
+    await t
+      .navigateTo(`${baseURL}/wp-admin/admin.php?page=${text}`)
+  }
 }
 
 export default General
