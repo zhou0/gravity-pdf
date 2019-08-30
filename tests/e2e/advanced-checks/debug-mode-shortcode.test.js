@@ -30,6 +30,7 @@ test('should enable debug mode and throw error when PDF is inactive', async t =>
   await t.click(pte.toggleSwitch)
   await cs.navigateConfirmationsSection('gf_edit_forms&view=settings&subview=confirmation&id=3')
   await t
+    .click(cs.confirmationText)
     .click(button('Text'))
     .pressKey('ctrl+a')
     .pressKey('backspace')
