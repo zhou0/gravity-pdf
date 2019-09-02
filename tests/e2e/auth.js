@@ -11,3 +11,11 @@ export const admin = Role(`${baseURL}/wp-login.php`, async t => {
     .typeText('#user_pass', 'password')
     .click('#wp-submit')
 })
+
+export const user = Role(`${baseURL}/wp-login.php`, async t => {
+  await t
+    .wait(100)
+    .typeText('#user_login', 'user')
+    .typeText('#user_pass', 'password')
+    .click('#wp-submit')
+})
