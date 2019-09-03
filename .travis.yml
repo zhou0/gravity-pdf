@@ -36,7 +36,7 @@ before_script:
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3
 - fluxbox >/dev/null 2>&1 &
-- ./bin/setup-local-env.sh
+- bash bin/setup-local-env.sh
 
 script:
 - yarn run test:e2e:headless:chrome
