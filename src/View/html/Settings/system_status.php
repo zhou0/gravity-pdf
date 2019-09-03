@@ -89,6 +89,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<tr>
 		<th scope="row">
+			<?php esc_html_e( 'allow_url_fopen', 'gravity-forms-pdf-extended' ); ?><?php gform_tooltip( 'pdf_allow_url_fopen' ); ?>
+		</th>
+
+		<td>
+
+			<?php
+			$ram_icon = 'fa fa-check-circle';
+			if ( empty( $args['allow_url'] ) ) {
+				$ram_icon = 'fa fa-exclamation-triangle';
+			}
+			?>
+
+			<?php if ( $args['allow_url'] === 1 ): ?>
+				<?php echo esc_html__( 'Enabled', 'gravity-forms-pdf-extended' ); ?>
+			<?php endif; ?>
+
+			<span class="<?php echo $ram_icon; ?>"></span>
+
+			<?php if ( empty( $args['allow_url'] ) ): ?>
+				<span class="gf_settings_description">
+                    <?php echo sprintf( esc_html__( "We've detected that your %sallow_url_fopen%s is disabled in php.ini.", 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?> <br>
+					<?php echo sprintf( esc_html__( "We recommend you to enable it, so it will correctly display images that have been included with URLs (or as base64 encoded data).", 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?>
+                </span>
+			<?php endif; ?>
+		</td>
+	</tr>
+
+	<tr>
+		<th scope="row">
 			<?php esc_html_e( 'Direct PDF Protection', 'gravity-forms-pdf-extended' ); ?> <?php gform_tooltip( 'pdf_protection' ); ?>
 		</th>
 

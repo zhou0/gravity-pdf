@@ -342,6 +342,18 @@ class GFPDF_Major_Compatibility_Checks {
 	}
 
 	/**
+	 * Check if enabled or not
+	 *
+	 * @param $allow_url
+	 *
+	 * @return int|string
+	 */
+	public function check_allow_url( $allow_url ) {
+
+		return $allow_url === '1' ? 1 : '';
+	}
+
+	/**
 	 * Convert .ini file memory to bytes
 	 *
 	 * @param string $memory The .ini memory limit
