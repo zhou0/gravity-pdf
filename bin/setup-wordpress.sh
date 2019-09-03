@@ -54,6 +54,9 @@ docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33 $CLI config set SCRIP
 SCRIPT_DEBUG_RESULT=$(docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run -T --rm -u 33 $CLI config get --type=constant --format=json SCRIPT_DEBUG)
 echo -e $(status_message "SCRIPT_DEBUG: $SCRIPT_DEBUG_RESULT...")
 
+# Setup additional users
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33 $CLI user create editor editor@test.com --role=editor --user_pass=password --quiet
+
 # Setup the Plugins
 . "$(dirname "$0")/setup-plugins.sh"
 . "$(dirname "$0")/setup-gf-data.sh"
