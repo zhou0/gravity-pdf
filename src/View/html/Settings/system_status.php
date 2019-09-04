@@ -29,15 +29,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table id="pdf-system-status" class="form-table">
 	<tr>
 		<th scope="row">
-			<?php esc_html_e( 'WP Memory Available', 'gravity-forms-pdf-extended' ); ?> <?php gform_tooltip( 'pdf_status_wp_memory' ); ?>
+			<?php esc_html_e( 'WP Memory Available', 'gravity-forms-pdf-extended' ); ?><?php gform_tooltip( 'pdf_status_wp_memory' ); ?>
 		</th>
 
 		<td>
 
 			<?php
-				$ram_icon = 'fa fa-check-circle';
+			$allow_url_fopen_icon = 'fa fa-check-circle';
 			if ( $args['memory'] < 128 && $args['memory'] !== -1 ) {
-				$ram_icon = 'fa fa-exclamation-triangle';
+				$allow_url_fopen_icon = 'fa fa-exclamation-triangle';
 			}
 			?>
 
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php echo $args['memory']; ?>MB
 			<?php endif; ?>
 
-			<span class="<?php echo $ram_icon; ?>"></span>
+			<span class="<?php echo $allow_url_fopen_icon; ?>"></span>
 
 			<?php if ( $args['memory'] < 128 && $args['memory'] !== -1 ): ?>
 				<span class="gf_settings_description">
@@ -89,36 +89,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<tr>
 		<th scope="row">
-			<?php esc_html_e( 'allow_url_fopen', 'gravity-forms-pdf-extended' ); ?><?php gform_tooltip( 'pdf_allow_url_fopen' ); ?>
+			<?php esc_html_e( 'PHP allow_url_fopen', 'gravity-forms-pdf-extended' ); ?>
+			<?php gform_tooltip( 'pdf_allow_url_fopen' ); ?>
 		</th>
 
 		<td>
 
 			<?php
-			$ram_icon = 'fa fa-check-circle';
-			if ( empty( $args['allow_url'] ) ) {
-				$ram_icon = 'fa fa-exclamation-triangle';
+			$allow_url_fopen_icon = 'fa fa-check-circle';
+			if ( ! $args['allow_url'] ) {
+				$allow_url_fopen_icon = 'fa fa-exclamation-triangle';
 			}
 			?>
 
-			<?php if ( $args['allow_url'] === 1 ): ?>
-				<?php echo esc_html__( 'Enabled', 'gravity-forms-pdf-extended' ); ?>
-			<?php endif; ?>
+			<?= $args['allow_url'] ? esc_html__( 'Enabled', 'gravity-forms-pdf-extended' ) : esc_html__( 'Disabled', 'gravity-forms-pdf-extended' ) ?>
 
-			<span class="<?php echo $ram_icon; ?>"></span>
+			<span class="<?php echo $allow_url_fopen_icon; ?>"></span>
 
-			<?php if ( empty( $args['allow_url'] ) ): ?>
+			<?php if ( ! $args['allow_url'] ): ?>
 				<span class="gf_settings_description">
-                    <?php echo sprintf( esc_html__( "We've detected that your %sallow_url_fopen%s is disabled in php.ini.", 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?> <br>
-					<?php echo sprintf( esc_html__( "We recommend you to enable it, so it will correctly display images that have been included with URLs (or as base64 encoded data).", 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?>
-                </span>
+					<?php echo sprintf( esc_html__( "We've detected that your %1\$sallow_url_fopen%2\$s is disabled in php.ini.", 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?> <br>
+					<?php echo sprintf( esc_html__( 'We recommend you to enable it, so it will correctly display images that have been included with URLs (or as base64 encoded data).', 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?>
+				</span>
 			<?php endif; ?>
 		</td>
 	</tr>
 
 	<tr>
 		<th scope="row">
-			<?php esc_html_e( 'Direct PDF Protection', 'gravity-forms-pdf-extended' ); ?> <?php gform_tooltip( 'pdf_protection' ); ?>
+			<?php esc_html_e( 'Direct PDF Protection', 'gravity-forms-pdf-extended' ); ?><?php gform_tooltip( 'pdf_protection' ); ?>
 		</th>
 
 		<td>
@@ -128,11 +127,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<noscript><?php esc_html_e( 'You need JavaScript enabled to perform this check.', 'gravity-forms-pdf-extended' ); ?></noscript>
 
 				<div id="gfpdf-direct-pdf-check-protected" style="display: none">
-					<?php esc_html_e( 'Protected', 'gravity-forms-pdf-extended' ); ?> <span class="fa fa-check-circle"></span>
+					<?php esc_html_e( 'Protected', 'gravity-forms-pdf-extended' ); ?>
+					<span class="fa fa-check-circle"></span>
 				</div>
 
 				<div id="gfpdf-direct-pdf-check-unprotected" style="display: none">
-					<strong><?php esc_html_e( 'Unprotected', 'gravity-forms-pdf-extended' ); ?></strong> <span class="fa fa-times-circle"></span>
+					<strong><?php esc_html_e( 'Unprotected', 'gravity-forms-pdf-extended' ); ?></strong>
+					<span class="fa fa-times-circle"></span>
 
 					<span class="gf_settings_description">
 						<?php printf( esc_html__( "We've detected the PDFs saved in Gravity PDF's %1\$stmp%2\$s directory can be publically accessed.", 'gravity-forms-pdf-extended' ), '<code>', '</code>' ); ?><br>
