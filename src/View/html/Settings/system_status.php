@@ -29,7 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table id="pdf-system-status" class="form-table">
 	<tr>
 		<th scope="row">
-			<?php esc_html_e( 'WP Memory Available', 'gravity-forms-pdf-extended' ); ?><?php gform_tooltip( 'pdf_status_wp_memory' ); ?>
+			<?php esc_html_e( 'WP Memory Available', 'gravity-forms-pdf-extended' ); ?>
+			<?php gform_tooltip( 'pdf_status_wp_memory' ); ?>
 		</th>
 
 		<td>
@@ -117,7 +118,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<tr>
 		<th scope="row">
-			<?php esc_html_e( 'Direct PDF Protection', 'gravity-forms-pdf-extended' ); ?><?php gform_tooltip( 'pdf_protection' ); ?>
+			<?php esc_html_e( 'Direct PDF Protection', 'gravity-forms-pdf-extended' ); ?>
+			<?php gform_tooltip( 'pdf_protection' ); ?>
 		</th>
 
 		<td>
