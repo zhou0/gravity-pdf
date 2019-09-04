@@ -28,9 +28,7 @@ env:
 
 before_script:
 #- chmod -R 777 .
-- export APACHE_RUN_USER=travis
-- export APACHE_RUN_GROUP=travis
-- nvm install 10.15
+#- nvm install 10.15
 - ./bin/setup-local-env.sh
 
 script:
