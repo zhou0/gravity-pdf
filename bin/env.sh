@@ -12,8 +12,13 @@ GF_LICENSE=$GF_LICENSE || $1
 
 # Get the host details for the WordPress container.
 HOST_IP='localhost'
-MACHINE_IP="$(docker-machine inspect "$(docker-machine active)" --format '{{ .Driver.IPAddress }}')"
+MACHINE_IP='localhost'
 HOST_PORT="$(docker-compose $DOCKER_COMPOSE_FILE_OPTIONS port $CONTAINER 80 | awk -F : '{printf $2}')"
+
+# Add legacy support for older OS software
+if ! [ -x "$(command -v docker-machine)" ]; then
+  MACHINE_IP="$(docker-machine inspect "$(docker-machine active)" --format '{{ .Driver.IPAddress }}')"
+fi
 
 # Add new variables / override existing if .env file exists
 if [ -f ".env" ]; then
