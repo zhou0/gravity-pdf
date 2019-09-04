@@ -30,8 +30,8 @@ services:
     depends_on:
       - mysql
       - wordpress
-    entrypoint: wp
-    command: "--info"
+#    entrypoint: wp
+#    command: "--info"
 
   mysql:
     image: mysql:5.7

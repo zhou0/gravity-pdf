@@ -6,6 +6,11 @@
 
 # Setting up Gravity Forms
 echo -e $(status_message "Installing and configuring Gravity Forms")
+
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33:33 $CLI ls -la
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33:33 $CLI ls wp-content -la
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33:33 $CLI ls wp-content/plugins -la
+
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33:33 $CLI plugin install gravityformscli --activate --force
 
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33:33 $CLI gf install --key=$GF_LICENSE --activate --force
