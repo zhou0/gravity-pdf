@@ -16,7 +16,7 @@ MACHINE_IP='localhost'
 HOST_PORT="$(docker-compose $DOCKER_COMPOSE_FILE_OPTIONS port $CONTAINER 80 | awk -F : '{printf $2}')"
 
 # Add legacy support for older OS software
-if ! [ -x "$(command -v docker-machine)" ]; then
+if ! [ command -v docker_machine > /dev/null 2>&1 ]; then
   MACHINE_IP="$(docker-machine inspect "$(docker-machine active)" --format '{{ .Driver.IPAddress }}')"
 fi
 
