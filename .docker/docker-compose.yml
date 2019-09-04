@@ -21,9 +21,9 @@ services:
   cli:
     image: wordpress:cli
     restart: always
-    user: www-data
+    user: xfs
     environment:
-      WP_CLI_CACHE_DIR: /tmp
+      WP_CLI_CACHE_DIR: /var/www/html/tmp
     volumes:
       - wordpress_data:/var/www/html
       - ../:/var/www/html/wp-content/plugins/gravity-forms-pdf-extended
