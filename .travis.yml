@@ -28,7 +28,7 @@ env:
 
 before_script:
 #- chmod -R 777 .
-#- nvm install 10.15
+- nvm install 10.15
 - ./bin/setup-local-env.sh
 
 script:
