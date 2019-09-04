@@ -7,7 +7,6 @@
 # Setting up Gravity Forms
 echo -e $(status_message "Installing and configuring Gravity Forms")
 
-echo $UID
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER echo $UID
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CLI echo $UID
 
