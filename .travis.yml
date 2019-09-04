@@ -2,8 +2,6 @@ dist: trusty
 
 language: php
 
-sudo: required
-
 services:
   - mysql
   - xvfb
@@ -36,7 +34,7 @@ before_script:
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3
 - fluxbox >/dev/null 2>&1 &
-- sudo bash bin/setup-local-env.sh
+- bash bin/setup-local-env.sh
 
 script:
 - yarn run test:e2e:headless:chrome
