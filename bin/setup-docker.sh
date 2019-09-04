@@ -29,6 +29,5 @@ echo -e $(status_message "Starting Docker containers...")
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS up -d >/dev/null
 
 # Fix Permissions
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER mkdir wp-content/plugins/gravityformscli
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER chown -R www-data:www-data wp-content
-docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER chown -R www-data:www-data wp-plugins
-docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER chown -R 777 wp-plugins
