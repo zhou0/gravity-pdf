@@ -28,7 +28,7 @@ env:
 
 before_script:
 - phpenv config-rm xdebug.ini
-- bash bin/setup-local-env.sh
+- ./bin/setup-local-env.sh
 
 script:
 - yarn run test:e2e:headless:chrome
