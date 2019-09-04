@@ -8,7 +8,7 @@
 . "$(dirname "$0")/setup-docker.sh"
 
 # Build Gravity PDF
-. "$(dirname "$0")/setup-gravitypdf.sh"
+# . "$(dirname "$0")/setup-gravitypdf.sh"
 
 # Set up WordPress Development site.
 . "$(dirname "$0")/setup-wordpress.sh"
