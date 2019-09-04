@@ -220,10 +220,11 @@ class View_Settings extends Helper_Abstract_View {
 		$status = new GFPDF_Major_Compatibility_Checks();
 
 		$vars = [
-			'memory' => $status->get_ram( $this->data->memory_limit ),
-			'wp'     => $wp_version,
-			'php'    => phpversion(),
-			'gf'     => $this->gform->get_version(),
+			'memory'    => $status->get_ram( $this->data->memory_limit ),
+			'wp'        => $wp_version,
+			'php'       => phpversion(),
+			'allow_url' => $this->data->allow_url_fopen,
+			'gf'        => $this->gform->get_version(),
 		];
 
 		/* load the system status view */
