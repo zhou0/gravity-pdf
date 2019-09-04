@@ -27,8 +27,9 @@ env:
 - WP_VERSION=latest WP_MULTISITE=0 PLUGIN=gravity-forms-pdf-extended
 
 before_script:
-- mkdir .wp-cli
-- chmod -R 777 .
+#- chmod -R 777 .
+- export APACHE_RUN_USER=travis
+- export APACHE_RUN_GROUP=travis
 - nvm install 10.15
 - ./bin/setup-local-env.sh
 
