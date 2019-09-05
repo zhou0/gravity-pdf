@@ -23,15 +23,15 @@ services:
     restart: always
     user: xfs
     environment:
-      WP_CLI_CACHE_DIR: /var/www/html/tmp
+      WP_CLI_CACHE_DIR: /tmp
     volumes:
       - wordpress_data:/var/www/html
       - ../:/var/www/html/wp-content/plugins/gravity-forms-pdf-extended
     depends_on:
       - mysql
       - wordpress
-#    entrypoint: wp
-#    command: "--info"
+    entrypoint: wp
+    command: "--info"
 
   mysql:
     image: mysql:5.7

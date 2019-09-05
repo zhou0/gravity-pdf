@@ -29,4 +29,6 @@ echo -e $(status_message "Starting Docker containers...")
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS up -d >/dev/null
 
 # Fix Permissions
-docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER chown -R www-data:www-data wp-content
+#docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER chown -R www-data:www-data wp-content
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CONTAINER chmod -R 777 .
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm $CLI chmod -R 777 .
