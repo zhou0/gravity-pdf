@@ -876,7 +876,7 @@ class Router implements Helper\Helper_Interface_Actions, Helper\Helper_Interface
 	/**
 	 * Initialise our system status code
 	 *
-	 * @since 5.1.5
+	 * @since 5.2.0
 	 *
 	 * @return void
 	 */
