@@ -129,7 +129,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<noscript><?php esc_html_e( 'You need JavaScript enabled to perform this check.', 'gravity-forms-pdf-extended' ); ?></noscript>
 
 				<div id="gfpdf-direct-pdf-check-protected" style="display: none">
-					<?php esc_html_e( 'Protected', 'gravity-forms-pdf-extended' ); ?><span class="fa fa-check-circle"></span>
+					<?php esc_html_e( 'Protected', 'gravity-forms-pdf-extended' ); ?>
+					<span class="fa fa-check-circle"></span>
 				</div>
 
 				<div id="gfpdf-direct-pdf-check-unprotected" style="display: none">
