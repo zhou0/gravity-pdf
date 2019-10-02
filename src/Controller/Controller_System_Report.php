@@ -3,8 +3,7 @@
 namespace GFPDF\Controller;
 
 use GFPDF\Helper\Helper_Abstract_Controller;
-
-use Psr\Log\LoggerInterface;
+use GFPDF\Helper\Helper_Data;
 
 /**
  * @package     Gravity PDF
@@ -20,15 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Controller_System_Report extends Helper_Abstract_Controller {
 
 	/**
-	 * Holds our log class
-	 *
-	 * @var \Monolog\Logger|LoggerInterface
-	 *
-	 * @since 4.0
-	 */
-	protected $log;
-
-	/**
 	 * Holds our Helper_Data object
 	 * which we can autoload with any data needed
 	 *
@@ -41,20 +31,18 @@ class Controller_System_Report extends Helper_Abstract_Controller {
 	/**
 	 * Setup our class by injecting our dependancies
 	 *
-	 * @param \Monolog\Logger|LoggerInterface $log Our logger class
+	 * @param $data
 	 *
-	 * @since 4.0
+	 * @since 5.2.0
 	 */
-	public function __construct( LoggerInterface $log ) {
-		/* Assign our internal variables */
-		$this->log  = $log;
-		$this->data = (bool) ini_get( 'allow_url_fopen' );
+	public function __construct( $data ) {
+		$this->data = $data;
 	}
 
 	/**
 	 * Initialise our class defaults
 	 *
-	 * @since 4.0
+	 * @since 5.2.0
 	 *
 	 * @return void
 	 */
@@ -63,24 +51,39 @@ class Controller_System_Report extends Helper_Abstract_Controller {
 	}
 
 	/**
-	 * inserted data below the MB String row in the PHP section
+	 * Apply any filters needed for the settings page
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return void
 	 */
 	public function add_filters() {
-		add_filter( 'gform_system_report', function( $report ) {
+		add_filter( 'gform_system_report', [ $this, 'system_report' ] );
+	}
 
-			if ( isset( $report[2]['tables'][1]['items'] ) && is_array( $report[2]['tables'][1]['items'] ) ) {
-				$insert_val[] = [
-					'label'        => 'alow_url_fopen',
-					'label_export' => 'alow_url_fopen',
-					'value'        => $this->check_allow_url( $this->data ),
-					'value_export' => $this->check_allow_url( $this->data ),
-				];
+	/**
+	 * Include the add-on table in the PHP Server Environment system report.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param array $system_report
+	 *
+	 * @return array
+	 */
+	public function system_report( $system_report ) {
 
-				array_splice( $report[2]['tables'][1]['items'], 11, 0, $insert_val );
-			}
+		if ( isset( $system_report[2]['tables'][1]['items'] ) && is_array( $system_report[2]['tables'][1]['items'] ) ) {
+			$insert_val[] = [
+				'label'        => 'alow_url_fopen',
+				'label_export' => 'alow_url_fopen',
+				'value'        => $this->check_allow_url( $this->data ),
+				'value_export' => $this->check_allow_url( $this->data ),
+			];
 
-			return $report;
-		} );
+			array_splice( $system_report[2]['tables'][1]['items'], 11, 0, $insert_val );
+		}
+
+		return $system_report;
 	}
 
 	/**
@@ -90,7 +93,7 @@ class Controller_System_Report extends Helper_Abstract_Controller {
 	 *
 	 * @return string
 	 */
-	private function check_allow_url( $data ) {
-		return isset( $data ) ? 'Yes' : 'No';
+	protected function check_allow_url( $data ) {
+		return isset( $data ) ? esc_html__( 'Yes', 'gravity-forms-pdf-extended' ) : esc_html__( 'No', 'gravity-forms-pdf-extended' );
 	}
 }

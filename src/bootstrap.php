@@ -881,7 +881,7 @@ class Router implements Helper\Helper_Interface_Actions, Helper\Helper_Interface
 	 * @return void
 	 */
 	public function check_system_status() {
-		$class = new Controller\Controller_System_Report( $this->log );
+		$class = new Controller\Controller_System_Report( $this->data->allow_url_fopen );
 		$class->init();
 
 		$this->singleton->add_class( $class );
