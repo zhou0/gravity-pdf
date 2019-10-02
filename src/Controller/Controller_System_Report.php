@@ -19,14 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Controller_System_Report extends Helper_Abstract_Controller {
 
 	/**
-	 * Holds our Helper_Data object
-	 * which we can autoload with any data needed
+	 * Holds our $allow_url_fopen value
 	 *
-	 * @var \GFPDF\Helper\Helper_Data
+	 * @since 5.2.0
 	 *
-	 * @since 4.0
+	 * @var $allow_url_data
 	 */
-	protected $data;
+	protected $allow_url_data;
 
 	/**
 	 * Setup our class by injecting our dependancies
@@ -36,7 +35,7 @@ class Controller_System_Report extends Helper_Abstract_Controller {
 	 * @param boolean $allow_url_fopen
 	 */
 	public function __construct( $allow_url_fopen ) {
-		$this->data = $allow_url_fopen;
+		$this->$allow_url_data = $allow_url_fopen;
 	}
 
 	/**
@@ -73,7 +72,7 @@ class Controller_System_Report extends Helper_Abstract_Controller {
 	public function system_report( $system_report ) {
 
 		if ( isset( $system_report[2]['tables'][1]['items'] ) && is_array( $system_report[2]['tables'][1]['items'] ) ) {
-			$is_enabled = $this->is_allow_url_fopen_enabled( $this->data );
+			$is_enabled = $this->is_allow_url_fopen_enabled( $this->$allow_url_data );
 
 			$insert_val[] = [
 				'label'        => 'allow_url_fopen',
@@ -93,11 +92,11 @@ class Controller_System_Report extends Helper_Abstract_Controller {
 	 *
 	 * @since 5.2.0
 	 *
-	 * @param $data
+	 * @param $allow_url_fopen
 	 *
 	 * @return string
 	 */
-	protected function is_allow_url_fopen_enabled( $data ) {
-		return isset( $data ) ? esc_html__( 'Yes', 'gravity-forms-pdf-extended' ) : esc_html__( 'No', 'gravity-forms-pdf-extended' );
+	protected function is_allow_url_fopen_enabled( $allow_url_fopen ) {
+		return isset( $allow_url_fopen ) ? esc_html__( 'Yes', 'gravity-forms-pdf-extended' ) : esc_html__( 'No', 'gravity-forms-pdf-extended' );
 	}
 }
