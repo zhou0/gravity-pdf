@@ -25,6 +25,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "@wordpress/scripts": "^5.1.0",
     "babel-eslint": "10.0.1",
     "babel-loader": "8.0.5",
     "babel-plugin-istanbul": "^5.1.1",
@@ -83,6 +84,23 @@
     "test:watch": "cross-env NODE_ENV=test karma start --auto-watch --no-single-run --log-level error",
     "test:all": "cross-env NODE_ENV=test karma start --browsers Firefox,Chrome,IE",
     "watch": "cross-env NODE_ENV=development webpack --progress --colors --watch --mode development",
-    "build": "cross-env NODE_ENV=production webpack --mode production"
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+
+
+    "env": "wp-scripts env"
+  },
+
+  "wp-env": {
+    "plugin-dir": "gravity-forms-pdf-extended",
+    "plugin-name": "Gravity PDF",
+    "welcome-logo": [
+    "    ,___                           _ __  ___  ______",
+    "  /   /              o _/_       ( /  )( / \\(  /    ",
+    "  /  ___   __,  _  ,_,  /  __  ,   /--'  /  / -/--  ",
+    "  (___// (_(_/(_/ |/  (_(__/ (_/_  /    (/\\_/ _/    ",
+    "  /                                                 ",
+    "  '                                                 "
+  ],
+    "welcome-build-command": "npm run dev"
   }
 }
