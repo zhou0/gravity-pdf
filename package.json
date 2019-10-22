@@ -83,24 +83,16 @@
     "test:coverage": "cross-env NODE_ENV=test cross-env ENABLE_CODE_COVERAGE=1 karma start",
     "test:watch": "cross-env NODE_ENV=test karma start --auto-watch --no-single-run --log-level error",
     "test:all": "cross-env NODE_ENV=test karma start --browsers Firefox,Chrome,IE",
-    "watch": "cross-env NODE_ENV=development webpack --progress --colors --watch --mode development",
+    "watch": "cross-env NODE_ENV=development webpack --progress --colors --wwhichatch --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
 
-
+    "install": "bash bin/install.sh",
     "env": "wp-scripts env"
   },
 
   "wp-env": {
     "plugin-dir": "gravity-forms-pdf-extended",
     "plugin-name": "Gravity PDF",
-    "welcome-logo": [
-    "    ,___                           _ __  ___  ______",
-    "  /   /              o _/_       ( /  )( / \\(  /    ",
-    "  /  ___   __,  _  ,_,  /  __  ,   /--'  /  / -/--  ",
-    "  (___// (_(_/(_/ |/  (_(__/ (_/_  /    (/\\_/ _/    ",
-    "  /                                                 ",
-    "  '                                                 "
-  ],
-    "welcome-build-command": "npm run dev"
+    "docker-template": "./.docker/docker-compose.override.yml.template"
   }
 }

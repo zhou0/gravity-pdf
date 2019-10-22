@@ -1,0 +1,15 @@
+services:
+  wordpress-develop:
+    volumes:
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/wp-content/plugins/%PLUGIN_INSTALL_DIR%
+      - %PLUGIN_MOUNT_DIR%/.docker/mu-plugins:/var/www/${LOCAL_DIR-src}/wp-content/mu-plugins
+  php:
+    volumes:
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/wp-content/plugins/%PLUGIN_INSTALL_DIR%
+      - %PLUGIN_MOUNT_DIR%/.docker/mu-plugins:/var/www/${LOCAL_DIR-src}/wp-content/mu-plugins
+  cli:
+    volumes:
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/wp-content/plugins/%PLUGIN_INSTALL_DIR%
+  phpunit:
+    volumes:
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/wp-content/plugins/%PLUGIN_INSTALL_DIR%
