@@ -92,6 +92,8 @@
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses --prod --gpl2",
     "install": "bash bin/install.sh",
+    "reinstall": "WP_FAST=1 bash bin/install.sh",
+    "install:phpunit": "bash bin/install-phpunit.sh",
     "env": "wp-scripts env"
   },
 

@@ -4,13 +4,13 @@ WP_FAST=$WP_FAST || 0
 GF_LICENSE=$GF_LICENSE || $1
 
 # Add new variables / override existing if .env file exists
-if [ -f ".env" ]; then
+if [[ -f ".env" ]]; then
     set -a
     source .env
     set +a
 fi
 
-if [ $WP_FAST == 0 ]; then
+if [[ $WP_FAST == 0 ]]; then
   # Download and unpack WordPress.
   rm -Rf wordpress && rm -Rf tmp/wordpress && rm -Rf tmp/wordpress-develop-master > /dev/null 2>&1
   curl -L https://wordpress.org/nightly-builds/wordpress-latest.zip -o ./tmp/wordpress-latest.zip
@@ -53,7 +53,7 @@ cd ..
 # Connect Gravity PDF to WordPress.
 npm run env connect
 
-if [ $WP_FAST == 0 ]; then
+if [[ $WP_FAST == 0 ]]; then
   npm run env cli --quiet plugin install gravityformscli -- --activate --force
   npm run env cli --quiet gf install -- --key=$GF_LICENSE --activate --force
   npm run env cli plugin activate gravity-forms-pdf-extended
