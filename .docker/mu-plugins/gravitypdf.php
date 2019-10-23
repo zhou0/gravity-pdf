@@ -142,10 +142,14 @@ add_filter(
 
 /* Import Dummy Data Into Database */
 add_action( 'init', function() {
-	if ( get_option( 'freshinstall', false ) ) {
-		$form = json_decode( __DIR__ . '/src/json/sample-form.json', true );
+	if ( ! class_exists( GFAPI::class ) || ! class_exists( GPDFAPI::class ) ) {
+		return;
+	}
 
-		for ( $i = 1; $i < 5; $i++ ) {
+	if ( get_option( 'freshinstall', false ) ) {
+		$form = json_decode( file_get_contents( __DIR__ . '/src/json/sample-form.json' ), true );
+
+		for ( $i = 1; $i <= 5; $i++ ) {
 			$form['title'] = "Sample $i";
 			$form_id       = GFAPI::add_form( $form );
 
@@ -172,6 +176,8 @@ add_action( 'init', function() {
 			}
 		}
 
+		update_option( 'gform_pending_installation', false );
 		delete_option( 'freshinstall' );
 	}
+
 }, 1000 );
