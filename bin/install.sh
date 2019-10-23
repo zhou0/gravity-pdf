@@ -54,15 +54,16 @@ cd ..
 npm run env connect
 
 if [ $WP_FAST == 0 ]; then
-  npm run env cli --quiet "plugin install gravityformscli --activate --force"
-  npm run env cli --quiet "gf install --key=$GF_LICENSE --activate --force"
+  npm run env cli --quiet plugin install gravityformscli -- --activate --force
+  npm run env cli --quiet gf install -- --key=$GF_LICENSE --activate --force
   npm run env cli plugin activate gravity-forms-pdf-extended
 else
   npm run env cli plugin activate gravityforms gravity-forms-pdf-extended
 fi
 
-# Mark as Fresh Install
+# Misc
 npm run env cli option add freshinstall yes
+npm run env cli user create editor editor@test.com -- --role=editor --user_pass=password --quiet
 
 # Output Connection Details
 CURRENTURL=$(npm run --silent env cli option get siteurl)
