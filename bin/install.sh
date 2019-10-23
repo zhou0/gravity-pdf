@@ -48,6 +48,9 @@ npm run env cli plugin install gravityformscli --force --activate
 npm run env cli --quiet "gf install --key=$GF_LICENSE --activate --force"
 npm run env cli plugin activate gravity-forms-pdf-extended
 
+# Mark as Fresh Install
+npm run env cli option add freshinstall yes
+
 # Output Connection Details
 CURRENTURL=$(npm run --silent env cli option get siteurl)
 

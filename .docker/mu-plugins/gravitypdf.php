@@ -139,3 +139,39 @@ add_filter(
 		return [ 'mode' => 'c' ];
 	}
 );
+
+/* Import Dummy Data Into Database */
+add_action( 'init', function() {
+	if ( get_option( 'freshinstall', false ) ) {
+		$form = json_decode( __DIR__ . '/src/json/sample-form.json', true );
+
+		for ( $i = 1; $i < 5; $i++ ) {
+			$form['title'] = "Sample $i";
+			$form_id       = GFAPI::add_form( $form );
+
+			if ( ! is_wp_error( $form ) ) {
+				GFAPI::add_entry( [
+					'form_id' => $form_id,
+					1         => 'value',
+					'2.3'     => 'First',
+					'2.6'     => 'Last',
+					3         => 'name@example.com',
+				] );
+			}
+
+			/* Add a PDF for form 3 / 4 */
+			if ( in_array( $i, [ 3, 4 ], true ) ) {
+				GPDFAPI::add_pdf( $form_id, [
+					'name'     => 'Sample',
+					'template' => 'zadani',
+					'filename' => 'Sample',
+					'font'     => 'dejavusans',
+					'format'   => 'standard',
+					'security' => 'no',
+				] );
+			}
+		}
+
+		delete_option( 'freshinstall' );
+	}
+}, 1000 );
