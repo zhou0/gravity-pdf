@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GF_LICENSE=$GF_LICENSE || $1
+GF_LICENSE="${GF_LICENSE:=$1}"
 
 # Add new variables / override existing if .env file exists
 if [ -f ".env" ]; then
