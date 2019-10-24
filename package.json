@@ -82,7 +82,7 @@
     "test:e2e:file:watch": "cross-env NODE_ENV=test testcafe chrome -L",
 
     "test": "cross-env NODE_ENV=test karma start",
-    "test:coverage": "cross-env NODE_ENV=test cross-env ENABLE_CODE_COVERAGE=1 karma start",
+    "test:coverage": "cross-env NODE_ENV=test ENABLE_CODE_COVERAGE=1 karma start",
     "test:watch": "cross-env NODE_ENV=test karma start --auto-watch --no-single-run --log-level error",
     "test:all": "cross-env NODE_ENV=test karma start --browsers Firefox,Chrome,IE",
 
@@ -91,10 +91,13 @@
 
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses --prod --gpl2",
-    "install": "bash bin/install.sh",
-    "reinstall": "WP_FAST=1 bash bin/install.sh",
-    "install:phpunit": "bash bin/install-phpunit.sh",
-    "env": "wp-scripts env"
+
+    "env": "wp-scripts env",
+    "env:install": "bash bin/install.sh",
+    "env:install:gf": "bash bin/install-gravityforms.sh",
+    "env:install:phpunit": "bash bin/install-phpunit.sh",
+    "env:start": "bash bin/start.sh",
+    "env:reset": "bash bin/reset.sh"
   },
 
   "wp-env": {
