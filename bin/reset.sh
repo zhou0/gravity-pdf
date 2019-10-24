@@ -16,9 +16,9 @@ if [[ -f ".env" ]]; then
 fi
 
 # Install WordPress
+npm run env cli db reset -- --yes --quiet
 cd wordpress || exit
 npm install dotenv wait-on
-npm run env cli db reset -- --yes --quiet
 npm run env:install
 cd ..
 
