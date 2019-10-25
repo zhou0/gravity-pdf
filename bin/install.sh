@@ -43,12 +43,11 @@ cd ..
 # Connect Gravity PDF to WordPress.
 npm run env connect
 
-bash install-gravityforms.sh
+./install-gravityforms.sh
 npm run env cli plugin activate gravity-forms-pdf-extended
 
 # Misc
-npm run env cli option add freshinstall yes
-npm run env cli user create editor editor@test.com -- --role=editor --user_pass=password --quiet
+./db.sh
 
 # Output Connection Details
 CURRENTURL=$(npm run --silent env cli option get siteurl)
