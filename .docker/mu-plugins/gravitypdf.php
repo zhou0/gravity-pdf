@@ -155,6 +155,7 @@ add_action( 'init', function() {
 
 			if ( ! is_wp_error( $form ) ) {
 				GFAPI::add_entry( [
+					'ip'      => '20.130.10.5',
 					'form_id' => $form_id,
 					1         => 'value',
 					'2.3'     => 'First',
