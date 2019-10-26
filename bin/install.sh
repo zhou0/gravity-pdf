@@ -10,6 +10,7 @@ if [[ -f ".env" ]]; then
 fi
 
 # Download and unpack WordPress.
+mkdir tmp
 rm -Rf wordpress && rm -Rf tmp/wordpress && rm -Rf tmp/wordpress-develop-master > /dev/null 2>&1
 curl -L https://wordpress.org/nightly-builds/wordpress-latest.zip -o ./tmp/wordpress-latest.zip
 unzip -q ./tmp/wordpress-latest.zip -d ./tmp
