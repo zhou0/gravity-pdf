@@ -51,7 +51,7 @@ install:
   - gulp && yarn build
   - |
     if [[ "$INSTALL_WORDPRESS" = "true" ]]; then
-      ./bin/install.sh
+      bash ./bin/install.sh
     fi
 
 jobs:
