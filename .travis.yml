@@ -52,6 +52,7 @@ install:
   - |
     if [[ "$INSTALL_WORDPRESS" = "true" ]]; then
       bash ./bin/install.sh
+      npm run env:install:phpunit
     fi
 
 jobs:
