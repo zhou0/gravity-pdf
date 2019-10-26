@@ -17,9 +17,11 @@ unzip -q ./tmp/wordpress-latest.zip -d ./tmp
 mkdir -p wordpress/src
 mv ./tmp/wordpress/* wordpress/src
 
-# Create the upload directory with permissions that Travis can handle.
+# Create the upload/wp-config.php directory with permissions that Travis can handle.
 mkdir -p wordpress/src/wp-content/uploads
 chmod 767 wordpress/src/wp-content/uploads
+touch wordpress/wp-config.php
+chmod 666 wordpress/wp-config.php
 
 # Grab the tools we need for WordPress' local-env.
 curl -sL https://github.com/WordPress/wordpress-develop/archive/master.zip -o ./tmp/wordpress-develop.zip
@@ -43,7 +45,7 @@ cd ..
 
 # Connect Gravity PDF to WordPress.
 npm run env connect
-npm run env docker-run php composer install --no-scripts
+npm run env docker-run -- php composer install --no-scripts
 
 ./bin/install-gravityforms.sh
 npm run env cli plugin activate gravity-forms-pdf-extended

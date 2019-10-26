@@ -62,29 +62,29 @@ jobs:
     - name: PHP 7.3 unit tests
       env: INSTALL_COMPOSER=true LOCAL_PHP=7.3-fpm
       script:
-        - yarn test:php && yarn test:php --group ajax && yarn test:php:multisite && yarn test:php:multisite --group ajax
+        - npm run test:php && npm run test:php --group ajax && npm run test:php:multisite && npm run test:php:multisite --group ajax
 
     - name: PHP 7.2 unit tests
       env: INSTALL_COMPOSER=true LOCAL_PHP=7.2-fpm
       script:
-        - yarn test:php && yarn test:php --group ajax
+        - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 7.1 unit tests
       env: INSTALL_COMPOSER=true LOCAL_PHP=7.1-fpm
       script:
-        - yarn test:php && yarn test:php --group ajax
+        - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 7.0 unit tests
       env: INSTALL_COMPOSER=true LOCAL_PHP=7.0-fpm
       script:
-        - yarn test:php && yarn test:php --group ajax
+        - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 5.6 unit tests
       env: INSTALL_COMPOSER=true LOCAL_PHP=5.6-fpm
       script:
-        - yarn test:php && yarn test:php --group ajax
+        - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 7.4 unit tests
       env: INSTALL_COMPOSER=true LOCAL_PHP=7.4-fpm
       script:
-        - yarn test:php && yarn test:php --group ajax
+        - npm run test:php && npm run test:php --group ajax
