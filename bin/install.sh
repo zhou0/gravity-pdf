@@ -42,6 +42,7 @@ cd ..
 
 # Connect Gravity PDF to WordPress.
 npm run env connect
+npm run env docker-run php composer install --no-scripts
 
 ./bin/install-gravityforms.sh
 npm run env cli plugin activate gravity-forms-pdf-extended
