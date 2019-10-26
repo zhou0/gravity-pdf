@@ -27,7 +27,7 @@ npm run env connect
 npm run env cli plugin activate gravityforms gravity-forms-pdf-extended
 
 # Misc
-./bin/db.sh
+bash ./bin/db.sh
 
 # Output Connection Details
 CURRENTURL=$(npm run --silent env cli option get siteurl)
