@@ -1,83 +1,97 @@
-language: php
+dist: trusty
 
-sudo: false
+language: generic
 
 services:
-  - mysql
+  - docker
+
+#branches:
+#  only:
+#    - master
+#    - development
+#    - /^\d+\.\d+(\.\d+)?(-\S*)?$/
 
 addons:
   apt:
     sources:
-    - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
-      key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
     packages:
-    - yarn
+      - docker-ce
+      - yarn
 
 cache:
   yarn: true
+  apt: true
   directories:
-  - $HOME/.composer/cache/files
-
-php:
-- 5.6
-- 7.0
-- 7.1
-- 7.2
-- 7.3
+    - vendor
+    - $HOME/.composer/cache
+    - $HOME/.npm
+    - $HOME/.nvm/.cache
 
 env:
-- WP_VERSION=latest WP_MULTISITE=0 PLUGIN=gravity-forms-pdf-extended
-
-matrix:
-  include:
-  - php: 7.2
-    env: WP_VERSION=latest WP_MULTISITE=1 COVERAGE=1
-  - php: 7.2
-    env: LINT=1
+  global:
+    - WP_DEVELOP_DIR: ./wordpress
+    - INSTALL_COMPOSER: false
+    - INSTALL_WORDPRESS: true
 
 before_install:
-- |
-  if [[ "$LINT" == "1" ]]; then
-    export PHPCS_DIR=/tmp/phpcs
-    export LINTS_DIR=/tmp/lint
-    git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR
-    git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $LINTS_DIR
-    $PHPCS_DIR/bin/phpcs --config-set installed_paths $LINTS_DIR
-    phpenv rehash
-  fi;
+  - nvm install --latest-npm
+  # Repo for Yarn
+  - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
+  - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq yarn
+  - yarn env docker-run -- php composer install --no-scripts
+  - yarn global add gulp-cli
+  - |
+    if [[ "$INSTALL_WORDPRESS" = "true" ]]; then
+      # Upgrade docker-compose.
+      sudo rm /usr/local/bin/docker-compose
+      curl -sL https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` > docker-compose
+      chmod +x docker-compose
+      sudo mv docker-compose /usr/local/bin
+    fi
 
-before_script:
-- if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini; fi
-- if find . -name "*.php" -exec php -l {} \; | grep "unexpected $end"; then exit 1; fi
-- composer install --prefer-source --optimize-autoloader --no-scripts
-- bash tests/bin/install.sh gravitypdf_test root '' localhost $WP_VERSION
-- if [[ "$WP_MULTISITE" = "1" ]]; then nvm install 10.15 && yarn global add karma-cli && yarn; fi
-- if [ -n "$TRAVIS_TAG" ]; then nvm install 10.15; fi
+install:
+  # Build Gravity PDF
+  - yarn && gulp
+  - yarn build
+  - |
+    if [[ "$INSTALL_WORDPRESS" = "true" ]]; then
+      ./bin/install.sh
+    fi
 
-script:
-- |
-  if [[ "$LINT" == "1" ]]; then
-    $PHPCS_DIR/bin/phpcs -p .
-  elif [[ "$COVERAGE" == "1" ]]; then
-   yarn run test:coverage
-   ./vendor/bin/phpunit --coverage-clover=tmp/coverage/report-xml/php-coverage1.xml -c tests/phpunit/phpunit.xml.
-   ./vendor/bin/phpunit --coverage-clover=tmp/coverage/report-xml/php-coverage2.xml -c tests/phpunit/phpunit.xml.dist --group ajax
-   yarn run lint
-  else
-   ./vendor/bin/phpunit -c tests/phpunit/phpunit.xml.dist
-   ./vendor/bin/phpunit -c tests/phpunit/phpunit.xml.dist --group ajax
-  fi
+jobs:
+  include:
+    - name: PHP 7.3 unit tests
+      env: INSTALL_COMPOSER=true LOCAL_PHP=7.3-fpm
+      script:
+        - yarn test:php && yarn test:php --group ajax && yarn test:php:multisite && yarn test:php:multisite --group ajax
 
-after_success:
--  if [[ $PHPUNIT_COVERAGE_TEST ]]; then bash <(curl -s https://codecov.io/bash); fi
+    - name: PHP 7.2 unit tests
+      env: INSTALL_COMPOSER=true LOCAL_PHP=7.2-fpm
+      script:
+        - yarn test:php && yarn test:php --group ajax
 
-before_deploy:
--  if [[ $TRAVIS_TAG ]]; then bash ./bin/build.sh $TRAVIS_TAG $TRAVIS_BRANCH; fi
+    - name: PHP 7.1 unit tests
+      env: INSTALL_COMPOSER=true LOCAL_PHP=7.1-fpm
+      script:
+        - yarn test:php && yarn test:php --group ajax
 
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: bash ./bin/deploy.sh
-  on:
-    tags: true
-    php: 5.6
+    - name: PHP 7.0 unit tests
+      env: INSTALL_COMPOSER=true LOCAL_PHP=7.0-fpm
+      script:
+        - yarn test:php && yarn test:php --group ajax
+
+    - name: PHP 5.6 unit tests
+      env: INSTALL_COMPOSER=true LOCAL_PHP=5.6-fpm
+      script:
+        - yarn test:php && yarn test:php --group ajax
+
+    - name: PHP 7.4 unit tests
+      env: INSTALL_COMPOSER=true LOCAL_PHP=7.4-fpm
+      script:
+        - yarn test:php && yarn test:php --group ajax
+  allow_failures:
+    - INSTALL_COMPOSER=true LOCAL_PHP=7.4-fpm
