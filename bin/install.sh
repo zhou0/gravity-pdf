@@ -19,9 +19,7 @@ mv ./tmp/wordpress/* wordpress/src
 
 # Create the upload/wp-config.php directory with permissions that Travis can handle.
 mkdir -p wordpress/src/wp-content/uploads
-chmod 767 wordpress/src/wp-content/uploads
-touch wordpress/wp-config.php
-chmod 666 wordpress/wp-config.php
+chmod -R 767 wordpress
 
 # Grab the tools we need for WordPress' local-env.
 curl -sL https://github.com/WordPress/wordpress-develop/archive/master.zip -o ./tmp/wordpress-develop.zip
@@ -47,11 +45,11 @@ cd ..
 npm run env connect
 npm run env docker-run -- php composer install --no-scripts
 
-./bin/install-gravityforms.sh
+bash ./bin/install-gravityforms.sh
 npm run env cli plugin activate gravity-forms-pdf-extended
 
 # Misc
-./bin/db.sh
+bash ./bin/db.sh
 
 # Output Connection Details
 CURRENTURL=$(npm run --silent env cli option get siteurl)
