@@ -31,7 +31,7 @@ cache:
 
 env:
   global:
-    - WP_DEVELOP_DIR: ./wordpresst
+    - WP_DEVELOP_DIR: ./wordpress
     - INSTALL_WORDPRESS: true
 
 before_install:
