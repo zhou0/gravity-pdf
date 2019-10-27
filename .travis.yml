@@ -31,15 +31,12 @@ cache:
 env:
   global:
     - WP_DEVELOP_DIR: ./wordpress
-    - INSTALL_COMPOSER: false
-    - INSTALL_COMPOSER_NO_DEV: false
-    - CODE_COVERAGE: false
+    - INSTALL_COMPOSER: 0
     - INSTALL_WORDPRESS: true
 
 before_install:
   - nvm install --lts
-  - yarn global add gulp-cli
-  - yarn
+  - yarn prebuild
   - |
     if [[ "$INSTALL_WORDPRESS" = "true" ]]; then
       # Upgrade docker-compose.
@@ -58,10 +55,10 @@ install:
       npm run env:install:phpunit
     fi
   - |
-    if [[ "$INSTALL_COMPOSER" = "true" ]]; then
-      npm run env:start
-      npm run env connect
-      if [[ "$INSTALL_COMPOSER_NO_DEV" = "true" ]]; then
+    if [[ "$INSTALL_COMPOSER" != "0" ]]; then
+      bash ./bin/download-wordpress.sh
+      bash ./bin/install-wordpress.sh
+      if [[ "$INSTALL_COMPOSER" = "2" ]]; then
         npm run env docker-run -- php composer install --no-dev
       else
         npm run env docker-run -- php composer install
@@ -75,17 +72,17 @@ jobs:
 
   include:
     - stage: Linting
-    - name: PHP Linting
-      env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=true
+      name: PHP Linting
+      env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=1
       script:
         - |
           docker-compose run --rm php composer format &&
           docker-compose run --rm php composer lint:errors
 
     - name: PHP Compatibility
-      env: INSTALL_WORDPRESS=false INSTALL_COMPOSER_NO_DEV=true
+      env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=2
       script:
-        - docker-compose run --rm php composer
+        - docker-compose run --rm php composer compat
 
     - name: JS Linting
       env: INSTALL_WORDPRESS=false
@@ -93,7 +90,7 @@ jobs:
         - npm run lint:js
 
     - stage: Unit Testing
-    - name: PHP 7.3 unit tests
+      name: PHP 7.3 unit tests
       env: LOCAL_PHP=7.3-fpm
       script:
         - |
@@ -136,13 +133,13 @@ jobs:
           npm run test:php --group ajax
 
     - stage: End to End Testing
-    - name: E2E Testing
+      name: E2E Testing
       script:
         - npm run test:e2e:headless
 
     - stage: Code Coverage
       name: JS and PHP Coverage
-      env: LOCAL_PHP=7.3-fpm CODE_COVERAGE=true
+      env: LOCAL_PHP=7.3-fpm LOCAL_PHP_XDEBUG=true
       script:
         - |
           npm run test:coverage &&
@@ -151,6 +148,6 @@ jobs:
 
 after_success:
   - |
-    if [[ "$CODE_COVERAGE" = "true" ]]; then
+    if [[ "$LOCAL_PHP_XDEBUG" = "true" ]]; then
       bash <(curl -s https://codecov.io/bash);
     fi

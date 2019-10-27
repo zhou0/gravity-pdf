@@ -89,8 +89,10 @@
     "test:js:watch": "cross-env NODE_ENV=test karma start --auto-watch --no-single-run --log-level error",
     "test:js:all": "cross-env NODE_ENV=test karma start --browsers Firefox,Chrome,IE",
 
-    "watch": "cross-env NODE_ENV=development webpack --progress --colors --watch --mode development",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "prebuild": "yarn global add gulp-cli && yarn",
+    "build:production": "gulp && cross-env NODE_ENV=production webpack --mode production",
+    "build:dev": "gulp && cross-env NODE_ENV=development webpack --mode development",
+    "build:watch": "gulp watch && cross-env NODE_ENV=development webpack --progress --colors --watch --mode development",
 
     "check-licenses": "wp-scripts check-licenses --prod --gpl2",
 
