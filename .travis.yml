@@ -75,12 +75,12 @@ jobs:
           npm run env docker-run -- php composer format &&
           npm run env docker-run -- php composer lint:errors
 
-    - name: PHP Compatibility
+      name: PHP Compatibility
       env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=1
       script:
         - npm run env docker-run -- php composer compat
 
-    - name: JS Linting
+      name: JS Linting
       env: INSTALL_WORDPRESS=false
       script:
         - npm run lint:js
@@ -92,35 +92,35 @@ jobs:
           npm run test:php && npm run test:php --group ajax &&
           npm run test:php:multisite && npm run test:php:multisite --group ajax
 
-    - name: PHP 7.2 unit tests
+      name: PHP 7.2 unit tests
       env: LOCAL_PHP=7.2-fpm
       script:
         - |
           npm run test:php &&
           npm run test:php --group ajax
 
-    - name: PHP 7.1 unit tests
+      name: PHP 7.1 unit tests
       env: LOCAL_PHP=7.1-fpm
       script:
         - |
           npm run test:php &&
           npm run test:php --group ajax
 
-    - name: PHP 7.0 unit tests
+      name: PHP 7.0 unit tests
       env: LOCAL_PHP=7.0-fpm
       script:
         - |
           npm run test:php &&
           npm run test:php --group ajax
 
-    - name: PHP 5.6 unit tests
+      name: PHP 5.6 unit tests
       env: LOCAL_PHP=5.6-fpm
       script:
         - |
           npm run test:php &&
           npm run test:php --group ajax
 
-    - name: PHP 7.4 unit tests
+      name: PHP 7.4 unit tests
       env: LOCAL_PHP=7.4-fpm
       script:
         - |
