@@ -14,9 +14,11 @@ addons:
     sources:
       - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
         key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+      - google-chrome
     packages:
       - docker-ce
       - yarn
+      - google-chrome-stable
 
 cache:
   yarn: true
@@ -29,8 +31,7 @@ cache:
 
 env:
   global:
-    - WP_DEVELOP_DIR: ./wordpress
-    - INSTALL_COMPOSER: false
+    - WP_DEVELOP_DIR: ./wordpresst
     - INSTALL_WORDPRESS: true
 
 before_install:
@@ -59,33 +60,37 @@ jobs:
   fast_finish: true
   allow_failures:
     - name: PHP 7.4 unit tests
+
   include:
+    - name: E2E Testing
+      script:
+        - npm run test:e2e:headless
     - name: PHP 7.3 unit tests
-      env: INSTALL_COMPOSER=true LOCAL_PHP=7.3-fpm
+      env: LOCAL_PHP=7.3-fpm
       script:
         - npm run test:php && npm run test:php --group ajax && npm run test:php:multisite && npm run test:php:multisite --group ajax
 
     - name: PHP 7.2 unit tests
-      env: INSTALL_COMPOSER=true LOCAL_PHP=7.2-fpm
+      env: LOCAL_PHP=7.2-fpm
       script:
         - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 7.1 unit tests
-      env: INSTALL_COMPOSER=true LOCAL_PHP=7.1-fpm
+      env: LOCAL_PHP=7.1-fpm
       script:
         - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 7.0 unit tests
-      env: INSTALL_COMPOSER=true LOCAL_PHP=7.0-fpm
+      env: LOCAL_PHP=7.0-fpm
       script:
         - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 5.6 unit tests
-      env: INSTALL_COMPOSER=true LOCAL_PHP=5.6-fpm
+      env: LOCAL_PHP=5.6-fpm
       script:
         - npm run test:php && npm run test:php --group ajax
 
     - name: PHP 7.4 unit tests
-      env: INSTALL_COMPOSER=true LOCAL_PHP=7.4-fpm
+      env: LOCAL_PHP=7.4-fpm
       script:
         - npm run test:php && npm run test:php --group ajax
