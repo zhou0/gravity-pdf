@@ -81,7 +81,7 @@ jobs:
           npm run env docker-run -- php composer lint:errors
 
     - name: PHP Compatibility
-      env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=2
+      env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=1
       script:
         - npm run env docker-run -- php composer compat
 
