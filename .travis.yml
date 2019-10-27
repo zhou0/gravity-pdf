@@ -77,13 +77,13 @@ jobs:
       env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=1
       script:
         - |
-          docker-compose run --rm php composer format &&
-          docker-compose run --rm php composer lint:errors
+          npm run env docker-run -- php composer format &&
+          npm run env docker-run -- php composer lint:errors
 
     - name: PHP Compatibility
       env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=2
       script:
-        - docker-compose run --rm php composer compat
+        - npm run env docker-run -- php composer compat
 
     - name: JS Linting
       env: INSTALL_WORDPRESS=false
