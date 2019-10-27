@@ -92,7 +92,6 @@
     "watch": "cross-env NODE_ENV=development webpack --progress --colors --watch --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
 
-    "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses --prod --gpl2",
 
     "env": "wp-scripts env",

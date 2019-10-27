@@ -141,44 +141,53 @@ add_filter(
 );
 
 /* Import Dummy Data Into Database */
-add_action( 'init', function() {
-	if ( ! class_exists( GFAPI::class ) || ! class_exists( GPDFAPI::class ) ) {
-		return;
-	}
-
-	if ( get_option( 'freshinstall', false ) ) {
-		$form = json_decode( file_get_contents( __DIR__ . '/src/json/sample-form.json' ), true );
-
-		for ( $i = 1; $i <= 5; $i++ ) {
-			$form['title'] = "Sample $i";
-			$form_id       = GFAPI::add_form( $form );
-
-			if ( ! is_wp_error( $form ) ) {
-				GFAPI::add_entry( [
-					'ip'      => '20.130.10.5',
-					'form_id' => $form_id,
-					1         => 'value',
-					'2.3'     => 'First',
-					'2.6'     => 'Last',
-					3         => 'name@example.com',
-				] );
-			}
-
-			/* Add a PDF for form 3 / 4 */
-			if ( in_array( $i, [ 3, 4 ], true ) ) {
-				GPDFAPI::add_pdf( $form_id, [
-					'name'     => 'Sample',
-					'template' => 'zadani',
-					'filename' => 'Sample',
-					'font'     => 'dejavusans',
-					'format'   => 'standard',
-					'security' => 'no',
-				] );
-			}
+add_action(
+	'init',
+	function() {
+		if ( ! class_exists( GFAPI::class ) || ! class_exists( GPDFAPI::class ) ) {
+			return;
 		}
 
-		update_option( 'gform_pending_installation', false );
-		delete_option( 'freshinstall' );
-	}
+		if ( get_option( 'freshinstall', false ) ) {
+			$form = json_decode( file_get_contents( __DIR__ . '/src/json/sample-form.json' ), true );
 
-}, 1000 );
+			for ( $i = 1; $i <= 5; $i++ ) {
+				$form['title'] = "Sample $i";
+				$form_id       = GFAPI::add_form( $form );
+
+				if ( ! is_wp_error( $form ) ) {
+					GFAPI::add_entry(
+						[
+							'ip'      => '20.130.10.5',
+							'form_id' => $form_id,
+							1         => 'value',
+							'2.3'     => 'First',
+							'2.6'     => 'Last',
+							3         => 'name@example.com',
+						]
+					);
+				}
+
+				/* Add a PDF for form 3 / 4 */
+				if ( in_array( $i, [ 3, 4 ], true ) ) {
+					GPDFAPI::add_pdf(
+						$form_id,
+						[
+							'name'     => 'Sample',
+							'template' => 'zadani',
+							'filename' => 'Sample',
+							'font'     => 'dejavusans',
+							'format'   => 'standard',
+							'security' => 'no',
+						]
+					);
+				}
+			}
+
+			update_option( 'gform_pending_installation', false );
+			delete_option( 'freshinstall' );
+		}
+
+	},
+	1000
+);
