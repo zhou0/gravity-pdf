@@ -1,13 +1,9 @@
-language: generic
+os: linux
+
+language: shell
 
 services:
   - docker
-
-#branches:
-#  only:
-#    - master
-#    - development
-#    - /^\d+\.\d+(\.\d+)?(-\S*)?$/
 
 addons:
   apt:
@@ -72,8 +68,7 @@ jobs:
     - name: PHP 7.4 unit tests
 
   include:
-    - stage: Linting
-      name: PHP Linting
+    - name: PHP Linting
       env: INSTALL_WORDPRESS=false INSTALL_COMPOSER=1
       script:
         - |
@@ -90,7 +85,6 @@ jobs:
       script:
         - npm run lint:js
 
-    - stage: Unit Testing
       name: PHP 7.3 unit tests
       env: LOCAL_PHP=7.3-fpm
       script:
@@ -133,19 +127,26 @@ jobs:
           npm run test:php &&
           npm run test:php --group ajax
 
-    - stage: End to End Testing
       name: E2E Testing
       script:
         - npm run test:e2e:headless
 
-    - stage: Code Coverage
       name: JS and PHP Coverage
       env: LOCAL_PHP=7.3-fpm LOCAL_PHP_XDEBUG=true
       script:
         - |
-          npm run test:coverage &&
+          npm run test:js:coverage &&
           npm run test:php --coverage-clover=tmp/coverage/report-xml/php-coverage1.xml &&
           npm run test:php --coverage-clover=tmp/coverage/report-xml/php-coverage2.xml --group ajax
+
+    - stage: Deploy
+      name: Package and Push to WordPress.org
+      env: INSTALL_WORDPRESS=false LOCAL_PHP=5.6-fpm INSTALL_COMPOSER=2
+      script:
+        - |
+          bash ./bin/build.sh $TRAVIS_TAG $TRAVIS_BRANCH &&
+          bash ./bin/deploy.sh
+      if: tag IS present
 
 after_success:
   - |
