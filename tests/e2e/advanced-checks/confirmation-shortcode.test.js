@@ -41,7 +41,6 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
 
   // Assertions
   await t
-    .expect(run.getStatusCode === 200).ok()
     .expect(run.getContentDisposition === 'attachment; filename="Sample.pdf"').ok()
     .expect(run.getContentType === 'application/pdf').ok()
 })
@@ -82,7 +81,6 @@ test('should check if the shortcode confirmation type PAGE is working correctly'
 
   // Assertions
   await t
-    .expect(run.getStatusCode === 200).ok()
     .expect(run.getContentDisposition === 'attachment; filename="Sample.pdf"').ok()
     .expect(run.getContentType === 'application/pdf').ok()
 })
@@ -110,7 +108,6 @@ test('should check if the shortcode confirmation type REDIRECT download is worki
 
   // Assertions
   await t
-    .expect(run.getStatusCode === 200).ok()
     .expect(run.getContentDisposition === 'attachment; filename="Sample.pdf"').ok()
     .expect(run.getContentType === 'application/pdf').ok()
 })
