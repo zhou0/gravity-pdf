@@ -2,7 +2,7 @@
 
 # Download and unpack WordPress.
 mkdir tmp > /dev/null 2>&1
-rm -Rf wordpress && rm -Rf tmp/wordpress && rm -Rf tmp/wordpress-develop-master > /dev/null 2>&1
+rm -Rf wordpress && rm -Rf tmp/WordPress-master && rm -Rf tmp/wordpress-develop-master > /dev/null 2>&1
 curl -L https://github.com/WordPress/WordPress/archive/master.zip -o ./tmp/wordpress-latest.zip
 unzip -q ./tmp/wordpress-latest.zip -d ./tmp
 mkdir -p wordpress/src
