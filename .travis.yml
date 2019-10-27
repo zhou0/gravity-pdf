@@ -58,6 +58,7 @@ install:
     if [[ "$INSTALL_COMPOSER" != "0" ]]; then
       bash ./bin/download-wordpress.sh
       bash ./bin/install-wordpress.sh
+      npm run env connect
       if [[ "$INSTALL_COMPOSER" = "2" ]]; then
         npm run env docker-run -- php composer install --no-dev
       else
