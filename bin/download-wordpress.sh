@@ -20,6 +20,6 @@ mv \
 ./tmp/wordpress-develop-master/tests \
 ./tmp/wordpress-develop-master/.env \
 ./tmp/wordpress-develop-master/docker-compose.yml \
-./tmp/wor dpress-develop-master/wp-cli.yml \
+./tmp/wordpress-develop-master/wp-cli.yml \
 ./tmp/wordpress-develop-master/*config-sample.php \
 ./tmp/wordpress-develop-master/package.json wordpress

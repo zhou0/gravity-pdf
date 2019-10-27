@@ -68,7 +68,7 @@ install:
 jobs:
   fast_finish: true
   allow_failures:
-    - name: PHP 7.4 unit tests
+    - env: LOCAL_PHP=7.4-fpm
 
   include:
     - stage: Linting
