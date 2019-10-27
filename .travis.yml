@@ -81,10 +81,12 @@ jobs:
         - |
           docker-compose run --rm php composer format &&
           docker-compose run --rm php composer lint:errors
+
     - name: PHP Compatibility
       env: INSTALL_WORDPRESS=false INSTALL_COMPOSER_NO_DEV=true
-        script:
-          - docker-compose run --rm php composer compat
+      script:
+        - docker-compose run --rm php composer
+
     - name: JS Linting
       env: INSTALL_WORDPRESS=false
       script:
@@ -137,7 +139,7 @@ jobs:
     - name: E2E Testing
       script:
         - npm run test:e2e:headless
-        -
+
     - stage: Code Coverage
       name: JS and PHP Coverage
       env: LOCAL_PHP=7.3-fpm CODE_COVERAGE=true
