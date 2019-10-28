@@ -33,12 +33,13 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
     .click(link('#gf_form_toolbar', 'Preview'))
     .typeText(run.formInputField, 'test', { paste: true })
     .click(run.submitButton)
-    .wait(2000)
+    .wait(5000)
   downloadUrl = await Selector('.gravitypdf-download-link').getAttribute('href')
   await t
     .click(link('.gform_confirmation_wrapper ', 'Download PDF'))
     .wait(2000)
     .addRequestHooks(downloadLogger)
+    .wait(2000)
   console.log('downloadLogger - ', downloadLogger)
   await run.responseStatus(downloadLogger._internalRequests, 0)
 
