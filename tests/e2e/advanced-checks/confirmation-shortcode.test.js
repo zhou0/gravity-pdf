@@ -37,6 +37,7 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
     .click(link('.gform_confirmation_wrapper ', 'Download PDF'))
     .wait(2000)
     .addRequestHooks(downloadLogger)
+  console.log('downloadLogger - ', downloadLogger)
   await run.responseStatus(downloadLogger._internalRequests, 0)
 
   // Assertions

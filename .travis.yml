@@ -63,6 +63,7 @@ install:
     fi
 
 jobs:
+  fast_finish: true
   allow_failures:
     - name: PHP 7.4 unit tests
 
