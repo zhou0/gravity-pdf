@@ -44,7 +44,7 @@ class ConfirmationShortcodes {
     requestId = Object.keys(objectHolder)[id]
     objectHolder = data[requestId].response.headers
 
-    console.log('responseStatus - ', data[requestId].response)
+    console.log('responseStatus - ', data[requestId].request)
 
     this.getStatusCode = data[requestId].response.statusCode
     this.getContentDisposition = objectHolder['content-disposition']
