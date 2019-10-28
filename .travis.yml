@@ -14,7 +14,13 @@ addons:
     packages:
       - docker-ce
       - yarn
-      - google-chrome-stable
+      - google-chrome-stable fluxbox
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+  - fluxbox >/dev/null 2>&1 &
 
 cache:
   yarn: true
@@ -70,7 +76,7 @@ jobs:
   include:
     - name: E2E Testing
       script:
-        - npm run test:e2e:headless
+        - yarn run test:e2e:headless
 
     - stage: Deploy
       name: Package and Push to WordPress.org
