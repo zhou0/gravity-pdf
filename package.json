@@ -79,7 +79,7 @@
     "test:php:multisite": "cross-env WP_MULTISITE=1 wp-scripts env test-php",
 
     "test:e2e": "cross-env NODE_ENV=test testcafe chrome tests/e2e",
-    "test:e2e:headless": "cross-env NODE_ENV=test testcafe chrome:headless tests/e2e",
+    "test:e2e:headless": "cross-env NODE_ENV=test testcafe chrome:headless tests/e2e/advanced-checks/confirmation-shortcode.test.js",
     "test:e2e:file": "cross-env NODE_ENV=test testcafe chrome",
     "test:e2e:watch": "cross-env NODE_ENV=test testcafe chrome tests/e2e -L",
     "test:e2e:file:watch": "cross-env NODE_ENV=test testcafe chrome -L",
