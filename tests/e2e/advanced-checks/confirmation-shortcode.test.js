@@ -37,15 +37,10 @@ test('should check if the shortcode confirmation type TEXT is working correctly'
     .click(link('.gform_confirmation_wrapper ', 'Download PDF'))
     .wait(2000)
     .addRequestHooks(downloadLogger)
-  console.log('downloadLogger - ', downloadLogger)
   await run.responseStatus(downloadLogger._internalRequests, 0)
 
   // Assertions
   await t.expect(Selector('a').withText('Download PDF').exists).ok()
-  // await t
-  //   .expect(run.getStatusCode === 200).ok()
-  //   .expect(run.getContentDisposition === 'attachment; filename="Sample.pdf"').ok()
-  //   .expect(run.getContentType === 'application/pdf').ok()
 })
 
 // test('should check if the shortcode confirmation type PAGE is working correctly', async t => {
