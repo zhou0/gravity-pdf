@@ -25,9 +25,6 @@ yarn prebuild
 yarn build:production
 yarn env docker-run php composer install --no-dev  --prefer-dist --optimize-autoloader --working-dir ${PACKAGE_DIR}
 
-# Fix up permissions on Travis
-chmod -R g+wX ${PACKAGE_DIR}
-
 # Cleanup Node JS
 rm --force -R ${PACKAGE_DIR}/node_modules
 
@@ -49,4 +46,4 @@ done
 
 rm --force -R "${PACKAGE_DIR}/src/assets/css"
 rm --force -R "${PACKAGE_DIR}/src/assets/js"
-rm --force -R "${PACKAGE_DIR}/vendor/mpdf/mpdf/ttfonts"
+yarn env docker-run php rm --force -R ./vendor/mpdf/mpdf/ttfonts
