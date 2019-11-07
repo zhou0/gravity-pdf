@@ -25,6 +25,9 @@ yarn prebuild
 yarn build:production
 yarn env docker-run php composer install --no-dev  --prefer-dist --optimize-autoloader --working-dir ${PACKAGE_DIR}
 
+# Fix up permissions on Travis
+chmod -R g+wX ${PACKAGE_DIR}
+
 # Cleanup Node JS
 rm --force -R ${PACKAGE_DIR}/node_modules
 
