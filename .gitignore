@@ -39,6 +39,9 @@ dist/*
 /tests/bin/
 /wordpress/
 
+# Coverage report
+/coverage
+
 # Others
 _notes
 _notes/*

@@ -119,19 +119,34 @@ export class TemplateSingle extends React.Component {
 
     /* Display our Single Template container */
     return (
-      <TemplateContainer header={header} footer={footer} closeRoute="/template">
-        <div id="gfpdf-template-detail-view" className="gfpdf-template-detail">
+      <TemplateContainer
+        data-test='component-templateSingle'
+        header={header}
+        footer={footer}
+        closeRoute='/template'>
+        <div
+          id='gfpdf-template-detail-view'
+          className='gfpdf-template-detail'>
           <TemplateScreenshots image={item['screenshot']} />
-          <div className="theme-info">
-            <CurrentTemplate isCurrentTemplate={isCurrentTemplate} label={this.props.currentTemplateText} />
-            <Name name={item['template']} version={item['version']}
-                  versionLabel={this.props.versionText} />
-            <Author author={item['author']} uri={item['author uri']} />
-            <Group group={item['group']} label={this.props.groupText} />
-            {item['long_message'] ? <ShowMessage text={item['long_message']} /> : null}
-            {item['long_error'] ? <ShowMessage text={item['long_error']} error={true} /> : null}
-            <Description desc={item['description']} />
-            <Tags tags={item['tags']} label={this.props.tagsText} />
+          <div className='theme-info'>
+            <CurrentTemplate
+              isCurrentTemplate={isCurrentTemplate}
+              label={this.props.currentTemplateText} />
+              <Name
+                name={item['template']}
+                version={item['version']}
+                versionLabel={this.props.versionText} />
+                <Author author={item['author']} uri={item['author uri']} />
+                <Group group={item['group']} label={this.props.groupText} />
+                {item['long_message'] ? <ShowMessage
+                  data-test='component-showMessageLong_message'
+                  text={item['long_message']}/> : null}
+                {item['long_error'] ? <ShowMessage
+                  data-test='component-showMessageLong_error'
+                  text={item['long_error']}
+                  error={true} /> : null}
+                <Description desc={item['description']} />
+                <Tags tags={item['tags']} label={this.props.tagsText} />
           </div>
         </div>
       </TemplateContainer>

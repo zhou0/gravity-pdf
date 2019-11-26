@@ -92,12 +92,13 @@ export class TemplateCloseDialog extends React.Component {
   render () {
     return (
       <button
-        className="close dashicons dashicons-no"
-        tabIndex="142"
+        data-test='component-templateCloseDialog'
+        className='close dashicons dashicons-no'
+        tabIndex='142'
         onClick={this.closeDialog}
         onKeyDown={this.handleKeyPress}
-        aria-label="close">
-        <span className="screen-reader-text">Close dialog</span>
+        aria-label='close'>
+        <span className='screen-reader-text'>Close dialog</span>
       </button>
     )
   }

@@ -36,7 +36,7 @@ import TemplateCloseDialog from './TemplateCloseDialog'
  *
  * @since 4.1
  */
-class Container extends React.Component {
+export class Container extends React.Component {
   /**
    * @since 4.1
    */
@@ -45,6 +45,14 @@ class Container extends React.Component {
     footer: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     children: PropTypes.node.isRequired,
     closeRoute: PropTypes.string,
+  }
+
+  /**
+   * @since 4.1
+   */
+  constructor(props) {
+    super(props)
+    this.handleFocus = this.handleFocus.bind(this)
   }
 
   /**
@@ -81,7 +89,7 @@ class Container extends React.Component {
    *
    * @since 4.1
    */
-  handleFocus = (e) => {
+  handleFocus(e) {
     if (!this.container.contains(e.target)) {
       e.stopPropagation()
       this.container.focus()
@@ -98,17 +106,21 @@ class Container extends React.Component {
       closeRoute = this.props.closeRoute
 
     return (
-      <div ref={node => this.container = node} tabIndex="140">
-        <div className="backdrop theme-backdrop"></div>
-        <div className="container theme-wrap">
-          <div className="theme-header">
+      <div
+        data-test='component-templateContainer'
+        ref={node => this.container = node}
+        tabIndex='140'
+      >
+        <div className='backdrop theme-backdrop'></div>
+        <div className='container theme-wrap'>
+          <div className='theme-header'>
             {header}
             <TemplateCloseDialog closeRoute={closeRoute}/>
           </div>
 
           <div
-            id="gfpdf-template-container"
-            className="theme-about wp-clearfix theme-browser rendered">
+            id='gfpdf-template-container'
+            className='theme-about wp-clearfix theme-browser rendered'>
             {children}
           </div>
 

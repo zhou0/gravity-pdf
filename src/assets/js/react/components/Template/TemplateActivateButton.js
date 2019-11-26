@@ -71,10 +71,12 @@ export class TemplateActivateButton extends React.Component {
   render () {
     return (
       <a
+        data-test='component-templateActivateButton'
         onClick={this.selectTemplate}
-        href="#"
-        tabIndex="150"
-        className="button button-primary activate">
+        href='#'
+        tabIndex='150'
+        className='button button-primary activate'
+      >
         {this.props.buttonText}
       </a>
     )
@@ -91,7 +93,7 @@ export class TemplateActivateButton extends React.Component {
  *
  * @since 4.1
  */
-const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = dispatch => {
   return {
     onTemplateSelect: id => dispatch(selectTemplate(id))
   }

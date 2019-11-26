@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CoreFontListResults from './CoreFontListResults'
-import Button from './CoreFontButton'
 import Counter from './CoreFontCounter'
 import Spinner from '../Spinner'
 import {
@@ -154,8 +153,6 @@ export class CoreFontContainer extends React.Component {
    *
    * @param array files The font files to download (usually passed in from the 'retry' prop)
    *
-   * @returns {files: Array}
-   *
    * @since 5.0
    */
   startDownloadFonts = (files, error) => {
@@ -172,8 +169,6 @@ export class CoreFontContainer extends React.Component {
     this.props.history.replace('')
 
     setTimeout(() => files.map((file) => this.props.downloadFontsApiCall(file)), 300)
-
-    return files
   }
 
   /**
@@ -187,8 +182,6 @@ export class CoreFontContainer extends React.Component {
     this.setState({ ajax: false })
     this.props.addToConsole('completed', 'error', error)
     this.props.history.replace('')
-
-    return error
   }
 
   /**
@@ -208,7 +201,7 @@ export class CoreFontContainer extends React.Component {
   /**
    * Renders our Core Font downloader UI
    *
-   * @returns {XML}
+   * @returns {XML} & Download Button
    *
    * @since 5.0
    */
@@ -232,13 +225,16 @@ export class CoreFontContainer extends React.Component {
     const disabled = queue < fontList.length && queue !== 0 || ajax
 
     return (
-      <div>
-        <Button
+      <div data-test='component-coreFont-downloader'>
+        <button
+          data-test='component-coreFont-button'
           className={buttonClassName}
-          callback={this.triggerFontDownload}
-          text={buttonText}
-          disable={disabled}
-        />
+          type='button'
+          onClick={this.triggerFontDownload}
+          disabled={disabled}
+        >
+          {buttonText}
+        </button>
         {ajax && <Spinner />}
         {ajax && queue !== 0 && <Counter text={counterText} queue={queue} />}
         <CoreFontListResults

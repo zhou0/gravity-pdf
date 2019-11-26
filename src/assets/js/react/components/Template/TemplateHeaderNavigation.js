@@ -144,27 +144,29 @@ export class TemplateHeaderNavigation extends React.Component {
     let rightDisabled = (isLast) ? 'disabled' : ''
 
     return (
-      <span>
+      <span data-test='component-templateHeaderNavigation'>
         <button
+          data-test='component-showPreviousTemplateButton'
           onClick={this.previousTemplate}
           onKeyDown={this.handleKeyPress}
           className={prevClass}
-          tabIndex="141"
+          tabIndex='141'
           disabled={leftDisabled}>
             <span
-              className="screen-reader-text">
+              className='screen-reader-text'>
               {this.props.showPreviousTemplateText}
             </span>
         </button>
 
         <button
+          data-test='component-showNextTemplateButton'
           onClick={this.nextTemplate}
           onKeyDown={this.handleKeyPress}
           className={nextClass}
-          tabIndex="141"
+          tabIndex='141'
           disabled={rightDisabled}>
           <span
-            className="screen-reader-text">
+            className='screen-reader-text'>
             {this.props.showNextTemplateText}
           </span>
         </button>

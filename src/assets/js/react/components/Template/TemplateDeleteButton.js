@@ -116,10 +116,11 @@ export class TemplateDeleteButton extends React.Component {
 
     return (
       <a
+        data-test='component-templateDeleteButton'
         onClick={callback}
-        href="#"
-        tabIndex="150"
-        className="button button-secondary delete-theme">
+        href='#'
+        tabIndex='150'
+        className='button button-secondary delete-theme'>
         {this.props.buttonText}
       </a>
     )
@@ -147,7 +148,7 @@ const mapStateToProps = state => ({
  *
  * @since 4.1
  */
-const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = dispatch => {
   return {
     addTemplate: (template) => {
       dispatch(addTemplate(template))

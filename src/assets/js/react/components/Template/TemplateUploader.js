@@ -58,7 +58,6 @@ export class TemplateUploader extends React.Component {
     installUpdatedText: PropTypes.string,
     templateSuccessfullyInstalledUpdated: PropTypes.string,
     templateInstallInstructions: PropTypes.string,
-
     addNewTemplate: PropTypes.func,
     updateTemplateParam: PropTypes.func,
     postTemplateUploadProcessing: PropTypes.func,
@@ -243,30 +242,43 @@ export class TemplateUploader extends React.Component {
    */
   render () {
     return (
-      <div className="theme add-new-theme gfpdf-dropzone">
+      <div
+        data-test='component-templateUploader'
+        className='theme add-new-theme gfpdf-dropzone'>
         <Dropzone
+          data-test='component-dropzone'
           onDrop={this.onDrop}
-          maxSize={10240000}
-        >
-          {({getRootProps, getInputProps, isDragActive}) => {
+          maxSize={10240000}>
+          {({ getRootProps, getInputProps, isDragActive }) => {
             return (
               <div
                 {...getRootProps()}
-                className={classNames('dropzone', {'dropzone--isActive': isDragActive})}
+                className={classNames('dropzone', { 'dropzone--isActive': isDragActive })}
               >
                 <input {...getInputProps()} />
-                <a href="#/template" className={this.state.ajax ? 'doing-ajax' : ''}>
+                <a href='#/template' className={this.state.ajax ? 'doing-ajax' : ''}>
 
-                  <div className="theme-screenshot"><span/></div>
+                  <div className='theme-screenshot'><span /></div>
 
-                  {this.state.error !== '' ? <ShowMessage text={this.state.error} error={true}/> : null}
-                  {this.state.message !== '' ?
-                    <ShowMessage text={this.state.message} dismissable={true}
-                                 dismissableCallback={this.removeMessage}/> : null}
+                  {this.state.error !== '' ? (
+                    <ShowMessage
+                      data-test='component-stateError-showMessage'
+                      text={this.state.error}
+                      error={true} />
+                  ) : null}
+                  {this.state.message !== '' ? (
+                    <ShowMessage
+                      data-test='component-stateMessage-showMessage'
+                      text={this.state.message}
+                      dismissable={true}
+                      dismissableCallback={this.removeMessage} />
+                  ) : null}
 
-                  <h2 className="theme-name">{this.props.addTemplateText}</h2>
+                  <h2 className='theme-name'>{this.props.addTemplateText}</h2>
                 </a>
-                <div className="gfpdf-template-install-instructions">{this.props.templateInstallInstructions}</div>
+                <div className='gfpdf-template-install-instructions'>
+                  {this.props.templateInstallInstructions}
+                </div>
               </div>
             )
           }}
@@ -301,7 +313,7 @@ const mapStateToProps = (state) => {
  *
  * @since 4.1
  */
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return {
     addNewTemplate: (template) => {
       dispatch(addTemplate(template))

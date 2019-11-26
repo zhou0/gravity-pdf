@@ -106,12 +106,13 @@ export class HelpContainer extends Component {
     const { loading, helpResult, error } = this.props
 
     return (
-      <>
+      <div data-test='component-help-container'>
         <input
-          type="text"
+          data-test='component-input'
+          type='text'
           placeholder={'  ' + GFPDF.searchPlaceholder}
-          id="search-help-input"
-          name="searchInput"
+          id='search-help-input'
+          name='searchInput'
           value={searchInput}
           onChange={this.onHandleChange}
         />
@@ -121,7 +122,7 @@ export class HelpContainer extends Component {
           helpResult={helpResult}
           error={error}
         />
-      </>
+      </div>
     )
   }
 }

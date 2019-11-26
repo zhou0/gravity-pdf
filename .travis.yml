@@ -144,7 +144,7 @@ jobs:
       env: LOCAL_PHP=7.3-fpm LOCAL_PHP_XDEBUG=true
       script:
         - |
-          npm run test:js:coverage &&
+          npm run test:js-unit:coverage &&
           npm run test:php -- --coverage-clover=tmp/coverage/report-xml/php-coverage1.xml &&
           npm run test:php -- --coverage-clover=tmp/coverage/report-xml/php-coverage2.xml --group ajax
 

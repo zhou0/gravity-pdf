@@ -67,15 +67,21 @@ export class TemplateList extends React.Component {
    * @since 4.1
    */
   render () {
-    const header = <TemplateHeaderTitle header={this.props.templateHeaderText} />
+    const header = <TemplateHeaderTitle
+      data-test='component-templateHeaderTitle'
+      header={this.props.templateHeaderText} />
 
     return (
-      <TemplateContainer header={header} closeRoute="/">
-        <TemplateSearch />
+      <TemplateContainer
+        data-test='component-templateList'
+        header={header}
+        closeRoute='/'>
+        <TemplateSearch data-test='component-templateSearch' />
         <div>
           {
             this.props.templates.map((value, index) => {
               return <TemplateListItem
+                data-test='component-templateListItem'
                 key={index}
                 template={value}
                 templateDetailsText={this.props.templateDetailsText}
@@ -84,6 +90,7 @@ export class TemplateList extends React.Component {
           }
 
           <TemplateUploader
+            data-test='component-templateUploader'
             ajaxUrl={this.props.ajaxUrl}
             ajaxNonce={this.props.ajaxNonce}
             addTemplateText={this.props.addTemplateText}

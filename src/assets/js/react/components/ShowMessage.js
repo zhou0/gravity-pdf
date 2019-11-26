@@ -36,7 +36,7 @@ import $ from 'jquery'
  *
  * @since 4.1
  */
-class showMessage extends React.Component {
+export class ShowMessage extends React.Component {
   /**
    * Pass the "dismissable" prop to enable auto-clearing
    *
@@ -156,11 +156,14 @@ class showMessage extends React.Component {
     }
 
     return this.state.visible ? (
-      <div ref={(message) => this._message = message} className={classes}>
+      <div
+        data-test='component-showMessage'
+        ref={(message) => this._message = message}
+        className={classes}>
         <p>{text}</p>
       </div>
     ) : <div/>
   }
 }
 
-export default showMessage
+export default ShowMessage

@@ -38,7 +38,7 @@ import TemplateDeleteButton from './TemplateDeleteButton'
  *
  * @since 4.1
  */
-class TemplateFooterActions extends React.Component {
+export class TemplateFooterActions extends React.Component {
   /**
    * @since 4.1
    */
@@ -77,7 +77,10 @@ class TemplateFooterActions extends React.Component {
     const isCompatible = template.compatible
 
     return (
-      <div className="theme-actions">
+      <div
+        data-test='component-templateFooterActions'
+        className='theme-actions'
+      >
         {!this.props.isActiveTemplate && isCompatible ? <TemplateActivateButton
             template={template}
             buttonText={this.props.activateText}/>

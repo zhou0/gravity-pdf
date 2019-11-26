@@ -100,25 +100,44 @@ export class TemplateListItem extends React.Component {
 
     return (
       <div
+        data-test='component-templateListItem'
         onClick={this.showDetailedTemplate}
         onKeyDown={this.maybeShowDetailedTemplate}
         className={activeTemplate}
         data-slug={item['id']}
-        tabIndex="150">
+        tabIndex='150'>
 
-        <TemplateScreenshot image={item['screenshot']} />
-        {item['error'] ? <ShowMessage text={item['error']} error={true} /> : null}
-        {item['message'] ?
-          <ShowMessage text={item['message']} dismissableCallback={this.removeMessage} dismissable={true}
-                       delay={12000} /> : null}
+        <TemplateScreenshot
+          data-test='component-templateScreenshot'
+          image={item['screenshot']} />
+        {item['error'] ? (
+          <ShowMessage
+            data-test='component-showMessage'
+            text={item['error']}
+            error={true} />
+        ) : null}
+        {item['message'] ? (
+          <ShowMessage
+            data-test='component-showMessage'
+            text={item['message']}
+            dismissableCallback={this.removeMessage}
+            dismissable={true}
+            delay={12000} />
+        ) : null}
 
-        <TemplateDetails label={this.props.templateDetailsText} />
-        <Group group={item['group']} />
-        <Name name={item['template']} />
+        <TemplateDetails
+          data-test='component-templateDetails'
+          label={this.props.templateDetailsText} />
+        <Group data-test='component-group' group={item['group']} />
+        <Name data-test='component-name' name={item['template']} />
 
-        <div className="theme-actions">
-          {!isActiveTemplate && isCompatible ?
-            <TemplateActivateButton template={this.props.template} buttonText={this.props.activateText} /> : null}
+        <div className='theme-actions'>
+          {!isActiveTemplate && isCompatible ? (
+            <TemplateActivateButton
+              data-test='component-templateActivateButton'
+              template={this.props.template}
+              buttonText={this.props.activateText} />
+          ) : null}
         </div>
       </div>
     )
@@ -149,7 +168,7 @@ const mapStateToProps = (state) => {
  *
  * @since 4.1
  */
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return {
     updateTemplateParam: (id, name, value) => {
       dispatch(updateTemplateParam(id, name, value))
