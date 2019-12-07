@@ -2099,4 +2099,35 @@ class Model_PDF extends Helper_Abstract_Model {
 
 		return $mpdf;
 	}
+
+	/**
+	 * At the start of the PDF generation, filter all merge tag replacement calls
+	 *
+	 * @since 5.3
+	 */
+	public function enable_gp_populate_anything() {
+		add_filter( 'gform_pre_replace_merge_tags', [ $this, 'process_gp_populate_anything' ] );
+	}
+
+	/**
+	 * Replace any live merge tags with their standard equivilant (i.e without the @ symbol)
+	 *
+	 * @param string $text
+	 *
+	 * @return string
+	 *
+	 * @since 5.3
+	 */
+	public function process_gp_populate_anything( $text ) {
+		return preg_replace( '/@({((.*?):?(.+?))})/', '$1', $text );
+	}
+
+	/**
+	 * At the end of the PDF generation, remove filter to replace merge tags
+	 *
+	 * @since 5.3
+	 */
+	public function disable_gp_populate_anything() {
+		remove_filter( 'gform_pre_replace_merge_tags', [ $this, 'process_gp_live_populate' ] );
+	}
 }
