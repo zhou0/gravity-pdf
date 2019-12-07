@@ -2101,16 +2101,17 @@ class Model_PDF extends Helper_Abstract_Model {
 	}
 
 	/**
-	 * At the start of the PDF generation, filter all merge tag replacement calls
+	 * At the start of the PDF generation, filter all Gravity Perk Populate Anything merge tag replacement calls
 	 *
 	 * @since 5.3
 	 */
 	public function enable_gp_populate_anything() {
-		add_filter( 'gform_pre_replace_merge_tags', [ $this, 'process_gp_populate_anything' ] );
+		add_filter( 'gform_pre_replace_merge_tags', [ $this, 'process_gp_populate_anything' ], 10, 3 );
 	}
 
 	/**
-	 * Replace any live merge tags with their standard equivilant (i.e without the @ symbol)
+	 * Replace any Gravity Perk Populate Anything live merge tags with their standard equivilant (i.e without the @ symbol)
+	 * Include support for the `fallback` option
 	 *
 	 * @param string $text
 	 *
@@ -2118,16 +2119,36 @@ class Model_PDF extends Helper_Abstract_Model {
 	 *
 	 * @since 5.3
 	 */
-	public function process_gp_populate_anything( $text ) {
-		return preg_replace( '/@({((.*?):?(.+?))})/', '$1', $text );
+	public function process_gp_populate_anything( $text, $form, $entry ) {
+		$matches = [];
+		$results = preg_match_all( '/@\{(.+?)?:([0-9]+)(:fallback\[(.+?)\])?\}/', $text, $matches );
+
+		if ( $results !== false && $results > 0 ) {
+			$this->disable_gp_populate_anything();
+
+			foreach ( $matches[0] as $key => $mergetag ) {
+
+				$value = trim( $this->gform->process_tags( substr( $mergetag, 1 ), $form, $entry ) );
+
+				if ( empty( $value ) && ! empty ( $matches[4][ $key ] ) ) {
+					$value = $matches[4][ $key ];
+				}
+
+				$text = str_replace( $mergetag, $value, $text );
+			}
+
+			$this->enable_gp_populate_anything();
+		}
+
+		return $text;
 	}
 
 	/**
-	 * At the end of the PDF generation, remove filter to replace merge tags
+	 * At the end of the PDF generation, remove filter to replace merge tags for Gravity Perk Populate Anything
 	 *
 	 * @since 5.3
 	 */
 	public function disable_gp_populate_anything() {
-		remove_filter( 'gform_pre_replace_merge_tags', [ $this, 'process_gp_live_populate' ] );
+		remove_filter( 'gform_pre_replace_merge_tags', [ $this, 'process_gp_populate_anything' ] );
 	}
 }
